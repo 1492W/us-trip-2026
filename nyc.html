@@ -121,12 +121,25 @@
   .notes-box p{font-size:13px;color:var(--text-dim);line-height:1.6}
   .fade-section{animation:fadeIn .4s ease}
   .footer{text-align:center;padding:12px 20px 48px;font-size:12px;color:var(--text-dim);opacity:.35}
+
+  .home-btn{
+    position:fixed;top:12px;left:12px;z-index:999;
+    background:rgba(12,15,20,0.85);backdrop-filter:blur(8px);
+    border:1px solid rgba(240,160,80,0.3);
+    color:var(--accent);font-size:12px;font-weight:600;
+    letter-spacing:0.5px;text-decoration:none;
+    padding:8px 14px;border-radius:20px;
+    transition:all 0.3s ease;
+  }
+  .home-btn:hover{background:rgba(240,160,80,0.15);border-color:var(--accent)}
 </style>
 </head>
 <body>
 
+<a href="index.html" class="home-btn" title="กลับหน้าแรก">← Trip 2026</a>
+
 <div class="hero">
-  <div class="hero-label">April 2026</div>
+  <a href="index.html" class="hero-label" style="text-decoration:none">April 2026</a>
   <h1>3 Days in <span>New York</span></h1>
   <p class="hero-sub">Family trip — เดินเบาๆ ไม่เร่ง ไม่ย้อนเส้นทาง</p>
   <div class="hotel-badge">
