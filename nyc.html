@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NYC Trip Itinerary</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0C0F14;--surface:#161B24;--surface-hover:#1D2330;--border:#262D3A;
+    --text:#E8ECF2;--text-dim:#8892A4;--accent:#F0A050;--accent-glow:rgba(240,160,80,0.15);
+    --green:#5CBF8A;--blue:#5B9FD6;--rose:#D67B8A;--purple:#A07BD6;--sky:#6BB8E8;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+  .hero{position:relative;padding:52px 24px 16px;text-align:center;overflow:hidden}
+  .hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at 50% 20%,rgba(240,160,80,0.08)0%,transparent 60%),radial-gradient(ellipse at 80% 60%,rgba(91,159,214,0.05)0%,transparent 50%);pointer-events:none}
+  .hero-label{display:inline-block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:3px;color:var(--accent);background:var(--accent-glow);padding:6px 16px;border-radius:20px;margin-bottom:16px;position:relative}
+  .hero h1{font-family:'DM Serif Display',serif;font-size:clamp(34px,8vw,52px);font-weight:400;line-height:1.15;margin-bottom:10px;position:relative}
+  .hero h1 span{color:var(--accent)}
+  .hero-sub{font-size:14px;color:var(--text-dim);position:relative}
+  .hotel-badge{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-size:12px;color:var(--text-dim);background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:8px 14px;position:relative}
+
+  .tabs{display:flex;gap:8px;padding:0 20px;margin:20px auto 0;max-width:600px;justify-content:center;position:relative}
+  .tab{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 16px;cursor:pointer;transition:all .3s ease;text-align:center;flex:1;max-width:180px;-webkit-tap-highlight-color:transparent;user-select:none}
+  .tab:hover{background:var(--surface-hover)}
+  .tab.active{border-color:var(--accent);background:var(--accent-glow)}
+  .tab-day{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--text-dim);margin-bottom:4px}
+  .tab.active .tab-day{color:var(--accent)}
+  .tab-title{font-size:13px;font-weight:600;color:var(--text)}
+  .tab-date{font-size:11px;color:var(--text-dim);margin-top:2px}
+
+  .tc{max-width:600px;margin:28px auto;padding:0 20px 40px}
+  .day-hdr{margin-bottom:20px}
+  .day-hdr h2{font-family:'DM Serif Display',serif;font-size:26px;font-weight:400;margin-bottom:4px}
+  .day-hdr p{font-size:13px;color:var(--text-dim)}
+
+  /* Weather card */
+  .weather-card{background:linear-gradient(135deg,#1a2233 0%,#162030 100%);border:1px solid var(--border);border-radius:14px;padding:18px;margin-bottom:8px;animation:fadeIn .5s ease}
+
+  .weather-top{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+  .weather-icon{font-size:32px;line-height:1}
+  .weather-summary{flex:1}
+  .weather-summary-title{font-size:14px;font-weight:600;color:var(--text)}
+  .weather-summary-sub{font-size:12px;color:var(--text-dim);margin-top:2px}
+  .weather-meta{display:flex;gap:12px}
+  .weather-meta-item{font-size:11px;color:var(--text-dim);display:flex;align-items:center;gap:3px}
+  .weather-meta-item span{color:var(--text);font-weight:600}
+
+  /* Temp timeline */
+  .temp-timeline{display:flex;gap:0;margin-bottom:14px;position:relative;background:rgba(255,255,255,0.02);border-radius:10px;overflow:hidden}
+  .temp-slot{flex:1;text-align:center;padding:12px 8px;position:relative}
+  .temp-slot:not(:last-child){border-right:1px solid var(--border)}
+  .temp-slot-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text-dim);margin-bottom:2px}
+  .temp-slot-time{font-size:10px;color:var(--text-dim);opacity:.7;margin-bottom:6px}
+  .temp-slot-deg{font-family:'DM Serif Display',serif;font-size:24px;font-weight:400;line-height:1}
+  .temp-slot-deg small{font-size:12px;font-family:'DM Sans',sans-serif;color:var(--text-dim)}
+  .temp-cold .temp-slot-deg{color:var(--blue)}
+  .temp-warm .temp-slot-deg{color:var(--accent)}
+  .temp-cool .temp-slot-deg{color:var(--sky)}
+
+  .outfit-box{background:rgba(240,160,80,0.06);border:1px solid rgba(240,160,80,0.12);border-radius:10px;padding:12px 14px}
+  .outfit-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:5px;display:flex;align-items:center;gap:5px}
+  .outfit-text{font-size:12px;color:var(--text-dim);line-height:1.6}
+  .outfit-text strong{color:var(--text);font-weight:600}
+
+  .forecast-note{font-size:11px;color:var(--text-dim);opacity:.5;text-align:center;margin-bottom:16px}
+
+  .tl{position:relative;padding-left:28px}
+  .tl::before{content:'';position:absolute;left:6px;top:8px;bottom:8px;width:1px;background:var(--border)}
+
+  .transit{position:relative;margin-bottom:6px;display:flex;align-items:center;gap:8px;opacity:0;transform:translateY(8px);animation:fadeUp .4s ease forwards}
+  .transit-line{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-dim);background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.04);border-radius:8px;padding:5px 10px;line-height:1.4;flex-wrap:wrap}
+  .transit-line svg{flex-shrink:0;opacity:.5}
+  .subway-badge{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;font-size:10px;font-weight:700;color:#fff;flex-shrink:0}
+
+  .stop{position:relative;margin-bottom:8px;opacity:0;transform:translateY(16px);animation:fadeUp .5s ease forwards}
+  @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+  .stop-dot{position:absolute;left:-24px;top:16px;width:13px;height:13px;border-radius:50%;border:2px solid;background:var(--bg);z-index:2}
+  .stop-dot.green{border-color:var(--green);box-shadow:0 0 8px rgba(92,191,138,.3)}
+  .stop-dot.blue{border-color:var(--blue);box-shadow:0 0 8px rgba(91,159,214,.3)}
+  .stop-dot.rose{border-color:var(--rose);box-shadow:0 0 8px rgba(214,123,138,.3)}
+  .stop-dot.accent{border-color:var(--accent);box-shadow:0 0 8px rgba(240,160,80,.3)}
+  .stop-dot.purple{border-color:var(--purple);box-shadow:0 0 8px rgba(160,123,214,.3)}
+
+  .stop-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:all .25s ease;cursor:pointer}
+  .stop-card:hover{background:var(--surface-hover)}
+  .stop-card.open{border-color:rgba(255,255,255,.1)}
+
+  .stop-top{padding:14px 16px;display:flex;align-items:flex-start;justify-content:space-between}
+  .stop-top-left{flex:1}
+  .stop-time{font-size:12px;font-weight:700;letter-spacing:1px;margin-bottom:5px}
+  .stop-time.green{color:var(--green)}.stop-time.blue{color:var(--blue)}.stop-time.rose{color:var(--rose)}.stop-time.accent{color:var(--accent)}.stop-time.purple{color:var(--purple)}
+  .stop-name{font-size:15px;font-weight:600;margin-bottom:3px;line-height:1.3}
+  .stop-brief{font-size:12px;color:var(--text-dim)}
+
+  .stop-chevron{margin-top:8px;transition:transform .3s ease;color:var(--text-dim);flex-shrink:0}
+  .stop-card.open .stop-chevron{transform:rotate(180deg)}
+
+  .stop-tag{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;padding:3px 10px;border-radius:6px;margin-top:6px}
+  .tag-free{background:rgba(92,191,138,.12);color:var(--green)}
+  .tag-booked{background:rgba(240,160,80,.12);color:var(--accent)}
+  .tag-optional{background:rgba(160,123,214,.12);color:var(--purple)}
+  .tag-food{background:rgba(214,123,138,.12);color:var(--rose)}
+  .tag-tip{background:rgba(91,159,214,.12);color:var(--blue)}
+
+  .stop-details{max-height:0;overflow:hidden;transition:max-height .4s ease}
+  .stop-card.open .stop-details{max-height:600px}
+  .stop-inner{padding:0 16px 16px;border-top:1px solid var(--border)}
+  .detail-section{margin-top:12px}
+  .detail-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-dim);margin-bottom:5px}
+  .detail-text{font-size:13px;color:var(--text);line-height:1.6}
+  .tip-box{background:rgba(91,159,214,.08);border:1px solid rgba(91,159,214,.15);border-radius:8px;padding:10px 12px;margin-top:10px;font-size:12px;color:var(--text-dim);line-height:1.5}
+  .tip-box strong{color:var(--blue)}
+
+  .notes-box{background:var(--accent-glow);border:1px solid rgba(240,160,80,.2);border-radius:12px;padding:14px 16px;margin-top:20px}
+  .notes-box h4{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:6px}
+  .notes-box p{font-size:13px;color:var(--text-dim);line-height:1.6}
+  .fade-section{animation:fadeIn .4s ease}
+  .footer{text-align:center;padding:12px 20px 48px;font-size:12px;color:var(--text-dim);opacity:.35}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-label">April 2026</div>
+  <h1>3 Days in <span>New York</span></h1>
+  <p class="hero-sub">Family trip — เดินเบาๆ ไม่เร่ง ไม่ย้อนเส้นทาง</p>
+  <div class="hotel-badge">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 7v14M21 7v14M6 11h4M6 15h4M14 11h4M14 15h4M9 3h6l3 4H6l3-4z"/></svg>
+    Courtyard by Marriott — World Trade Center Area
+  </div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="showDay(0)"><div class="tab-day">Day 1</div><div class="tab-title">Midtown</div><div class="tab-date">Wed · 8 Apr</div></div>
+  <div class="tab" onclick="showDay(1)"><div class="tab-day">Day 2</div><div class="tab-title">Uptown</div><div class="tab-date">Thu · 9 Apr</div></div>
+  <div class="tab" onclick="showDay(2)"><div class="tab-day">Day 3</div><div class="tab-title">Downtown</div><div class="tab-date">Fri · 10 Apr</div></div>
+</div>
+
+<div class="tc" id="content"></div>
+<div class="footer">NYC Itinerary</div>
+
+<script>
+var walkIcon='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="2"/><path d="M10 22l2-7 4 3v6M14 13l-2-2-4 4"/></svg>';
+var subwayIcon='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="14" rx="3"/><path d="M4 11h16M8 21l2-4M16 21l-2-4"/><circle cx="8" cy="14" r="1" fill="currentColor"/><circle cx="16" cy="14" r="1" fill="currentColor"/></svg>';
+var ferryIcon='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20s3-2 5-2 4 2 5 2 4-2 5-2 5 2 5 2M4 16l2-8h12l2 8M12 4v4"/></svg>';
+function badge(l,bg){return '<span class="subway-badge" style="background:'+bg+'">'+l+'</span>';}
+
+var days=[
+  {
+    title:"Midtown Manhattan",
+    subtitle:"Arrival day — เริ่มต้นเบาๆ หลังบินจาก SF",
+    weather:{
+      icon:"\u{1F324}\u{FE0F}",
+      summary:"เย็นสบาย ลมแรง มีเมฆบ้าง",
+      wind:"23 km/h",rain:"30%",sunrise:"06:27",sunset:"19:28",
+      temps:[
+        {label:"ออกจากโรงแรม",time:"~11:30",deg:11,cls:"temp-cool"},
+        {label:"กลางวัน",time:"~14:00",deg:14,cls:"temp-warm"},
+        {label:"กลับโรงแรม",time:"~19:00",deg:10,cls:"temp-cold"}
+      ],
+      outfit:"เช้า-เย็นหนาว ลมแรงตลอดวัน<br><strong>ใส่:</strong> แจ็คเก็ตกันลม + เสื้อแขนยาวข้างใน กางเกงขายาว ผ้าพันคอบาง รองเท้าผ้าใบเดินสบาย<br><strong>พก:</strong> ร่มพับเผื่อฝนโปรย"
+    },
+    stops:[
+      {time:"09:00",name:"JFK Terminal 5",brief:"Domestic flight จาก San Francisco",color:"green",
+        details:"ไฟลท์ domestic ไม่ต้องผ่าน immigration รับกระเป๋าแล้วออกได้เลย ใช้เวลาออกจากสนามบินประมาณ 30–45 นาที",
+        tip:"<strong>ไปโรงแรม:</strong> Taxi/Uber จาก JFK ไป WTC area ประมาณ 45–60 นาที ค่ารถ ~$70–80 (flat rate + toll) หรือ AirTrain → Jamaica → สาย "+badge("E","#2850AD")+" ไป WTC ประมาณ 70 นาที ราคา ~$10.75"},
+      {time:"11:30",name:"Courtyard by Marriott WTC",brief:"Check-in / ฝากกระเป๋า",color:"blue",
+        details:"โรงแรมอยู่ใกล้สถานี Fulton St และ World Trade Center — hub ของหลายสาย subway เดินทางสะดวกมาก",
+        tip:"<strong>ก่อนออก:</strong> เตรียมตัวเร็วเพราะ Broadway เริ่ม 13:00 ต้องออกจากโรงแรมไม่เกิน 12:20"},
+      {time:"13:00",name:"Harry Potter on Broadway",brief:"Lyric Theatre, 214 W 43rd St — จองแล้ว",color:"accent",tag:{text:"Booked",cls:"tag-booked"},
+        transit:subwayIcon+" Fulton St → Times Sq-42 St "+badge("2","#EE352E")+badge("3","#EE352E")+" — 15 นาที",
+        details:"โชว์ Harry Potter and the Cursed Child อยู่ที่ Lyric Theatre กลาง Times Square โชว์ยาวประมาณ 2 ชม. 40 นาที (ไม่มี intermission) จบประมาณ 15:40",
+        tip:"<strong>เข้าโรง:</strong> ควรถึงก่อนเวลาอย่างน้อย 20 นาที เพราะต้องผ่านจุดตรวจกระเป๋า"},
+      {time:"16:15",name:"Times Square → Bryant Park → 5th Ave → Rockefeller",brief:"เดินเล่นโซน Midtown ตามสบาย",color:"blue",
+        transit:walkIcon+" เดินจาก Lyric Theatre — ทุกอย่างอยู่ในรัศมี 15 นาที",
+        details:"ออกจากโรงละครแล้วเดินเล่นได้เลย Times Square อยู่ตรงหน้า → เดินลง 6th Ave ถึง Bryant Park 5 นาที → ต่อไป 5th Ave ดูตึก flagship stores → Rockefeller Center",
+        tip:"<strong>ช่วงนี้ลมเริ่มแรง:</strong> ตึกสูงทำให้ลมพัดแรงตามช่องถนน (wind tunnel effect) ใส่แจ็คเก็ตไว้เลย"},
+      {time:"18:00",name:"Optional: MoMA",brief:"ถ้ายังมีแรง แวะสักชม.",color:"purple",tag:{text:"Optional",cls:"tag-optional"},
+        transit:walkIcon+" เดินจาก Rockefeller Center ไป MoMA 53rd St — 5 นาที",
+        details:"MoMA อยู่ใกล้ Rockefeller มาก วันพุธเปิดถึง 17:30 — อาจไม่ทัน ถ้าไม่ทันเก็บไว้ดูวันศุกร์เย็นแทน (เปิดถึง 20:30)",
+        tip:"<strong>กลับโรงแรม:</strong> จาก MoMA นั่ง "+badge("E","#2850AD")+" จาก 5 Av/53 St → WTC ตรง 20 นาที"}
+    ],
+    notes:"วันแรกเดินทาง ไม่ยัดกิจกรรมมาก ถ้าเหนื่อยข้าม MoMA ได้เลย กลับพักเอาแรงไว้พรุ่งนี้"
+  },
+  {
+    title:"Uptown — Art & Park",
+    subtitle:"วันที่ภูมิศาสตร์ลงตัวที่สุด ทุกอย่างอยู่ติดกัน",
+    weather:{
+      icon:"\u{26C5}",
+      summary:"อุ่นขึ้นเล็กน้อย เมฆสลับแดด",
+      wind:"18 km/h",rain:"25%",sunrise:"06:26",sunset:"19:29",
+      temps:[
+        {label:"ออกจากโรงแรม",time:"~09:30",deg:9,cls:"temp-cold"},
+        {label:"กลางวัน",time:"~14:00",deg:15,cls:"temp-warm"},
+        {label:"กลับโรงแรม",time:"~18:00",deg:12,cls:"temp-cool"}
+      ],
+      outfit:"เช้าเย็นจัด กลางวันอุ่นขึ้นชัด<br><strong>ใส่:</strong> Layering — เสื้อยืด + เสื้อคลุมบาง/hoodie + แจ็คเก็ตเบาถอดได้ตอนบ่าย กางเกงขายาว รองเท้าเดินสบาย (วันนี้เดินเยอะ)<br><strong>พก:</strong> หมวกกันแดด + แว่นตากันแดดสำหรับ Central Park"
+    },
+    stops:[
+      {time:"10:00",name:"The Metropolitan Museum of Art",brief:"พิพิธภัณฑ์ศิลปะระดับโลก — 2.5–3 ชม.",color:"accent",tag:{text:"Highlight",cls:"tag-booked"},
+        transit:subwayIcon+" Fulton St → 86 St "+badge("4","#00933C")+badge("5","#00933C")+" — 25 นาที แล้วเดินเข้า museum 10 นาที",
+        details:"The Met เป็นพิพิธภัณฑ์ศิลปะใหญ่ที่สุดในอเมริกา มีคอลเลกชัน 2 ล้านชิ้น ควรเลือกโซนที่สนใจ เช่น Egyptian Temple of Dendur, European Paintings, Arms & Armor (เด็กชอบ), The Roof Garden (ถ้าเปิด — วิวสวยมาก)",
+        tip:"<strong>ตั๋ว:</strong> ผู้ใหญ่ $30 / เด็กต่ำกว่า 12 ปีฟรี ซื้อล่วงหน้าที่ metmuseum.org ได้"},
+      {time:"13:00",name:"Lunch",brief:"ร้านแถว Museum Mile / Upper East Side",color:"rose",tag:{text:"Food",cls:"tag-food"},
+        transit:walkIcon+" เดินจาก The Met — ร้านอาหารรอบๆ เยอะ",
+        details:"แถว Madison Ave & 80s มีร้านอาหารหลายแบบ ตั้งแต่ casual ไปจนถึง sit-down ลอง Café Sabarsky (อาหารออสเตรีย บรรยากาศดี) หรือ The Mark Restaurant ถ้าอยากหรูหน่อย"},
+      {time:"14:00",name:"Central Park Walk",brief:"Bethesda Fountain, Bow Bridge, The Lake",color:"green",
+        transit:walkIcon+" เดินข้ามถนนจาก Met เข้า Central Park ได้เลย — 2 นาที",
+        details:"เข้าจากฝั่ง 79th-84th St ตรงไปที่ Great Lawn แล้วเดินลงใต้ผ่าน Belvedere Castle → Bethesda Fountain → Bow Bridge → The Lake ใช้เวลาเดินสบายๆ 2–2.5 ชม.",
+        tip:"<strong>สำหรับผู้สูงอายุ:</strong> มีม้านั่งเยอะตลอดทาง พักได้ ถ้าเหนื่อยนั่ง pedicab ได้แต่ต่อราคาก่อน<br><strong>ช่วงบ่ายแดดออก:</strong> 15°C + แดด → ถอดแจ็คเก็ตได้ ใส่หมวก+ทาครีมกันแดด"},
+      {time:"17:00",name:"5th Avenue / Easy Evening",brief:"ช้อปปิ้งหรือพักผ่อนตามสบาย",color:"blue",tag:{text:"Flexible",cls:"tag-tip"},
+        transit:walkIcon+" เดินออกจาก Central Park ฝั่ง 5th Avenue",
+        details:"5th Ave โซน 59th–49th St มี flagship stores: Apple, Tiffany, Saks Fifth Avenue, Bergdorf Goodman หรือจะนั่งพักดู street performers แถว Grand Army Plaza ก็ได้",
+        tip:"<strong>กลับโรงแรม:</strong> นั่ง "+badge("E","#2850AD")+" จาก 53 St หรือ "+badge("4","#00933C")+badge("5","#00933C")+" จาก 59 St → Fulton St — 20 นาที"}
+    ],
+    notes:"The Met กับ Central Park อยู่ติดกัน เดินข้ามถนนถึง วันนี้เดินเยอะ เตรียมรองเท้าสบายๆ"
+  },
+  {
+    title:"Uptown → Downtown",
+    subtitle:"ไหลจากเหนือลงใต้เป็นเส้นเดียว ไม่ย้อนกลับ",
+    weather:{
+      icon:"\u{2600}\u{FE0F}",
+      summary:"แดดดี อากาศดีที่สุดใน 3 วัน",
+      wind:"14 km/h",rain:"15%",sunrise:"06:24",sunset:"19:30",
+      temps:[
+        {label:"ออกจากโรงแรม",time:"~09:00",deg:8,cls:"temp-cold"},
+        {label:"กลางวัน",time:"~14:00",deg:17,cls:"temp-warm"},
+        {label:"กลับโรงแรม",time:"~20:30",deg:10,cls:"temp-cold"}
+      ],
+      outfit:"เช้าหนาว กลางวันอุ่น เย็นหนาวอีกครั้ง + ลมแรงบนเรือ<br><strong>ใส่:</strong> เสื้อยืด + เสื้อคลุม + แจ็คเก็ตกันลม (สำคัญมากสำหรับ Ferry) กางเกงขายาว รองเท้าเดินสบายที่สุด<br><strong>พก:</strong> ผ้าพันคอ/หมวกไหมพรมเผื่อขึ้นเรือตอนเย็น (บนเรือรู้สึก ~6°C)"
+    },
+    stops:[
+      {time:"10:00",name:"Natural History Museum",brief:"ไดโนเสาร์ อวกาศ สัตว์ป่า — 2.5 ชม.",color:"green",
+        transit:subwayIcon+" Fulton St → 81 St-Museum "+badge("C","#2850AD")+" — 35 นาที",
+        details:"American Museum of Natural History เป็นสวรรค์ของเด็กๆ ไฮไลท์: Dinosaur Floor (ชั้น 4), Hayden Planetarium, Ocean Life Hall กับวาฬยักษ์, Gems & Minerals",
+        tip:"<strong>ตั๋ว:</strong> General Admission ผู้ใหญ่ $28 / เด็ก $16.50 ซื้อล่วงหน้าที่ amnh.org — หน้างานคิวยาว"},
+      {time:"12:30",name:"Lunch",brief:"ร้านแถว museum แถว Columbus Ave",color:"rose",tag:{text:"Food",cls:"tag-food"},
+        transit:walkIcon+" ร้านอาหารรอบ museum มีเยอะ แถว Columbus Ave",
+        details:"Shake Shack (77th & Columbus) ง่ายและเร็ว หรือ Jacob's Pickles ถ้าอยากนั่งร้าน"},
+      {time:"13:30",name:"Morgan Library & Museum",brief:"36th St, Midtown — ศิลปะ + ห้องสมุดโบราณ",color:"accent",tag:{text:"Flexible",cls:"tag-tip"},
+        transit:subwayIcon+" 81 St → 33 St "+badge("1","#EE352E")+" แล้วเดิน 5 นาที หรือ "+badge("B","#FF6319")+badge("D","#FF6319")+" → 34 St — รวม 25 นาที",
+        details:"Morgan Library มีห้องสมุดเก่าสุดงามมาก (Pierpont Morgan's Library) + นิทรรศการหมุนเวียน ให้เวลา 1–1.5 ชม. ถ้าจอง Friday Free (17:30–19:00) ไม่ได้ → มาตอนนี้แทน แล้วเย็นไปดู MoMA",
+        tip:"<strong>ทางเลือก:</strong> ถ้าจอง Friday Free ได้ → ข้ามจุดนี้ไป DUMBO เลย แล้วกลับมา Morgan ตอนเย็น"},
+      {time:"15:30",name:"DUMBO + Brooklyn Bridge",brief:"Manhattan skyline จาก Brooklyn",color:"blue",
+        transit:subwayIcon+" 33 St → York St "+badge("F","#FF6319")+" — 20 นาที ออกสถานีเดินถึง waterfront 5 นาที",
+        details:"DUMBO (Down Under the Manhattan Bridge Overpass) วิว Manhattan Bridge + Brooklyn Bridge สวยมากๆ จุดถ่ายรูปดัง: Washington St กับมุม Empire State Building ลอดสะพาน + Brooklyn Bridge Park ริมน้ำ",
+        tip:"<strong>Brooklyn Bridge:</strong> เดินข้ามจาก Brooklyn ไป Manhattan ได้ (~30 นาที) แต่ถ้าเหนื่อยนั่ง subway สะดวกกว่า"},
+      {time:"17:00",name:"Subway → Whitehall Terminal",brief:"มุ่งหน้าไปขึ้นเรือ",color:"blue",
+        transit:subwayIcon+" York St → Whitehall St "+badge("R","#FCCC0A")+" — 25 นาที (เปลี่ยนที่ Jay St)",
+        details:"Whitehall Terminal อยู่ปลายสุดของ Manhattan ใต้ เป็นท่าเรือ Staten Island Ferry"},
+      {time:"17:30",name:"Staten Island Ferry",brief:"ไป-กลับ 50 นาที — Statue of Liberty + golden hour",color:"accent",tag:{text:"Free",cls:"tag-free"},
+        transit:ferryIcon+" เดินเข้า Whitehall Terminal ขึ้นเรือได้เลย ออกทุก 30 นาที",
+        details:"เรือ Staten Island Ferry ฟรี 100%! นั่งไปฝั่ง Staten Island แล้วนั่งกลับได้เลยไม่ต้องลง เห็น Statue of Liberty, Ellis Island, Manhattan skyline ช่วง golden hour สวยมาก",
+        tip:"<strong>เคล็ดลับ:</strong> นั่งฝั่งขวาขาไป (ฝั่ง Statue of Liberty) ขากลับย้ายฝั่งซ้ายเห็น Manhattan skyline ค่ำ<br><strong>อากาศบนเรือ:</strong> ลมแรงมาก รู้สึกเหมือน ~6°C ใส่แจ็คเก็ตกันลม + ผ้าพันคอไว้เลย"},
+      {time:"18:30",name:"MoMA (Backup)",brief:"ถ้า Morgan Library จองฟรีไม่ได้ → มาที่นี่แทน",color:"purple",tag:{text:"Backup · ปิด 20:30",cls:"tag-optional"},
+        transit:subwayIcon+" Whitehall → 5 Av/53 St "+badge("R","#FCCC0A")+badge("W","#FCCC0A")+" — 20 นาที",
+        details:"MoMA วันศุกร์เปิดถึง 20:30 ถึง 18:30 ยังมีเวลาดู 2 ชม. ไฮไลท์: The Starry Night (Van Gogh ชั้น 5), Campbell's Soup Cans (Warhol), Les Demoiselles d'Avignon (Picasso)",
+        tip:"<strong>ตั๋ว:</strong> NY resident ฟรี 17:30–20:30 (จองล่วงหน้า) / tourist $30 ซื้อหน้างานหรือออนไลน์<br><strong>กลับโรงแรม:</strong> สาย "+badge("E","#2850AD")+" จาก 5 Av/53 St → WTC ตรง 15 นาที"}
+    ],
+    notes:"เส้นทาง: Upper West Side → Midtown → Brooklyn → Lower Manhattan → Midtown — ไหลทางเดียว ถ้าเหนื่อยตัด Morgan Library ออกได้"
+  }
+];
+
+function showDay(idx){
+  document.querySelectorAll('.tab').forEach(function(t,i){t.classList.toggle('active',i===idx)});
+  var d=days[idx],c=document.getElementById('content');
+  var h='<div class="fade-section"><div class="day-hdr"><h2>'+d.title+'</h2><p>'+d.subtitle+'</p></div>';
+
+  // Weather card
+  var w=d.weather;
+  h+='<div class="weather-card">';
+  h+='<div class="weather-top">';
+  h+='<div class="weather-icon">'+w.icon+'</div>';
+  h+='<div class="weather-summary"><div class="weather-summary-title">'+w.summary+'</div>';
+  h+='<div class="weather-meta">';
+  h+='<div class="weather-meta-item">\u{1F4A8} <span>'+w.wind+'</span></div>';
+  h+='<div class="weather-meta-item">\u{1F327}\u{FE0F} <span>'+w.rain+'</span></div>';
+  h+='<div class="weather-meta-item">\u{1F305} <span>'+w.sunrise+'</span></div>';
+  h+='<div class="weather-meta-item">\u{1F307} <span>'+w.sunset+'</span></div>';
+  h+='</div></div></div>';
+
+  // Temp timeline
+  h+='<div class="temp-timeline">';
+  w.temps.forEach(function(t){
+    h+='<div class="temp-slot '+t.cls+'">';
+    h+='<div class="temp-slot-label">'+t.label+'</div>';
+    h+='<div class="temp-slot-time">'+t.time+'</div>';
+    h+='<div class="temp-slot-deg">'+t.deg+'°<small>C</small></div>';
+    h+='</div>';
+  });
+  h+='</div>';
+
+  // Outfit
+  h+='<div class="outfit-box"><div class="outfit-label">\u{1F9E5} แนะนำการแต่งตัว</div><div class="outfit-text">'+w.outfit+'</div></div>';
+  h+='</div>';
+  h+='<div class="forecast-note">* พยากรณ์ล่วงหน้า — เช็คอีกครั้งก่อนเดินทาง</div>';
+
+  // Timeline
+  h+='<div class="tl">';
+  d.stops.forEach(function(s,i){
+    var dl=(i*0.06)+'s';
+    if(s.transit) h+='<div class="transit" style="animation-delay:'+dl+'"><div class="transit-line">'+s.transit+'</div></div>';
+    h+='<div class="stop" style="animation-delay:'+dl+'"><div class="stop-dot '+s.color+'"></div>';
+    h+='<div class="stop-card" onclick="toggleCard(this)"><div class="stop-top"><div class="stop-top-left">';
+    h+='<div class="stop-time '+s.color+'">'+s.time+'</div>';
+    h+='<div class="stop-name">'+s.name+'</div>';
+    h+='<div class="stop-brief">'+s.brief+'</div>';
+    if(s.tag) h+='<span class="stop-tag '+s.tag.cls+'">'+s.tag.text+'</span>';
+    h+='</div><svg class="stop-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>';
+    h+='<div class="stop-details"><div class="stop-inner">';
+    if(s.details) h+='<div class="detail-section"><div class="detail-label">\u{1F4CD} รายละเอียด</div><div class="detail-text">'+s.details+'</div></div>';
+    if(s.tip) h+='<div class="tip-box">'+s.tip+'</div>';
+    h+='</div></div></div></div>';
+  });
+
+  h+='</div><div class="notes-box"><h4>\u{1F4DD} Note</h4><p>'+d.notes+'</p></div></div>';
+  c.innerHTML=h;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function toggleCard(el){el.classList.toggle('open')}
+showDay(0);
+</script>
+</body>
+</html>

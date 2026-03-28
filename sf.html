@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>San Francisco Trip 🌉</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Sarabun:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d1b2a;
+    --navy2: #1a2e42;
+    --navy3: #132233;
+    --gold: #e8a030;
+    --gold2: #f5c366;
+    --fog: #d8e4f0;
+    --mist: #8fafc7;
+    --white: #f7f3ee;
+    --red: #c94040;
+    --green: #3a8c5c;
+    --teal: #2a7f8a;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--navy); color:var(--white); font-family:'Sarabun',sans-serif; overflow-x:hidden; }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(160deg,#0d1b2a 0%,#1a3a5c 50%,#0d2438 100%);
+    padding: 48px 20px 44px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content:'';
+    position:absolute; bottom:0; left:0; right:0; height:60px;
+    background: linear-gradient(to bottom, transparent, var(--navy));
+  }
+  .badge { display:inline-block; background:rgba(232,160,48,.15); border:1px solid rgba(232,160,48,.4); color:var(--gold); font-size:11px; font-weight:600; letter-spacing:3px; text-transform:uppercase; padding:6px 16px; border-radius:20px; margin-bottom:18px; }
+  .hero h1 { font-family:'Playfair Display',serif; font-size:40px; font-weight:900; line-height:1.1; color:var(--white); margin-bottom:6px; }
+  .hero h1 span { color:var(--gold); display:block; }
+  .hero-sub { color:var(--mist); font-size:13px; font-weight:300; letter-spacing:1px; margin-bottom:24px; }
+  .hero-stats { display:flex; justify-content:center; gap:24px; }
+  .stat { text-align:center; }
+  .stat-num { font-family:'Playfair Display',serif; font-size:28px; font-weight:700; color:var(--gold); line-height:1; }
+  .stat-label { font-size:10px; color:var(--mist); letter-spacing:1px; text-transform:uppercase; margin-top:3px; }
+  .stat-div { width:1px; background:rgba(255,255,255,.12); align-self:stretch; }
+
+  /* TABS */
+  .tabs { display:flex; overflow-x:auto; scrollbar-width:none; padding:20px 16px 0; gap:8px; -webkit-overflow-scrolling:touch; }
+  .tabs::-webkit-scrollbar { display:none; }
+  .tab { flex-shrink:0; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1); color:var(--mist); font-family:'Sarabun',sans-serif; font-size:13px; font-weight:500; padding:8px 18px; border-radius:20px; cursor:pointer; transition:all .3s; white-space:nowrap; }
+  .tab.active { background:var(--gold); border-color:var(--gold); color:var(--navy); font-weight:700; }
+
+  /* DAYS */
+  .days-wrap { padding:0 16px 60px; }
+  .day-sec { display:none; animation:fadeUp .4s ease; }
+  .day-sec.active { display:block; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+
+  .day-header { display:flex; align-items:center; gap:14px; padding:26px 0 18px; }
+  .day-num { background:var(--gold); color:var(--navy); font-family:'Playfair Display',serif; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:5px 12px; border-radius:4px; flex-shrink:0; }
+  .day-title { font-family:'Playfair Display',serif; font-size:20px; font-weight:700; color:var(--white); line-height:1.2; }
+  .day-sub { font-size:12px; color:var(--mist); margin-top:2px; }
+
+  /* NOTE */
+  .note { background:rgba(232,160,48,.08); border:1px solid rgba(232,160,48,.2); border-radius:12px; padding:13px 15px; margin-bottom:12px; display:flex; gap:10px; }
+  .note-icon { font-size:17px; flex-shrink:0; }
+  .note-text { font-size:12.5px; color:var(--fog); line-height:1.6; font-weight:300; }
+  .note-text strong { color:var(--gold2); font-weight:600; }
+
+  /* SECTION LABEL */
+  .sec-label { display:flex; align-items:center; gap:10px; margin:18px 0 10px; }
+  .sec-label span { font-size:10px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--mist); white-space:nowrap; }
+  .sec-label::after { content:''; flex:1; height:1px; background:rgba(255,255,255,.07); }
+
+  /* TIMELINE */
+  .timeline { position:relative; padding-left:20px; }
+  .timeline::before { content:''; position:absolute; left:7px; top:8px; bottom:8px; width:1px; background:linear-gradient(to bottom,var(--gold),rgba(232,160,48,.08)); }
+  .tl-item { position:relative; margin-bottom:4px; }
+  .tl-dot { position:absolute; left:-17px; top:18px; width:9px; height:9px; border-radius:50%; background:var(--gold); border:2px solid var(--navy); box-shadow:0 0 0 2px var(--gold); z-index:1; }
+  .tl-dot.hi { background:var(--gold2); width:11px; height:11px; left:-18px; top:16px; }
+
+  /* PLACE CARD */
+  .place-card {
+    background:var(--navy2);
+    border:1px solid rgba(255,255,255,.07);
+    border-radius:14px;
+    margin-bottom:6px;
+    overflow:hidden;
+    cursor:pointer;
+    transition:border-color .2s;
+  }
+  .place-card:active { opacity:.9; }
+  .place-card.open { border-color:rgba(232,160,48,.3); }
+
+  /* left accent */
+  .place-card::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; border-radius:3px 0 0 3px; }
+  .place-card { position:relative; }
+  .t-museum::before { background:var(--teal); }
+  .t-food::before { background:var(--gold); }
+  .t-transport::before { background:var(--mist); }
+  .t-landmark::before { background:var(--red); }
+  .t-nature::before { background:var(--green); }
+  .t-tech::before { background:#7c5cbf; }
+  .t-shopping::before { background:#c94080; }
+
+  /* card header (always visible) */
+  .card-head { display:flex; align-items:flex-start; gap:10px; padding:13px 14px; }
+  .card-ico { font-size:22px; flex-shrink:0; margin-top:1px; }
+  .card-info { flex:1; min-width:0; }
+  .card-time { font-size:10.5px; font-weight:600; color:var(--gold); letter-spacing:1px; margin-bottom:3px; }
+  .card-title { font-size:14.5px; font-weight:600; color:var(--white); line-height:1.3; margin-bottom:3px; }
+  .card-brief { font-size:12px; color:var(--mist); line-height:1.4; font-weight:300; }
+  .card-arrow { font-size:12px; color:var(--mist); flex-shrink:0; margin-top:4px; transition:transform .3s; }
+  .place-card.open .card-arrow { transform:rotate(180deg); color:var(--gold); }
+
+  /* expanded content */
+  .card-expand { display:none; }
+  .place-card.open .card-expand { display:block; }
+
+  /* Location-specific gradients */
+
+
+  /* WEATHER CARD */
+  .weather-card{background:linear-gradient(135deg,#132a40 0%,#0d2030 100%);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:16px 18px;margin-bottom:8px;animation:fadeUp .4s ease}
+  .weather-top{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+  .weather-icon{font-size:30px;line-height:1}
+  .weather-summary{flex:1}
+  .weather-summary-title{font-size:13px;font-weight:600;color:var(--white)}
+  .weather-meta{display:flex;gap:10px;margin-top:3px}
+  .weather-meta-item{font-size:11px;color:var(--mist);display:flex;align-items:center;gap:3px}
+  .weather-meta-item span{color:var(--white);font-weight:600}
+  .temp-timeline{display:flex;gap:0;margin-bottom:12px;background:rgba(255,255,255,.03);border-radius:10px;overflow:hidden}
+  .temp-slot{flex:1;text-align:center;padding:10px 6px}
+  .temp-slot:not(:last-child){border-right:1px solid rgba(255,255,255,.06)}
+  .temp-slot-label{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--mist);margin-bottom:2px}
+  .temp-slot-time{font-size:9px;color:var(--mist);opacity:.7;margin-bottom:4px}
+  .temp-slot-deg{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;line-height:1}
+  .temp-slot-deg small{font-size:11px;font-family:'Sarabun',sans-serif;color:var(--mist)}
+  .temp-cold .temp-slot-deg{color:#6BB8E8}
+  .temp-warm .temp-slot-deg{color:var(--gold)}
+  .temp-cool .temp-slot-deg{color:#8fafc7}
+  .outfit-box{background:rgba(232,160,48,.06);border:1px solid rgba(232,160,48,.12);border-radius:10px;padding:10px 12px}
+  .outfit-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--gold);margin-bottom:4px}
+  .outfit-text{font-size:12px;color:var(--fog);line-height:1.6;font-weight:300}
+  .outfit-text strong{color:var(--gold2);font-weight:600}
+  .forecast-note{font-size:10px;color:var(--mist);opacity:.5;text-align:center;margin-bottom:12px}
+  @media(max-width:480px){
+    .weather-top{flex-wrap:wrap}
+    .weather-meta{flex-wrap:wrap;gap:6px}
+  }
+
+  .card-detail { padding:14px 14px 16px; }
+  .card-detail p { font-size:13px; color:var(--fog); line-height:1.65; font-weight:300; margin-bottom:10px; }
+  .card-detail p:last-child { margin-bottom:0; }
+  .card-tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
+  .tag { font-size:11px; font-weight:500; padding:3px 10px; border-radius:10px; letter-spacing:.3px; }
+  .tg { background:rgba(232,160,48,.15); color:var(--gold2); }
+  .tt { background:rgba(42,127,138,.2); color:#6dd6e2; }
+  .tg2 { background:rgba(58,140,92,.2); color:#7de0a4; }
+  .tr { background:rgba(201,64,64,.2); color:#f08080; }
+  .tp { background:rgba(124,92,191,.2); color:#b89ee8; }
+
+  /* TRANSPORT CONNECTOR */
+  .tc { margin:2px 0 2px -20px; padding-left:20px; }
+  .tc-pill {
+    display:flex; align-items:center; gap:7px;
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.07);
+    border-radius:16px;
+    padding:6px 12px 6px 8px;
+  }
+  .tc-ico { font-size:14px; flex-shrink:0; }
+  .tc-body { flex:1; min-width:0; }
+  .tc-mode { font-size:11px; font-weight:600; color:var(--fog); line-height:1.2; }
+  .tc-detail { font-size:10.5px; color:var(--mist); font-weight:300; line-height:1.3; margin-top:1px; }
+  .tc-meta { display:flex; flex-direction:column; align-items:flex-end; gap:1px; flex-shrink:0; margin-left:6px; }
+  .tc-time { font-size:10.5px; font-weight:600; color:var(--gold2); white-space:nowrap; }
+  .tc-cost { font-size:10px; color:var(--mist); white-space:nowrap; }
+  .tc-walk { border-color:rgba(58,140,92,.25); } .tc-walk .tc-mode { color:#7de0a4; }
+  .tc-muni { border-color:rgba(232,160,48,.25); } .tc-muni .tc-mode { color:var(--gold2); }
+  .tc-cable { border-color:rgba(201,64,64,.3); background:rgba(201,64,64,.05); } .tc-cable .tc-mode { color:#f08080; }
+  .tc-uber { border-color:rgba(124,92,191,.25); } .tc-uber .tc-mode { color:#b89ee8; }
+  .tc-drive { border-color:rgba(42,127,138,.25); } .tc-drive .tc-mode { color:#6dd6e2; }
+
+  /* CHECKLIST */
+  .cl-box { background:var(--navy2); border:1px solid rgba(255,255,255,.07); border-radius:14px; padding:16px; margin-bottom:10px; }
+  .cl-title { font-size:12px; font-weight:600; color:var(--gold2); letter-spacing:1px; text-transform:uppercase; margin-bottom:12px; }
+  .cl-item { display:flex; gap:10px; align-items:flex-start; padding:7px 0; border-bottom:1px solid rgba(255,255,255,.05); font-size:13px; color:var(--fog); font-weight:300; line-height:1.4; }
+  .cl-item:last-child { border-bottom:none; }
+  .ci { color:var(--green); flex-shrink:0; } .ci-w { color:var(--gold); flex-shrink:0; }
+
+  .budget { background:linear-gradient(135deg,#1a3a5c,#0d2438); border:1px solid rgba(232,160,48,.2); border-radius:14px; padding:18px; margin-bottom:10px; }
+  .budget h3 { font-family:'Playfair Display',serif; font-size:16px; color:var(--gold); margin-bottom:14px; }
+  .brow { display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid rgba(255,255,255,.06); font-size:13px; }
+  .brow:last-child { border-bottom:none; }
+  .bl { color:var(--mist); font-weight:300; } .ba { color:var(--white); font-weight:600; }
+  .brow.bt .bl { color:var(--fog); font-weight:600; font-size:14px; } .brow.bt .ba { color:var(--gold2); font-size:16px; font-weight:700; }
+
+  .footer { text-align:center; padding:28px 20px; border-top:1px solid rgba(255,255,255,.06); color:var(--mist); font-size:12px; }
+  .footer span { font-size:26px; display:block; margin-bottom:6px; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="badge">✈ Family Trip 2026</div>
+  <h1>San Francisco<span>Road Trip</span></h1>
+  <p class="hero-sub">แตะแต่ละสถานที่เพื่อดูรายละเอียด + สภาพอากาศแต่ละวัน</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">4</div><div class="stat-label">วัน</div></div>
+    <div class="stat-div"></div>
+    <div class="stat"><div class="stat-num">4</div><div class="stat-label">คน</div></div>
+    <div class="stat-div"></div>
+    <div class="stat"><div class="stat-num">20+</div><div class="stat-label">จุด</div></div>
+  </div>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="showDay('d0',this)">Day 0 เสาร์</button>
+  <button class="tab" onclick="showDay('d1',this)">Day 1 อาทิตย์</button>
+  <button class="tab" onclick="showDay('d2',this)">Day 2 จันทร์</button>
+  <button class="tab" onclick="showDay('d3',this)">Day 3 Silicon Valley</button>
+  <button class="tab" onclick="showDay('ck',this)">✅ Checklist</button>
+</div>
+
+<div class="days-wrap">
+
+<!-- ════ DAY 0 ════ -->
+<div id="d0" class="day-sec active">
+  <div class="day-header">
+    <div class="day-num">Day 0</div>
+    <div><div class="day-title">วันเดินทางมาถึง</div><div class="day-sub">SFO → Lombard Street → Fisherman's Wharf</div></div>
+  </div>
+
+  <div class="weather-card">
+    <div class="weather-top">
+      <div class="weather-icon">🌤️</div>
+      <div class="weather-summary">
+        <div class="weather-summary-title">อุ่นสบาย ลมเย็นช่วงเย็น</div>
+        <div class="weather-meta">
+          <div class="weather-meta-item">💨 <span>15 km/h</span></div>
+          <div class="weather-meta-item">🌧️ <span>10%</span></div>
+          <div class="weather-meta-item">🌅 <span>06:55</span></div>
+          <div class="weather-meta-item">🌇 <span>19:40</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="temp-timeline">
+      <div class="temp-slot temp-warm"><div class="temp-slot-label">ถึง SF</div><div class="temp-slot-time">~18:00</div><div class="temp-slot-deg">15°<small>C</small></div></div>
+      <div class="temp-slot temp-cool"><div class="temp-slot-label">เดิน Wharf</div><div class="temp-slot-time">~20:00</div><div class="temp-slot-deg">12°<small>C</small></div></div>
+      <div class="temp-slot temp-cold"><div class="temp-slot-label">กลับโรงแรม</div><div class="temp-slot-time">~21:00</div><div class="temp-slot-deg">10°<small>C</small></div></div>
+    </div>
+    <div class="outfit-box">
+      <div class="outfit-label">🧥 แนะนำการแต่งตัว</div>
+      <div class="outfit-text">SF เย็นกว่าที่คิด โดยเฉพาะริมน้ำตอนค่ำ<br><strong>ใส่:</strong> แจ็คเก็ตหนาปานกลาง + เสื้อแขนยาว กางเกงขายาว รองเท้าเดินสบาย<br><strong>พก:</strong> ผ้าพันคอ — ลมริม Wharf ค่อนข้างแรง</div>
+    </div>
+  </div>
+  <div class="forecast-note">* พยากรณ์ล่วงหน้า — เช็คอีกครั้งก่อนเดินทาง</div>
+
+  <div class="timeline">
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="place-card t-transport" onclick="toggle(this)">
+        <div class="card-head">
+          <div class="card-ico">✈️</div>
+          <div class="card-info">
+            <div class="card-time">17:55</div>
+            <div class="card-title">ลงจากเครื่อง — SFO</div>
+            <div class="card-brief">รับกระเป๋า → เรียก Uber XL</div>
+          </div>
+          <div class="card-arrow">▼</div>
+        </div>
+        <div class="card-expand">
+          <div class="card-detail">
+            <p>SFO อยู่ห่างจากเมือง SF ประมาณ 22 กม. หลังรับกระเป๋าให้เปิดทั้ง Uber และ Lyft พร้อมกันแล้วเปรียบราคา เลือก XL สำหรับ 4 คน + กระเป๋าหลายใบ</p>
+            <p>ขึ้นรถที่ Level 5 Domestic Garage ตามป้าย Rideshare ใช้เวลาประมาณ 35–45 นาทีขึ้นอยู่กับ traffic</p>
+            <div class="card-tags">
+              <span class="tag tp">Uber/Lyft XL</span>
+              <span class="tag tt">~35–45 นาที</span>
+              <span class="tag tg">$40–60 + ทิป 20%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tc"><div class="tc-pill tc-uber"><div class="tc-ico">🚗</div><div class="tc-body"><div class="tc-mode">Uber XL / Lyft XL</div><div class="tc-detail">Level 5 Domestic Garage → โรงแรมแถว Fisherman's Wharf</div></div><div class="tc-meta"><div class="tc-time">~35 นาที</div><div class="tc-cost">$40–60 + ทิป</div></div></div></div>
+
+    <div class="tl-item">
+      <div class="tl-dot hi"></div>
+      <div class="place-card t-landmark" onclick="toggle(this)">
+        <div class="card-head">
+          <div class="card-ico">🌀</div>
+          <div class="card-info">
+            <div class="card-time">19:30</div>
+            <div class="card-title">Lombard Street</div>
+            <div class="card-brief">ถนนคดเคี้ยว 8 โค้ง สัญลักษณ์ SF</div>
+          </div>
+          <div class="card-arrow">▼</div>
+        </div>
+        <div class="card-expand">
+          <div class="card-detail">
+            <p>ถนนที่ขึ้นชื่อว่าคดเคี้ยวที่สุดในโลก มี 8 โค้งชัน อยู่บน Russian Hill ตกแต่งด้วยดอก Hydrangea สีสวยงามตลอดทั้งปี</p>
+            <p><strong>Tips:</strong> ขึ้นไปยืนบนเนินก่อนแล้วถ่ายรูปมองลงมา แสงช่วงเย็นก่อน sunset สวยที่สุด เดินจากโรงแรมแถว Wharf ได้ ~10 นาที</p>
+            <div class="card-tags">
+              <span class="tag tg2">ฟรี</span>
+              <span class="tag tt">เดินได้จาก Wharf</span>
+              <span class="tag tg">ถ่ายรูปสวย</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tc"><div class="tc-pill tc-walk"><div class="tc-ico">🚶</div><div class="tc-body"><div class="tc-mode">เดินลงเนิน</div><div class="tc-detail">ลง Hyde St กลับ Fisherman's Wharf</div></div><div class="tc-meta"><div class="tc-time">~10 นาที</div><div class="tc-cost">ฟรี</div></div></div></div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="place-card t-food" onclick="toggle(this)">
+        <div class="card-head">
+          <div class="card-ico">🦀</div>
+          <div class="card-info">
+            <div class="card-time">20:15</div>
+            <div class="card-title">Fisherman's Wharf — มื้อแรก</div>
+            <div class="card-brief">Clam Chowder · Sea Lions · บรรยากาศริมน้ำ</div>
+          </div>
+          <div class="card-arrow">▼</div>
+        </div>
+        <div class="card-expand">
+          <div class="card-detail">
+            <p>ย่านริมท่าที่เก่าแก่ที่สุดของ SF อาหารซีฟู้ดสดใหม่ทุกวัน ไฮไลต์คือ Clam Chowder ในขนมปัง Sourdough กลม ราคาประมาณ $12–15</p>
+            <p>เดินไปปลาย Pier 39 ดู Sea Lions แสนน่ารักที่อาศัยอยู่โดยธรรมชาติ มองเห็น Alcatraz เกาะคุกในอ่าวได้ด้วย</p>
+            <div class="card-tags">
+              <span class="tag tg2">Sea Lions ฟรี</span>
+              <span class="tag tg">Clam Chowder $12–15</span>
+              <span class="tag tt">บรรยากาศคืนแรก</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════ DAY 1 ════ -->
+<div id="d1" class="day-sec">
+  <div class="day-header">
+    <div class="day-num">Day 1</div>
+    <div><div class="day-title">Waterfront & เมือง</div><div class="day-sub">F-Line · Exploratorium · Bay Cruise · Cable Car</div></div>
+  </div>
+  
+  <div class="weather-card">
+    <div class="weather-top">
+      <div class="weather-icon">⛅</div>
+      <div class="weather-summary">
+        <div class="weather-summary-title">เมฆสลับแดด ลมเย็นริมอ่าว</div>
+        <div class="weather-meta">
+          <div class="weather-meta-item">💨 <span>19 km/h</span></div>
+          <div class="weather-meta-item">🌧️ <span>15%</span></div>
+          <div class="weather-meta-item">🌅 <span>06:53</span></div>
+          <div class="weather-meta-item">🌇 <span>19:41</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="temp-timeline">
+      <div class="temp-slot temp-cold"><div class="temp-slot-label">ออกจากโรงแรม</div><div class="temp-slot-time">~09:30</div><div class="temp-slot-deg">11°<small>C</small></div></div>
+      <div class="temp-slot temp-warm"><div class="temp-slot-label">กลางวัน</div><div class="temp-slot-time">~14:00</div><div class="temp-slot-deg">16°<small>C</small></div></div>
+      <div class="temp-slot temp-cold"><div class="temp-slot-label">กลับโรงแรม</div><div class="temp-slot-time">~21:00</div><div class="temp-slot-deg">10°<small>C</small></div></div>
+    </div>
+    <div class="outfit-box">
+      <div class="outfit-label">🧥 แนะนำการแต่งตัว</div>
+      <div class="outfit-text">วันนี้อยู่ริมน้ำทั้งวัน ลมแรง + Bay Cruise เย็นมาก<br><strong>ใส่:</strong> Layering — เสื้อยืด + hoodie/เสื้อคลุม + แจ็คเก็ตกันลม ถอดได้ตอนบ่ายที่แดดออก<br><strong>พก:</strong> หมวกกันแดด + แว่นตากันแดด (แดดสะท้อนน้ำ) ผ้าพันคอเผื่อขึ้นเรือ</div>
+    </div>
+  </div>
+  <div class="forecast-note">* พยากรณ์ล่วงหน้า — เช็คอีกครั้งก่อนเดินทาง</div>
+
+  <div class="note"><div class="note-icon">🎟️</div><div class="note-text"><strong>CityPASS Day:</strong> ใช้ 2 ใน 4 วันนี้ — Exploratorium + SFMOMA · Bay Cruise ย้ายไป Day 2 เย็น</div></div>
+
+  <div class="timeline">
+
+    <div class="tl-item">
+      <div class="tl-dot hi"></div>
+      <div class="place-card t-museum" onclick="toggle(this)">
+        <div class="card-head">
+          <div class="card-ico">🔬</div>
+          <div class="card-info">
+            <div class="card-time">10:00</div>
+            <div class="card-title">Exploratorium</div>
+            <div class="card-brief">Pier 15 · hands-on science 600+ นิทรรศการ</div>
+          </div>
+          <div class="card-arrow">▼</div>
+        </div>
+        <div class="card-expand">
+          <div class="card-detail">
+            <p>พิพิธภัณฑ์วิทยาศาสตร์ที่ดีที่สุดใน SF ก่อตั้งปี 1969 ย้ายมาอยู่ที่ Pier 15 ริมอ่าวตั้งแต่ปี 2013 นิทรรศการเกือบ 600 ชิ้น ทุกอย่างจับต้องได้หมด</p>
+            <p>เหมาะสำหรับเด็กสายเทคมาก มีหมวด AI ที่ให้ลองทดลองจริง, Physics หลากหลาย และ Perception ที่หลอกประสาทสัมผัส อย่าลืมจอง <strong>Tactile Dome</strong> ล่วงหน้าแยกต่างหาก (ห้องมืดสนิทใช้การสัมผัสนำทาง เด็กชอบมาก)</p>
+            <div class="card-tags">
+              <span class="tag tg">CityPASS ✓</span>
+              <span class="tag tt">3–4 ชั่วโมง</span>
+              <span class="tag tp">Tactile Dome จองแยก</span>
+              <span class="tag tr">ปิดจันทร์-อังคาร</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tc"><div class="tc-pill tc-walk"><div class="tc-ico">🚶</div><div class="tc-body"><div class="tc-mode">เดินริม Embarcadero</div><div class="tc-detail">Pier 15 → Ferry Building ทางเดินริมน้ำสวยงาม</div></div><div class="tc-meta"><div class="tc-time">~5 นาที</div><div class="tc-cost">ฟรี</div></div></div></div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="place-card t-food" onclick="toggle(this)">
+        <div class="card-head">
+          <div class="card-ico">🥘</div>
+          <div class="card-info">
+            <div class="card-time">14:00</div>
+            <div class="card-title">Ferry Building Marketplace</div>
+            <div class="card-brief">อาหาร Artisan ริมอ่าว วิว Bay Bridge</div>
+          </div>
+          <div class="card-arrow">▼</div>
+        </div>
+        <div class="card-expand">
+          <div class="card-detail">
+            <p>อาคารประวัติศาสตร์ปี 1898 ริม Embarcadero ปัจจุบันเป็น food marketplace ชั้นนำของ SF มีร้านอาหารและของสดพรีเมี่ยมกว่า 30 ร้าน</p>
+            <p>แนะนำ Gott's Roadside สำหรับ burger, Hog Island สำหรับ oyster หรือ Dandelion Chocolate สำหรับ hot chocolate ดังมาก นั่งชิล outdoor ริมอ่าววิวสวย ไม่ต้องรีบ</p>
+            <div class="card-tags">
+              <span class="tag tt">เดินจาก Exploratorium 5 นาที</span>
+              <span class="tag tg">วิว Bay Bridge</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tc"><div class="tc-pill tc-muni"><div class="tc-ico">🚋</div><div class="tc-body"><div class="tc-mode">F-Line Streetcar ทิศใต้</div><div class="tc-detail">Ferry Building → 3rd St / SFMOMA</div></div><div class="tc-meta"><div class="tc-time">~12 นาที</div><div class="tc-cost">Muni Pass</div></div></div></div>
+
+    <div class="tl-item">
+      <div class="tl-dot hi"></div>
+      <div class="place-card t-museum" onclick="toggle(this)">
+        <div class="card-head">
+          <div class="card-ico">🎨</div>
+          <div class="card-info">
+            <div class="card-time">15:00</div>
+            <div class="card-title">SFMOMA</div>
+            <div class="card-brief">151 Third St · ศิลปะ modern/contemporary 7 ชั้น</div>
+          </div>
+          <div class="card-arrow">▼</div>
+        </div>
+        <div class="card-expand">
+          <div class="card-detail">
+            <p>พิพิธภัณฑ์ศิลปะ modern/contemporary ระดับโลก ตึก 7 ชั้นออกแบบโดย Snøhetta สวยมาก คอลเลกชัน photography ดีที่สุดในอเมริกา</p>
+            <p><strong>ไฮไลท์:</strong> Yayoi Kusama Infinity Room, Matisse, Warhol, Calder · ปิด 17:00 ให้เวลาดู 2 ชม. เลือกเฉพาะชั้น 3 (photography) + ชั้น 5–6 (painting) ก็พอ</p>
+            <div class="card-tags">
+              <span class="tag tg">CityPASS ✓</span>
+              <span class="tag tt">2 ชม. · ปิด 17:00</span>
+              <span class="tag tg2">เด็กต่ำกว่า 18 ฟรี</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tc"><div class="tc-pill tc-walk"><div class="tc-ico">🚶</div><div class="tc-body"><div class="tc-mode">เดินจาก SFMOMA</div><div class="tc-detail">SFMOMA → Salesforce Tower เดินบน Mission St ~10 นาที</div></div><div class="tc-meta"><div class="tc-time">~10 นาที</div><div class="tc-cost">ฟรี</div></div></div></div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="place-card t-landmark" onclick="toggle(this)">
+        <div class="card-head">
+          <div class="card-ico">🏢</div>
+          <div class="card-info">
+            <div class="card-time">17:15</div>
+            <div class="card-title">Salesforce Tower + Anthropic HQ</div>
+            <div class="card-brief">ตึกสูงสุดใน SF · Anthropic ห่าง 300m</div>
+          </div>
+          <div class="card-arrow">▼</div>
+        </div>
+        <div class="card-expand">
+          <div class="card-detail">
+            <p>Salesforce Tower สูง 326 เมตร 61 ชั้น เป็นตึกที่สูงที่สุดใน SF ออกแบบโดย Pelli Clarke Pelli เปิดปี 2018 ยอดตึกมีไฟ LED เปลี่ยนสีได้</p>
+            <p><strong>Anthropic HQ</strong> อยู่ที่ 548 Market St ห่างกันแค่ 300 เมตร เดินถึงกันสบาย เป็นบริษัทที่สร้าง Claude AI ที่คุยกันอยู่นี้เลย!</p>
+            <div class="card-tags">
+              <span class="tag tg2">ถ่ายรูปด้านนอกฟรี</span>
+              <span class="tag tt">Financial District</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tc"><div class="tc-pill tc-walk"><div class="tc-ico">🚶</div><div class="tc-body"><div class="tc-mode">เดินบน Market St</div><div class="tc-detail">Salesforce Tower → Union Square ~10 นาที</div></div><div class="tc-meta"><div class="tc-time">~10 นาที</div><div class="tc-cost">ฟรี</div></div></div></div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="place-card t-shopping" onclick="toggle(this)">
+        <div class="card-head">
+          <div class="card-ico">🛍️</div>
+          <div class="card-info">
+            <div class="card-time">17:45</div>
+            <div class="card-title">Union Square + Pop Mart</div>
+            <div class="card-brief">ช้อปปิ้ง · ย่านใจกลางเมือง</div>
+          </div>
+          <div class="card-arrow">▼</div>
+        </div>
+        <div class="card-expand">
+          <div class="card-detail">
+            <p>ย่านช้อปปิ้งใจกลาง SF มีร้านแบรนด์เนมและร้านทั่วไปหนาแน่นที่สุด Pop Mart SF Store อยู่แถวนี้ มี blind box และ exclusive items ที่ไม่มีที่อื่น</p>
+            <p>ก่อนออกให้มายืนรอขึ้น Cable Car ที่สถานี <strong>Powell/Market</strong> (เดิน 2 นาทีจาก Union Square) เพื่อนั่งกลับ Fisherman's Wharf ตอนค่ำ</p>
+            <div class="card-tags">
+              <span class="tag tp">Pop Mart SF</span>
+              <span class="tag tt">ใกล้สถานี Cable Car</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tc"><div class="tc-pill tc-cable"><div class="tc-ico">🚃</div><div class="tc-body"><div class="tc-mode">⭐ Powell-Hyde Cable Car</div><div class="tc-detail">ขึ้นที่ Powell/Market → ผ่าน Nob Hill → ลง Hyde/Beach ใกล้ Wharf · ขึ้น 1–2 สถานีถัดไปคิวสั้นกว่า</div></div><div class="tc-meta"><div class="tc-time">~20 นาที</div><div class="tc-cost">Muni Pass</div></div></div></div>
+
+    <div class="tl-item">
+      <div class="tl-dot hi"></div>
+      <div class="place-card t-transport" onclick="toggle(this)">
+        <div class="card-head">
+          <div class="card-ico">🚃</div>
+          <div class="card-info">
+            <div class="card-time">18:30</div>
+            <div class="card-title">Powell-Hyde Cable Car</div>
+            <div class="card-brief">Highlight ของทริป! นั่งกลับโรงแรม</div>
+          </div>
+          <div class="card-arrow">▼</div>
+        </div>
+        <div class="card-expand">
+          <div class="card-detail">
+            <p>Cable Car เป็นสัญลักษณ์ SF มีมาตั้งแต่ปี 1873 และเป็น National Historic Landmark เดียวที่เคลื่อนที่ได้ในสหรัฐฯ เส้น Powell-Hyde วิวดีที่สุดผ่าน Nob Hill ลงมาที่ Fisherman's Wharf</p>
+            <p><strong>Tips:</strong> ยืนด้านนอกตัวรถ (ห้อยตัว) เพื่อวิวที่ดีที่สุด · ค่ำๆ คนน้อยกว่ากลางวันมาก · ถ่ายรูปสวยมากตอนรถวิ่งขึ้นเนิน</p>
+            <div class="card-tags">
+              <span class="tag tg">Muni Pass รวมอยู่แล้ว</span>
+              <span class="tag tr">$9/คน ถ้าไม่มี pass</span>
+              <span class="tag tt">~20 นาที</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════ DAY 2 ════ -->
+<div id="d2" class="day-sec">
+  <div class="day-header">
+    <div class="day-num">Day 2</div>
+    <div><div class="day-title">Golden Gate Park</div><div class="day-sub">Academy · Palace of Fine Arts · Golden Gate Overlook · Bay Cruise · Chinatown</div></div>
+  </div>
+  
+  <div class="weather-card">
+    <div class="weather-top">
+      <div class="weather-icon">🌫️</div>
+      <div class="weather-summary">
+        <div class="weather-summary-title">หมอกเช้า แดดบ่าย ลมแรงที่ Golden Gate</div>
+        <div class="weather-meta">
+          <div class="weather-meta-item">💨 <span>22 km/h</span></div>
+          <div class="weather-meta-item">🌧️ <span>10%</span></div>
+          <div class="weather-meta-item">🌅 <span>06:52</span></div>
+          <div class="weather-meta-item">🌇 <span>19:42</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="temp-timeline">
+      <div class="temp-slot temp-cold"><div class="temp-slot-label">ออกจากโรงแรม</div><div class="temp-slot-time">~09:00</div><div class="temp-slot-deg">10°<small>C</small></div></div>
+      <div class="temp-slot temp-warm"><div class="temp-slot-label">กลางวัน</div><div class="temp-slot-time">~14:00</div><div class="temp-slot-deg">17°<small>C</small></div></div>
+      <div class="temp-slot temp-cold"><div class="temp-slot-label">Golden Gate</div><div class="temp-slot-time">~17:30</div><div class="temp-slot-deg">11°<small>C</small></div></div>
+    </div>
+    <div class="outfit-box">
+      <div class="outfit-label">🧥 แนะนำการแต่งตัว</div>
+      <div class="outfit-text">วันนี้อุณหภูมิเปลี่ยนมาก Golden Gate ลมแรงที่สุด รู้สึกเหมือน ~7°C<br><strong>ใส่:</strong> แจ็คเก็ตกันลมหนาๆ + เสื้อแขนยาว กางเกงขายาว รองเท้าเดินสบาย (เดินเยอะ)<br><strong>พก:</strong> หมวกไหมพรม/ผ้าพันคอหนาสำหรับ Golden Gate ทุกคนต้องมี!</div>
+    </div>
+  </div>
+  <div class="forecast-note">* พยากรณ์ล่วงหน้า — เช็คอีกครั้งก่อนเดินทาง</div>
+
+  <div class="note"><div class="note-icon">🎟️</div><div class="note-text"><strong>CityPASS Day:</strong> ใช้อีก 2 วันนี้ — Academy + Bay Cruise (รอบ 17:30 golden hour!)</div></div>
+  <div class="note"><div class="note-icon">⚠️</div><div class="note-text"><strong>วันจันทร์:</strong> Exploratorium ปิด ✓ · <strong>จองตั๋ว California Academy ล่วงหน้าบังคับ</strong></div></div>
+
+  <div class="timeline">
+
+    <div class="tl-item">
+      <div class="tl-dot hi"></div>
+      <div class="place-card t-museum" onclick="toggle(this)">
+        <div class="card-head">
+          <div class="card-ico">🌿</div>
+          <div class="card-info">
+            <div class="card-time">9:30</div>
+            <div class="card-title">California Academy of Sciences</div>
+            <div class="card-brief">Aquarium + Planetarium + Rainforest 4 ชั้น</div>
+          </div>
+          <div class="card-arrow">▼</div>
+        </div>
+        <div class="card-expand">
+          <div class="card-detail">
+            <p>สถาบันวิทยาศาสตร์ที่มี aquarium, planetarium, rainforest และ natural history museum อยู่ใต้หลังคาเดียวกัน — ที่เดียวในโลก! มีสัตว์กว่า 40,000 ตัว</p>
+            <p><strong>ไม่ควรพลาด:</strong> Rainforest Dome 4 ชั้นมีผีเสื้อบินอิสระ · Claude จระเข้เผือกโบอัน · Earthquake Simulator ที่สั่นแบบแผ่นดินไหว 1906 · Planetarium ต้องจองรอบล่วงหน้า</p>
+            <div class="card-tags">
+              <span class="tag tg">CityPASS ✓ แห่งที่ 4</span>
+              <span class="tag tt">ทั้งวัน 5–6 ชม.</span>
+              <span class="tag tr">จองล่วงหน้าบังคับ</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tc"><div class="tc-pill tc-muni"><div class="tc-ico">🚌</div><div class="tc-body"><div class="tc-mode">Muni Bus 28 (19th Ave)</div><div class="tc-detail">Academy → ลง Lombard/Broderick แล้วเดิน 5 นาที</div></div><div class="tc-meta"><div class="tc-time">~15 นาที</div><div class="tc-cost">Muni Pass</div></div></div></div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="place-card t-landmark" onclick="toggle(this)">
+        <div class="card-head">
+          <div class="card-ico">🏛️</div>
+          <div class="card-info">
+            <div class="card-time">15:30</div>
+            <div class="card-title">Palace of Fine Arts</div>
+            <div class="card-brief">อาคารโรมันกรีก ริมทะเลสาบ · มุมถ่ายรูป iconic</div>
+          </div>
+          <div class="card-arrow">▼</div>
+        </div>
+        <div class="card-expand">
+          <div class="card-detail">
+            <p>อาคารสถาปัตยกรรมแบบ Greco-Roman สร้างปี 1915 สำหรับงาน Panama-Pacific Exposition ตั้งอยู่ริมทะเลสาบเล็กๆ มีหงส์ว่ายน้ำ เป็นหนึ่งในจุดถ่ายรูปที่สวยที่สุดใน SF</p>
+            <p>สวยได้ทุกเวลาเพราะตัวสถาปัตยกรรมเป็นพระเอกอยู่แล้ว เดินรอบทะเลสาบ 15–20 นาที ไม่เหนื่อย ลมน้อยกว่าที่สะพาน อุ่นกว่า</p>
+            <div class="card-tags">
+              <span class="tag tg2">ฟรี</span>
+              <span class="tag tt">20 นาที</span>
+              <span class="tag tg">ถ่ายรูปสวยทุกเวลา</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tc"><div class="tc-pill tc-muni"><div class="tc-ico">🚌</div><div class="tc-body"><div class="tc-mode">Bus 28 ต่อไปทิศเหนือ</div><div class="tc-detail">Palace of Fine Arts → Golden Gate Bridge Welcome Center</div></div><div class="tc-meta"><div class="tc-time">~10 นาที</div><div class="tc-cost">Muni Pass</div></div></div></div>
+
+    <div class="tl-item">
+      <div class="tl-dot hi"></div>
+      <div class="place-card t-landmark" onclick="toggle(this)">
+        <div class="card-head">
+          <div class="card-ico">🔭</div>
+          <div class="card-info">
+            <div class="card-time">16:15</div>
+            <div class="card-title">Golden Gate Overlook</div>
+            <div class="card-brief">จุดชมวิวมุมตรงหน้าสะพาน · golden hour เริ่มสวย</div>
+          </div>
+          <div class="card-arrow">▼</div>
+        </div>
+        <div class="card-expand">
+          <div class="card-detail">
+            <p>จุดชมวิวฝั่ง SF ที่เข้าถึงง่ายที่สุดด้วยขนส่งสาธารณะ เดินจาก Welcome Center ประมาณ 5 นาที มองเห็นสะพาน Golden Gate เต็มตาจากมุมตรงหน้า + วิวมหาสมุทรแปซิฟิก</p>
+            <p>ช่วง 16:00–17:00 แสงเริ่มอุ่น สะพานสีส้มแดงโดดเด่นมาก ทางเดินราบ เหมาะผู้สูงอายุ</p>
+            <div class="card-tags">
+              <span class="tag tg2">ฟรี</span>
+              <span class="tag tg">Bus 28 ถึง Muni Pass ใช้ได้</span>
+              <span class="tag tt">20–30 นาที</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tc"><div class="tc-pill tc-walk"><div class="tc-ico">🚶</div><div class="tc-body"><div class="tc-mode">เดินบนสะพาน (ถ้าไหว)</div><div class="tc-detail">เดินไป tower แรกแล้วกลับ ~20 นาที หรือถ่ายรูปแถว Welcome Center</div></div><div class="tc-meta"><div class="tc-time">~20 นาที</div><div class="tc-cost">ฟรี</div></div></div></div>
+
+    <div class="tl-item">
+      <div class="tl-dot hi"></div>
+      <div class="place-card t-landmark" onclick="toggle(this)">
+        <div class="card-head">
+          <div class="card-ico">🌉</div>
+          <div class="card-info">
+            <div class="card-time">16:45</div>
+            <div class="card-title">Golden Gate Bridge</div>
+            <div class="card-brief">เดินบนสะพาน · แสงบ่ายอุ่นสวย</div>
+          </div>
+          <div class="card-arrow">▼</div>
+        </div>
+        <div class="card-expand">
+          <div class="card-detail">
+            <p>หนึ่งในสะพานแขวนที่สวยที่สุดในโลก สร้างปี 1937 ยาว 2.7 กม. สูงจากน้ำ 67 เมตร สีส้มแดง International Orange เห็นชัดแม้ในหมอก</p>
+            <p><strong>Tips:</strong> เดินข้ามฟรีฝั่ง East Walkway · ลมแรงมากใส่ jacket หนา · ไม่ต้องข้ามหมด เดินไป tower แรกแล้วกลับก็ได้</p>
+            <div class="card-tags">
+              <span class="tag tg2">เดินข้ามฟรี</span>
+              <span class="tag tr">เย็นและลมแรงมาก ~7°C</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tc"><div class="tc-pill tc-uber"><div class="tc-ico">🚗</div><div class="tc-body"><div class="tc-mode">Uber / Lyft</div><div class="tc-detail">Welcome Center → Pier 39 · ถึงก่อนเรือออก 17:30</div></div><div class="tc-meta"><div class="tc-time">~15 นาที</div><div class="tc-cost">~$15</div></div></div></div>
+
+    <div class="tl-item">
+      <div class="tl-dot hi"></div>
+      <div class="place-card t-landmark" onclick="toggle(this)">
+        <div class="card-head">
+          <div class="card-ico">⛵</div>
+          <div class="card-info">
+            <div class="card-time">17:30</div>
+            <div class="card-title">Blue & Gold Fleet Bay Cruise</div>
+            <div class="card-brief">Golden hour บนเรือ! ชม Golden Gate + Alcatraz 1 ชม.</div>
+          </div>
+          <div class="card-arrow">▼</div>
+        </div>
+        <div class="card-expand">
+          <div class="card-detail">
+            <p>ล่องเรือรอบอ่าว San Francisco Bay รอบ 17:30 = golden hour บนน้ำ! วิว Golden Gate Bridge ในแสงอุ่นสวยมากๆ + Alcatraz เกาะคุกในระยะใกล้ จบ ~18:30 พอดีก่อนมืด</p>
+            <p>มี audio guide หลายภาษา ใช้มือถือเชื่อม WiFi บนเรือ อากาศบนเรือเย็นมาก <strong>ใส่ jacket + ผ้าพันคอเสมอ!</strong></p>
+            <div class="card-tags">
+              <span class="tag tg">CityPASS ✓</span>
+              <span class="tag tt">1 ชม. · จบ ~18:30</span>
+              <span class="tag tr">เย็นมาก ใส่ jacket!</span>
+              <span class="tag tg2">Golden hour สวยที่สุด</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tc"><div class="tc-pill tc-walk"><div class="tc-ico">🚶</div><div class="tc-body"><div class="tc-mode">เดินบน Pier 39</div><div class="tc-detail">ลงจากเรือ → Sea Lions ปลาย Pier 39 ดูฟรี</div></div><div class="tc-meta"><div class="tc-time">~10 นาที</div><div class="tc-cost">ฟรี</div></div></div></div>
+
+    <div class="tc"><div class="tc-pill tc-uber"><div class="tc-ico">🚗</div><div class="tc-body"><div class="tc-mode">Uber / Lyft</div><div class="tc-detail">Pier 39 → Chinatown (Grant Ave) · สั้นแต่เหนื่อยแล้ว Uber สะดวกกว่า</div></div><div class="tc-meta"><div class="tc-time">~8 นาที</div><div class="tc-cost">~$10</div></div></div></div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="place-card t-landmark" onclick="toggle(this)">
+        <div class="card-head">
+          <div class="card-ico">🏮</div>
+          <div class="card-info">
+            <div class="card-time">19:00</div>
+            <div class="card-title">Chinatown</div>
+            <div class="card-brief">ประตูมังกร · Good Mong Kok Bakery</div>
+          </div>
+          <div class="card-arrow">▼</div>
+        </div>
+        <div class="card-expand">
+          <div class="card-detail">
+            <p>Chinatown SF เก่าแก่ที่สุดในอเมริกา เปิดมาตั้งแต่ปี 1848 ประตูมังกรสี Dragon Gate ที่ Grant Ave/Bush St เป็น landmark ถ่ายรูปขึ้นชื่อ</p>
+            <p>แวะ <strong>Good Mong Kok Bakery</strong> (1039 Stockton St) ซื้อ egg custard tart ชิ้นละ $1.80 อร่อยมาก · <strong>หมายเหตุ: เตรียมเงินสดเสมอ</strong> ร้านส่วนใหญ่ไม่รับบัตร</p>
+            <div class="card-tags">
+              <span class="tag tg">Dim Sum ถูกมาก</span>
+              <span class="tag tr">เตรียมเงินสด!</span>
+              <span class="tag tt">30–45 นาที</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tc"><div class="tc-pill tc-walk"><div class="tc-ico">🚶</div><div class="tc-body"><div class="tc-mode">เดินเท้า</div><div class="tc-detail">Chinatown (Grant Ave) → Columbus Ave ทิศเหนือ 5 นาที เข้า North Beach</div></div><div class="tc-meta"><div class="tc-time">~5 นาที</div><div class="tc-cost">ฟรี</div></div></div></div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="place-card t-food" onclick="toggle(this)">
+        <div class="card-head">
+          <div class="card-ico">🍝</div>
+          <div class="card-info">
+            <div class="card-time">19:45</div>
+            <div class="card-title">Italian Homemade — Columbus Ave</div>
+            <div class="card-brief">North Beach · Pasta สดทำเอง</div>
+          </div>
+          <div class="card-arrow">▼</div>
+        </div>
+        <div class="card-expand">
+          <div class="card-detail">
+            <p>Italian Homemade Restaurant บน Columbus Ave ย่าน North Beach ซึ่งเป็น Little Italy ของ SF pasta ทำสดทุกวันในร้าน ราคาสมเหตุสมผล บรรยากาศอิตาเลียนแท้</p>
+            <p>North Beach เป็นย่านน่าเดินเล่น มีคาเฟ่ดีๆ และบาร์เปิดดึก อาหารเสร็จแล้วเดินกลับ Wharf หรือนั่ง Muni Bus 30 ก็ไม่ไกล</p>
+            <div class="card-tags">
+              <span class="tag tt">ต่อจาก Chinatown เดินได้</span>
+              <span class="tag tg">Pasta สดทำเอง</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════ DAY 3 ════ -->
+<div id="d3" class="day-sec">
+  <div class="day-header">
+    <div class="day-num">Day 3</div>
+    <div><div class="day-title">Silicon Valley Road Trip</div><div class="day-sub">Highway 1 · Stanford · Tech · คืนรถ 22:00</div></div>
+  </div>
+  
+  <div class="weather-card">
+    <div class="weather-top">
+      <div class="weather-icon">☀️</div>
+      <div class="weather-summary">
+        <div class="weather-summary-title">แดดดี อากาศดีที่สุดในทริป</div>
+        <div class="weather-meta">
+          <div class="weather-meta-item">💨 <span>14 km/h</span></div>
+          <div class="weather-meta-item">🌧️ <span>5%</span></div>
+          <div class="weather-meta-item">🌅 <span>06:51</span></div>
+          <div class="weather-meta-item">🌇 <span>19:43</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="temp-timeline">
+      <div class="temp-slot temp-cold"><div class="temp-slot-label">ออกจากโรงแรม</div><div class="temp-slot-time">~08:00</div><div class="temp-slot-deg">9°<small>C</small></div></div>
+      <div class="temp-slot temp-warm"><div class="temp-slot-label">Silicon Valley</div><div class="temp-slot-time">~14:00</div><div class="temp-slot-deg">20°<small>C</small></div></div>
+      <div class="temp-slot temp-cool"><div class="temp-slot-label">คืนรถ SFO</div><div class="temp-slot-time">~20:00</div><div class="temp-slot-deg">13°<small>C</small></div></div>
+    </div>
+    <div class="outfit-box">
+      <div class="outfit-label">🧥 แนะนำการแต่งตัว</div>
+      <div class="outfit-text">Silicon Valley อุ่นกว่า SF มาก แต่เช้าที่ชายฝั่งยังหนาว<br><strong>ใส่:</strong> เสื้อยืด + แจ็คเก็ตเบาๆ ถอดได้ กางเกงขายาว รองเท้าเดินสบาย<br><strong>พก:</strong> แจ็คเก็ตไว้ในรถเผื่อ Pedro Point/Half Moon Bay ลมแรง ครีมกันแดดสำหรับ Stanford</div>
+    </div>
+  </div>
+  <div class="forecast-note">* พยากรณ์ล่วงหน้า — เช็คอีกครั้งก่อนเดินทาง</div>
+
+  <div class="note"><div class="note-icon">🚗</div><div class="note-text"><strong>ขับรถทั้งวัน</strong> · คืนรถ SFO ก่อน 22:00 · Intel Museum ปิด 17:00 — เข้าก่อน Google และ CHM</div></div>
+
+  <div class="sec-label"><span>🌊 Coastal Drive</span></div>
+  <div class="timeline">
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="place-card t-nature" onclick="toggle(this)">
+        <div class="card-head">
+          <div class="card-ico">🌊</div>
+          <div class="card-info">
+            <div class="card-time">8:45</div>
+            <div class="card-title">Pedro Point</div>
+            <div class="card-brief">แหลมชมวิวแปซิฟิก · หมอก · บรรยากาศ NorCal</div>
+          </div>
+          <div class="card-arrow">▼</div>
+        </div>
+        <div class="card-expand">
+          <div class="card-detail">
+            <p>Pedro Point Headlands อยู่ในเมือง Pacifica เป็นแหลมหินที่ยื่นออกทะเลแปซิฟิก วิวสวยงามมาก ลมแรง อากาศเย็นสดชื่น</p>
+            <p>จุดนี้เหมาะมากสำหรับถ่ายรูปทะเลแบบ dramatic บรรยากาศ Northern California แท้ๆ ไม่มีฝูงชน สงบมาก</p>
+            <div class="card-tags">
+              <span class="tag tg2">ฟรี</span>
+              <span class="tag tt">20 นาที</span>
+              <span class="tag tr">ลมแรง ใส่ jacket</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tc"><div class="tc-pill tc-drive"><div class="tc-ico">🛣️</div><div class="tc-body"><div class="tc-mode">ขับต่อ Highway 1 ใต้</div><div class="tc-detail">Pedro Point → Half Moon Bay ชมวิวชายฝั่งตลอดเส้น</div></div><div class="tc-meta"><div class="tc-time">~15 นาที</div><div class="tc-cost">น้ำมัน</div></div></div></div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="place-card t-nature" onclick="toggle(this)">
+        <div class="card-head">
+          <div class="card-ico">🏖️</div>
+          <div class="card-info">
+            <div class="card-time">9:15</div>
+            <div class="card-title">Half Moon Bay</div>
+            <div class="card-brief">หาดทราย · ชายฝั่ง Pacific · กาแฟ</div>
+          </div>
+          <div class="card-arrow">▼</div>
+        </div>
+        <div class="card-expand">
+          <div class="card-detail">
+            <p>Half Moon Bay เป็นเมืองชายฝั่งเล็กๆ ที่สวยงาม หาดทรายยาว น้ำทะเลเย็นมาก (ไม่ค่อยมีคนลงเล่น) แต่เดินชมวิวและถ่ายรูปได้สวยมาก</p>
+            <p>แวะร้านกาแฟในเมือง Half Moon Bay ก่อนออกเดินทางต่อ มีร้านดีๆ หลายร้านแถว Main Street เมืองน่ารักมีกลิ่นอาย small town</p>
+            <div class="card-tags">
+              <span class="tag tg2">วิวทะเลสวย</span>
+              <span class="tag tt">40 นาที</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tc"><div class="tc-pill tc-drive"><div class="tc-ico">🛣️</div><div class="tc-body"><div class="tc-mode">Hwy 92 → Hwy 35 (Skyline Blvd)</div><div class="tc-detail">Half Moon Bay → Redwood Regional Park ผ่านป่าบน Skyline</div></div><div class="tc-meta"><div class="tc-time">~30 นาที</div><div class="tc-cost">น้ำมัน</div></div></div></div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="place-card t-nature" onclick="toggle(this)">
+        <div class="card-head">
+          <div class="card-ico">🌲</div>
+          <div class="card-info">
+            <div class="card-time">10:05</div>
+            <div class="card-title">Redwood Regional Park</div>
+            <div class="card-brief">ต้น Redwood อายุพันปี สูง 100+ เมตร</div>
+          </div>
+          <div class="card-arrow">▼</div>
+        </div>
+        <div class="card-expand">
+          <div class="card-detail">
+            <p>ป่า Redwood ที่สมบูรณ์แบบในย่าน Oakland Hills ต้น Coast Redwood บางต้นสูงเกิน 100 เมตร อายุกว่า 1,000 ปี ยืนในป่าแล้วมองขึ้นไปรู้สึกตัวเล็กมาก</p>
+            <p>เดินเส้น Stream Trail ประมาณ 30–45 นาที ร่มเย็นสบาย เหมาะสำหรับพักสายตาหลังขับรถ อากาศสดชื่นมาก ฟรีทุกคน</p>
+            <div class="card-tags">
+              <span class="tag tg2">ฟรี</span>
+              <span class="tag tt">45 นาที</span>
+              <span class="tag tg">ประสบการณ์ไม่เหมือนที่ไหน</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="sec-label"><span>🎓 Stanford + Silicon Valley</span></div>
+  <div class="timeline">
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="place-card t-landmark" onclick="toggle(this)">
+        <div class="card-head">
+          <div class="card-ico">🏛️</div>
+          <div class="card-info">
+            <div class="card-time">11:10</div>
+            <div class="card-title">Stanford University</div>
+            <div class="card-brief">Main Quad · Hoover Tower · มหาลัยสวยที่สุด</div>
+          </div>
+          <div class="card-arrow">▼</div>
+        </div>
+        <div class="card-expand">
+          <div class="card-detail">
+            <p>Leland Stanford Junior University ก่อตั้งปี 1885 เป็นหนึ่งในมหาวิทยาลัยชั้นนำของโลก ตึก Main Quadrangle สไตล์ Romanesque ล้อมรอบด้วยต้นปาล์ม สวยมาก</p>
+            <p>ศิษย์เก่า Stanford มีมากมายที่สร้างบริษัท Silicon Valley เช่น Google, Yahoo, HP, Sun Microsystems · <strong>Parking ยากมาก</strong> แนะนำจอดที่ Lot J ริม Palm Drive หรือ Lot C</p>
+            <div class="card-tags">
+              <span class="tag tg2">เข้าฟรี</span>
+              <span class="tag tr">Parking ยากมาก</span>
+              <span class="tag tt">40 นาที</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tc"><div class="tc-pill tc-drive"><div class="tc-ico">🛣️</div><div class="tc-body"><div class="tc-mode">Hwy 101 N หรือ El Camino Real</div><div class="tc-detail">Stanford (Palo Alto) → Intel Museum (Santa Clara)</div></div><div class="tc-meta"><div class="tc-time">~25 นาที</div><div class="tc-cost">น้ำมัน</div></div></div></div>
+
+    <div class="tl-item">
+      <div class="tl-dot hi"></div>
+      <div class="place-card t-tech" onclick="toggle(this)">
+        <div class="card-head">
+          <div class="card-ico">💻</div>
+          <div class="card-info">
+            <div class="card-time">12:00 ⚠️</div>
+            <div class="card-title">Intel Museum — เข้าก่อน!</div>
+            <div class="card-brief">ฟรี · semiconductor · ปิด 17:00</div>
+          </div>
+          <div class="card-arrow">▼</div>
+        </div>
+        <div class="card-expand">
+          <div class="card-detail">
+            <p>พิพิธภัณฑ์ Intel ที่ HQ ใน Santa Clara เล่าประวัติ semiconductor และ microprocessor ตั้งแต่ยุคแรก มี chip จริง wafer จริง และ clean room จำลองให้เห็น</p>
+            <p>มี Gift Shop ขาย Intel-branded merchandise ราคาไม่แพง เข้าฟรีทั้งหมด เปิดเฉพาะวันธรรมดา <strong>ต้องเข้าก่อน 17:00</strong> เดินทาง 1 ชม. จากนี้</p>
+            <div class="card-tags">
+              <span class="tag tg2">ฟรีทุกคน + Parking</span>
+              <span class="tag tr">ปิด 17:00 วันธรรมดา</span>
+              <span class="tag tt">1 ชั่วโมง</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tc"><div class="tc-pill tc-drive"><div class="tc-ico">🛣️</div><div class="tc-body"><div class="tc-mode">Hwy 101 หรือ Central Expressway</div><div class="tc-detail">Intel (Santa Clara) → Google (Mountain View) ติดกันมาก</div></div><div class="tc-meta"><div class="tc-time">~10 นาที</div><div class="tc-cost">น้ำมัน</div></div></div></div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="place-card t-tech" onclick="toggle(this)">
+        <div class="card-head">
+          <div class="card-ico">🔍</div>
+          <div class="card-info">
+            <div class="card-time">13:15</div>
+            <div class="card-title">Google Visitor Experience + กลางวัน</div>
+            <div class="card-brief">Mountain View · merch · Android figures</div>
+          </div>
+          <div class="card-arrow">▼</div>
+        </div>
+        <div class="card-expand">
+          <div class="card-detail">
+            <p>Googleplex เป็น campus ขนาดใหญ่มาก มีจักรยานสีสันสดใสทั่วบริเวณ Android lawn figures ตัวใหญ่หน้า Building 44 และ Google Store ที่ขาย merch YouTube, Android, Google</p>
+            <p>กินข้าวกลางวันแถวนี้ได้เยอะ มีร้านหลากหลายใน Mountain View ใกล้ๆ <strong>Computer History Museum อยู่ห่างแค่ 500m</strong> เดินได้เลย</p>
+            <div class="card-tags">
+              <span class="tag tg2">Store เปิดวันธรรมดา</span>
+              <span class="tag tt">1.5 ชม. รวมกินข้าว</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tc"><div class="tc-pill tc-walk"><div class="tc-ico">🚶</div><div class="tc-body"><div class="tc-mode">เดินหรือขับ 2 นาที</div><div class="tc-detail">Google Campus → Computer History Museum ห่าง 500m</div></div><div class="tc-meta"><div class="tc-time">~5 นาที</div><div class="tc-cost">ติดกัน</div></div></div></div>
+
+    <div class="tl-item">
+      <div class="tl-dot hi"></div>
+      <div class="place-card t-tech" onclick="toggle(this)">
+        <div class="card-head">
+          <div class="card-ico">🖥️</div>
+          <div class="card-info">
+            <div class="card-time">14:45</div>
+            <div class="card-title">Computer History Museum ⭐</div>
+            <div class="card-brief">ไฮไลต์วันนี้ · abacus → AI · เกมเก่าเล่นได้</div>
+          </div>
+          <div class="card-arrow">▼</div>
+        </div>
+        <div class="card-expand">
+          <div class="card-detail">
+            <p>พิพิธภัณฑ์ประวัติคอมพิวเตอร์ที่ใหญ่ที่สุดในโลก ครอบคลุมตั้งแต่ลูกคิดและ Difference Engine ของ Babbage จาก 1800s จนถึง AI ยุคปัจจุบัน</p>
+            <p><strong>ไม่ควรพลาด:</strong> Babbage Difference Engine No.2 จริงๆ · เครื่อง PDP-1 และเกม Spacewar! เก่าแก่ที่สุดให้เล่น · Mac เครื่องแรก · ส่วน AI ที่น่าทึ่งมาก · <strong>ไม่รับ cash ใช้บัตรเท่านั้น</strong></p>
+            <div class="card-tags">
+              <span class="tag tg">ผู้ใหญ่ $21.50</span>
+              <span class="tag tg">Senior/Student $16.50</span>
+              <span class="tag tt">2 ชั่วโมง</span>
+              <span class="tag tr">ปิด 17:00 · ไม่รับ cash</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tc"><div class="tc-pill tc-drive"><div class="tc-ico">🛣️</div><div class="tc-body"><div class="tc-mode">Hwy 85 หรือ Stevens Creek Blvd</div><div class="tc-detail">Mountain View → Apple Park Visitor Center (Cupertino)</div></div><div class="tc-meta"><div class="tc-time">~15 นาที</div><div class="tc-cost">น้ำมัน</div></div></div></div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="place-card t-tech" onclick="toggle(this)">
+        <div class="card-head">
+          <div class="card-ico">🍎</div>
+          <div class="card-info">
+            <div class="card-time">16:45</div>
+            <div class="card-title">Apple Park Visitor Center</div>
+            <div class="card-brief">Cupertino · ชม Spaceship campus · merch</div>
+          </div>
+          <div class="card-arrow">▼</div>
+        </div>
+        <div class="card-expand">
+          <div class="card-detail">
+            <p>Apple Park คือ HQ หลักของ Apple รูปทรงวงกลมขนาดยักษ์ออกแบบโดย Norman Foster เปิดปี 2017 ใช้พนักงาน 12,000 คน Visitor Center มีระเบียง AR ให้ส่อง iPad ดู campus จำลองได้</p>
+            <p>ร้านที่นี่เป็น <strong>ที่เดียวในโลก</strong> ที่ขาย Apple-branded merchandise อย่างเสื้อ หมวก กระเป๋า ที่มีโลโก้ Apple โดยไม่ขายผ่านช่องทางอื่น</p>
+            <div class="card-tags">
+              <span class="tag tg2">Visitor Center เข้าฟรี</span>
+              <span class="tag tg">Apple Merch เฉพาะที่นี่</span>
+              <span class="tag tt">45 นาที</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tc"><div class="tc-pill tc-drive"><div class="tc-ico">🛣️</div><div class="tc-body"><div class="tc-mode">Hwy 101 N</div><div class="tc-detail">Apple Park (Cupertino) → Meta HQ (Menlo Park)</div></div><div class="tc-meta"><div class="tc-time">~20 นาที</div><div class="tc-cost">น้ำมัน</div></div></div></div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="place-card t-landmark" onclick="toggle(this)">
+        <div class="card-head">
+          <div class="card-ico">👍</div>
+          <div class="card-info">
+            <div class="card-time">17:30</div>
+            <div class="card-title">Meta HQ</div>
+            <div class="card-brief">ถ่ายรูปป้าย Like ยักษ์ · 15 นาที</div>
+          </div>
+          <div class="card-arrow">▼</div>
+        </div>
+        <div class="card-expand">
+          <div class="card-detail">
+            <p>Meta Platforms (Facebook) HQ ใน Menlo Park campus ออกแบบโดย Frank Gehry มีป้าย thumbs up "Like" ขนาดยักษ์หน้าอาคารหลัก เป็น photo spot ดังมาก</p>
+            <p>เข้าไปในอาคารไม่ได้ถ้าไม่มีนัด แต่ถ่ายรูปด้านนอกและกับป้าย Like ได้อย่างอิสระ แวะไม่นาน 10–15 นาทีก็พอ</p>
+            <div class="card-tags">
+              <span class="tag tg2">ถ่ายรูปด้านนอกฟรี</span>
+              <span class="tag tt">15 นาที</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tc"><div class="tc-pill tc-drive"><div class="tc-ico">🛣️</div><div class="tc-body"><div class="tc-mode">Hwy 101 S → Hwy 87</div><div class="tc-detail">Meta (Menlo Park) → Santana Row (San Jose) ~25 นาที</div></div><div class="tc-meta"><div class="tc-time">~25 นาที</div><div class="tc-cost">น้ำมัน</div></div></div></div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="place-card t-food" onclick="toggle(this)">
+        <div class="card-head">
+          <div class="card-ico">🍽️</div>
+          <div class="card-info">
+            <div class="card-time">17:45</div>
+            <div class="card-title">Santana Row — มื้อเย็นปิดทริป</div>
+            <div class="card-brief">San Jose · ย่านช้อปปิ้งหรู · Optional</div>
+          </div>
+          <div class="card-arrow">▼</div>
+        </div>
+        <div class="card-expand">
+          <div class="card-detail">
+            <p>Santana Row เป็น lifestyle shopping district ระดับ luxury ใน San Jose มีร้านอาหารหลากหลายสไตล์ บรรยากาศ outdoor dining ริมถนนสวยงาม เดินเล่นสบาย</p>
+            <p>ถ้าเวลาไม่พอ <strong>ตัดออกได้</strong> — ออกจากนี้ไม่เกิน 19:30 เพื่อไปคืนรถ SFO ก่อน 22:00 ใช้เวลาขับ Hwy 101 N ประมาณ 45–50 นาที</p>
+            <div class="card-tags">
+              <span class="tag tg">Optional ตัดได้</span>
+              <span class="tag tt">1.5 ชั่วโมง</span>
+              <span class="tag tr">ออกก่อน 19:30!</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tc"><div class="tc-pill tc-drive"><div class="tc-ico">🛣️</div><div class="tc-body"><div class="tc-mode">Hwy 101 N → Hwy 380 → SFO</div><div class="tc-detail">ออกก่อน 19:30 → ถึง SFO Rental Car Center ~20:15</div></div><div class="tc-meta"><div class="tc-time">~45 นาที</div><div class="tc-cost">ออกก่อน 19:30</div></div></div></div>
+
+    <div class="tl-item">
+      <div class="tl-dot hi"></div>
+      <div class="place-card t-transport" onclick="toggle(this)">
+        <div class="card-head">
+          <div class="card-ico">✈️</div>
+          <div class="card-info">
+            <div class="card-time">20:15</div>
+            <div class="card-title">คืนรถ SFO ✅</div>
+            <div class="card-brief">Rental Car Center · เผื่อ buffer ก่อน 22:00</div>
+          </div>
+          <div class="card-arrow">▼</div>
+        </div>
+        <div class="card-expand">
+          <div class="card-detail">
+            <p>SFO Rental Car Center อยู่ถัดจาก Terminal เล็กน้อย ตามป้าย Rental Car Returns ได้เลย คืนรถ ~20:15 มีเวลา buffer เกือบ 2 ชั่วโมงก่อน deadline 22:00</p>
+            <p>หลังคืนรถ นั่ง AirTrain ฟรีไปยัง Terminal ที่ต้องการ เช็คอินและผ่าน Security ได้สบายๆ เดินทางปลอดภัย!</p>
+            <div class="card-tags">
+              <span class="tag tg2">Buffer ~1.75 ชม.</span>
+              <span class="tag tt">AirTrain ฟรีจาก Rental Car</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════ CHECKLIST ════ -->
+<div id="ck" class="day-sec">
+  <div class="day-header">
+    <div class="day-num">To Do</div>
+    <div><div class="day-title">สิ่งที่ต้องเตรียม</div><div class="day-sub">จอง · แอป · Muni · ของใส่กระเป๋า</div></div>
+  </div>
+
+  <div class="cl-box">
+    <div class="cl-title">🎟️ จองล่วงหน้า</div>
+    <div class="cl-item"><div class="ci-w">!</div><div><strong>CityPASS</strong> — citypass.com · 4 attractions: Academy + Bay Cruise + Exploratorium + SFMOMA · ผู้ใหญ่ $89 × 3 + เด็ก $69 = <strong>$336</strong></div></div>
+    <div class="cl-item"><div class="ci-w">!</div><div><strong>California Academy</strong> — calacademy.org · timed-entry บังคับ</div></div>
+    <div class="cl-item"><div class="ci">✓</div><div><strong>Alcatraz</strong> (ถ้าอยากไป) — alcatrazcruises.com · เต็มไวมาก</div></div>
+    <div class="cl-item"><div class="ci">✓</div><div><strong>Muir Woods</strong> (ถ้าแวะ) — recreation.gov · จองที่จอด $9</div></div>
+  </div>
+
+  <div class="cl-box">
+    <div class="cl-title">📱 แอปที่ต้องโหลด</div>
+    <div class="cl-item"><div class="ci">✓</div><div><strong>Uber + Lyft</strong> — ทั้งคู่ เปรียบราคาก่อน confirm ทุกครั้ง</div></div>
+    <div class="cl-item"><div class="ci-w">!</div><div><strong>MuniMobile</strong> — ซื้อ 3-Day Visitor Passport $26/คน รวม Cable Car</div></div>
+    <div class="cl-item"><div class="ci">✓</div><div><strong>My CityPASS</strong> — ใช้แทนตั๋วกระดาษ</div></div>
+    <div class="cl-item"><div class="ci">✓</div><div><strong>Google Maps</strong> — download offline map SF Bay Area</div></div>
+  </div>
+
+  <div class="cl-box">
+    <div class="cl-title">🚃 Muni สาย Day 1–2</div>
+    <div class="cl-item"><div class="ci">✓</div><div><strong>F-Line Streetcar</strong> — ริม Embarcadero เชื่อม Wharf ↔ Ferry Building ↔ Market</div></div>
+    <div class="cl-item"><div class="ci">✓</div><div><strong>Powell-Hyde Cable Car</strong> — สายวิวดีสุด Powell/Market → Fisherman's Wharf</div></div>
+    <div class="cl-item"><div class="ci">✓</div><div><strong>Bus 49</strong> — Fisherman's Wharf → Golden Gate Park (Academy)</div></div>
+    <div class="cl-item"><div class="ci">✓</div><div><strong>Bus 28</strong> — Golden Gate Park → Golden Gate Bridge Welcome Center → Palace of Fine Arts</div></div>
+    <div class="cl-item"><div class="ci-w">!</div><div>Muni Pass <strong>ไม่รวม BART</strong> · BART จ่ายแยก ~$10/คน จาก SFO</div></div>
+  </div>
+
+  <div class="cl-box">
+    <div class="cl-title">👜 ของที่ต้องเตรียม</div>
+    <div class="cl-item"><div class="ci-w">!</div><div><strong>Jacket หนา</strong> — SF หนาวและมีหมอกตลอด โดยเฉพาะ Golden Gate</div></div>
+    <div class="cl-item"><div class="ci">✓</div><div><strong>รองเท้าเดิน</strong> — เดินเยอะมาก ถนนลาดชัน</div></div>
+    <div class="cl-item"><div class="ci">✓</div><div><strong>เงินสด USD</strong> — Chinatown รับ cash เท่านั้น · CHM ไม่รับ cash</div></div>
+    <div class="cl-item"><div class="ci">✓</div><div><strong>Power bank</strong> — ใช้ Maps + Uber ทั้งวัน</div></div>
+  </div>
+
+  <div class="budget">
+    <h3>💰 ประมาณการค่าใช้จ่าย (4 คน)</h3>
+    <div class="brow"><div class="bl">CityPASS (4 attractions)</div><div class="ba">$336</div></div>
+    <div class="brow"><div class="bl">Muni 3-Day Pass (3 คน × $26)</div><div class="ba">$78</div></div>
+    <div class="brow"><div class="bl">Computer History Museum</div><div class="ba">$76</div></div>
+    <div class="brow"><div class="bl">สนามบิน → โรงแรม (Uber XL)</div><div class="ba">~$60</div></div>
+    <div class="brow"><div class="bl">Uber ระหว่างวัน (~2 เที่ยว)</div><div class="ba">~$50</div></div>
+    <div class="brow"><div class="bl">Intel, Google, Apple, Lombard, Golden Gate, Overlook, Palace of Fine Arts</div><div class="ba">ฟรี</div></div>
+    <div class="brow bt"><div class="bl">รวมค่าเข้าชม + ขนส่ง</div><div class="ba">~$600+</div></div>
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  <span>🌉</span>
+  Have an amazing trip in San Francisco!<br>
+  <small style="color:var(--gold);margin-top:4px;display:block">แตะแต่ละสถานที่เพื่อดูรายละเอียด</small>
+</div>
+
+<script>
+function showDay(id, el) {
+  document.querySelectorAll('.day-sec').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  el.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function toggle(card) {
+  const isOpen = card.classList.contains('open');
+  // close all in same day
+  card.closest('.timeline, .day-sec').querySelectorAll('.place-card.open').forEach(c => c.classList.remove('open'));
+  if (!isOpen) {
+    card.classList.add('open');
+    // scroll into view after expand
+    setTimeout(() => {
+      card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 100);
+  }
+}
+</script>
+
+</body>
+</html>

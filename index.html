@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>US Trip 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0d12;
+    --surface: #131820;
+    --border: #1e2530;
+    --text: #e8ecf2;
+    --text-dim: #7a8698;
+    --gold: #e8a030;
+    --gold-glow: rgba(232,160,48,0.12);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;overflow-x:hidden}
+
+  .hero{text-align:center;margin-bottom:48px;position:relative}
+  .hero::before{content:'';position:fixed;top:-30%;left:-30%;width:160%;height:160%;background:radial-gradient(ellipse at 40% 30%,rgba(232,160,48,0.04) 0%,transparent 60%),radial-gradient(ellipse at 70% 70%,rgba(91,159,214,0.03) 0%,transparent 50%);pointer-events:none;z-index:0}
+
+  .badge{display:inline-block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:3px;color:var(--gold);background:var(--gold-glow);border:1px solid rgba(232,160,48,0.2);padding:6px 18px;border-radius:20px;margin-bottom:20px;position:relative}
+  h1{font-family:'DM Serif Display',serif;font-size:clamp(36px,9vw,56px);font-weight:400;line-height:1.1;margin-bottom:12px;position:relative}
+  h1 span{color:var(--gold)}
+  .sub{font-size:15px;color:var(--text-dim);position:relative;max-width:400px;margin:0 auto;line-height:1.6}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;width:100%;max-width:640px;position:relative}
+
+  .card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:28px 24px;
+    text-decoration:none;
+    color:var(--text);
+    transition:all 0.35s ease;
+    position:relative;
+    overflow:hidden;
+    cursor:pointer;
+    display:block;
+  }
+  .card::before{
+    content:'';position:absolute;inset:0;
+    opacity:0;transition:opacity 0.35s ease;
+    pointer-events:none;border-radius:18px;
+  }
+  .card:hover{border-color:rgba(232,160,48,0.3);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,0.3)}
+  .card:hover::before{opacity:1}
+  .card:active{transform:translateY(-2px)}
+
+  .card-sf::before{background:linear-gradient(135deg,rgba(232,160,48,0.06) 0%,rgba(201,64,64,0.04) 100%)}
+  .card-nyc::before{background:linear-gradient(135deg,rgba(91,159,214,0.06) 0%,rgba(240,160,80,0.04) 100%)}
+  .card-coming::before{background:linear-gradient(135deg,rgba(255,255,255,0.02) 0%,rgba(255,255,255,0.01) 100%)}
+
+  .card-emoji{font-size:42px;margin-bottom:14px;display:block;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.3))}
+  .card-city{font-family:'DM Serif Display',serif;font-size:22px;font-weight:400;margin-bottom:4px}
+  .card-dates{font-size:12px;color:var(--text-dim);margin-bottom:12px;font-weight:500;letter-spacing:0.5px}
+  .card-tags{display:flex;flex-wrap:wrap;gap:6px}
+  .tag{font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:4px 10px;border-radius:8px;background:rgba(255,255,255,0.05);color:var(--text-dim)}
+  .tag-gold{background:var(--gold-glow);color:var(--gold)}
+
+  .card-coming{opacity:0.4;pointer-events:none}
+  .card-coming .card-city{color:var(--text-dim)}
+  .coming-label{font-size:11px;color:var(--text-dim);font-weight:600;letter-spacing:1.5px;text-transform:uppercase;margin-top:8px}
+
+  .footer{margin-top:48px;text-align:center;font-size:12px;color:var(--text-dim);opacity:0.4;position:relative}
+
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  .hero{animation:fadeUp 0.6s ease}
+  .card:nth-child(1){animation:fadeUp 0.6s ease 0.1s both}
+  .card:nth-child(2){animation:fadeUp 0.6s ease 0.2s both}
+  .card:nth-child(3){animation:fadeUp 0.6s ease 0.3s both}
+  .card:nth-child(4){animation:fadeUp 0.6s ease 0.4s both}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="badge">Family Trip 2026</div>
+  <h1>United <span>States</span></h1>
+  <p class="sub">เลือกเมืองเพื่อดู itinerary สภาพอากาศ + คำแนะนำการแต่งตัว</p>
+</div>
+
+<div class="grid">
+  <a class="card card-sf" href="sf.html">
+    <span class="card-emoji">🌉</span>
+    <div class="card-city">San Francisco</div>
+    <div class="card-dates">4–7 Apr · 4 วัน</div>
+    <div class="card-tags">
+      <span class="tag tag-gold">CityPASS</span>
+      <span class="tag">Silicon Valley</span>
+      <span class="tag">Golden Gate</span>
+    </div>
+  </a>
+
+  <a class="card card-nyc" href="nyc.html">
+    <span class="card-emoji">🗽</span>
+    <div class="card-city">New York City</div>
+    <div class="card-dates">8–10 Apr · 3 วัน</div>
+    <div class="card-tags">
+      <span class="tag tag-gold">Broadway</span>
+      <span class="tag">The Met</span>
+      <span class="tag">DUMBO</span>
+    </div>
+  </a>
+
+  <a class="card card-coming">
+    <span class="card-emoji">🏛️</span>
+    <div class="card-city">Washington DC</div>
+    <div class="coming-label">Coming soon</div>
+  </a>
+
+  <a class="card card-coming">
+    <span class="card-emoji">🏔️</span>
+    <div class="card-city">Seattle</div>
+    <div class="coming-label">Coming soon</div>
+  </a>
+</div>
+
+<div class="footer">US Trip Itinerary 2026</div>
+
+</body>
+</html>
