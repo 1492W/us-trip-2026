@@ -153,24 +153,24 @@ function badge(l,bg){return '<span class="subway-badge" style="background:'+bg+'
 var days=[
   {
     title:"Midtown Manhattan",
-    subtitle:"Arrival day — เริ่มต้นเบาๆ หลังบินจาก SF",
+    subtitle:"Arrival day — Red-eye B6716 JetBlue จาก SFO ถึง 08:38",
     weather:{
       icon:"\u{1F324}\u{FE0F}",
       summary:"เย็นสบาย ลมแรง มีเมฆบ้าง",
       wind:"23 km/h",rain:"30%",sunrise:"06:27",sunset:"19:28",
       temps:[
-        {label:"ออกจากโรงแรม",time:"~11:30",deg:11,cls:"temp-cool"},
+        {label:"ถึง JFK",time:"~08:38",deg:9,cls:"temp-cold"},
         {label:"กลางวัน",time:"~14:00",deg:14,cls:"temp-warm"},
         {label:"กลับโรงแรม",time:"~19:00",deg:10,cls:"temp-cold"}
       ],
       outfit:"เช้า-เย็นหนาว ลมแรงตลอดวัน<br><strong>ใส่:</strong> แจ็คเก็ตกันลม + เสื้อแขนยาวข้างใน กางเกงขายาว ผ้าพันคอบาง รองเท้าผ้าใบเดินสบาย<br><strong>พก:</strong> ร่มพับเผื่อฝนโปรย"
     },
     stops:[
-      {time:"09:00",name:"JFK Terminal 5",brief:"Domestic flight จาก San Francisco",color:"green",
-        details:"ไฟลท์ domestic ไม่ต้องผ่าน immigration รับกระเป๋าแล้วออกได้เลย ใช้เวลาออกจากสนามบินประมาณ 30–45 นาที",
+      {time:"08:38",name:"JFK Terminal 5",brief:"B6716 JetBlue Red-eye จาก SFO",color:"green",
+        details:"<strong>B6716 JetBlue</strong> ออก SFO 23:55 (7 Apr) → ถึง JFK 08:38 (8 Apr) · 4 คน · Domestic ไม่ต้องผ่าน immigration รับกระเป๋าแล้วออกได้เลย ใช้เวลาออกจากสนามบินประมาณ 30–45 นาที",
         tip:"<strong>ไปโรงแรม:</strong> Taxi/Uber จาก JFK ไป WTC area ประมาณ 45–60 นาที ค่ารถ ~$70–80 (flat rate + toll) หรือ AirTrain → Jamaica → สาย "+badge("E","#2850AD")+" ไป WTC ประมาณ 70 นาที ราคา ~$10.75"},
-      {time:"11:30",name:"Courtyard by Marriott WTC",brief:"Check-in / ฝากกระเป๋า",color:"blue",
-        details:"โรงแรมอยู่ใกล้สถานี Fulton St และ World Trade Center — hub ของหลายสาย subway เดินทางสะดวกมาก",
+      {time:"10:30",name:"Courtyard by Marriott WTC",brief:"Check-in / ฝากกระเป๋า",color:"blue",
+        details:"โรงแรมอยู่ใกล้สถานี Fulton St และ World Trade Center — hub ของหลายสาย subway เดินทางสะดวกมาก<br><br>⚠️ <strong>อย่าลืม Cancel Best Western Queens Court ก่อน 5 เมษา!</strong> จองไว้ใน Trip.com แต่จะพักที่นี่แทน",
         tip:"<strong>ก่อนออก:</strong> เตรียมตัวเร็วเพราะ Broadway เริ่ม 13:00 ต้องออกจากโรงแรมไม่เกิน 12:20"},
       {time:"13:00",name:"Harry Potter on Broadway",brief:"Lyric Theatre, 214 W 43rd St — จองแล้ว",color:"accent",tag:{text:"Booked",cls:"tag-booked"},
         transit:subwayIcon+" Fulton St → Times Sq-42 St "+badge("2","#EE352E")+badge("3","#EE352E")+" — 15 นาที",
