@@ -119,6 +119,9 @@
   .card-expand { display:none; }
   .place-card.open .card-expand { display:block; }
 
+  .card-img { width:100%; height:140px; object-fit:cover; border-top:1px solid rgba(255,255,255,.06); }
+  .card-img-credit { font-size:9px; color:var(--mist); opacity:.4; text-align:right; padding:3px 14px 0; }
+
   /* Location-specific gradients */
 
 
@@ -362,6 +365,7 @@
           <div class="card-arrow">▼</div>
         </div>
         <div class="card-expand">
+          <img class="card-img" src="https://images.unsplash.com/photo-1576478015047-73879da665da?w=600&h=180&fit=crop&auto=format" alt="Lombard Street" loading="lazy">
           <div class="card-detail">
             <p>ถนนที่ขึ้นชื่อว่าคดเคี้ยวที่สุดในโลก มี 8 โค้งชัน อยู่บน Russian Hill ตกแต่งด้วยดอก Hydrangea สีสวยงามตลอดทั้งปี</p>
             <p><strong>Tips:</strong> ขึ้นไปยืนบนเนินก่อนแล้วถ่ายรูปมองลงมา แสงช่วงเย็นก่อน sunset สวยที่สุด เดินจากโรงแรมแถว Wharf ได้ ~10 นาที</p>
@@ -378,25 +382,30 @@
     <div class="tc"><div class="tc-pill tc-walk"><div class="tc-ico">🚶</div><div class="tc-body"><div class="tc-mode">เดินลงเนิน</div><div class="tc-detail">ลง Hyde St กลับ Fisherman's Wharf</div></div><div class="tc-meta"><div class="tc-time">~10 นาที</div><div class="tc-cost">ฟรี</div></div></div></div>
 
     <div class="tl-item">
-      <div class="tl-dot"></div>
+      <div class="tl-dot hi"></div>
       <div class="place-card t-food" onclick="toggle(this)">
         <div class="card-head">
-          <div class="card-ico">🦀</div>
+          <div class="card-ico">🥣</div>
           <div class="card-info">
             <div class="card-time">20:15</div>
-            <div class="card-title">Fisherman's Wharf — มื้อแรก</div>
-            <div class="card-brief">Clam Chowder · Sea Lions · บรรยากาศริมน้ำ</div>
+            <div class="card-title">Boudin Bakery — มื้อแรก!</div>
+            <div class="card-brief">Clam Chowder in Sourdough Bread Bowl · counter service ไม่ต้องทิป</div>
           </div>
           <div class="card-arrow">▼</div>
         </div>
         <div class="card-expand">
+          <img class="card-img" src="https://images.unsplash.com/photo-1721152534309-bed5daf379dc?w=600&h=180&fit=crop&auto=format" alt="Clam Chowder Bread Bowl" loading="lazy">
           <div class="card-detail">
-            <p>ย่านริมท่าที่เก่าแก่ที่สุดของ SF อาหารซีฟู้ดสดใหม่ทุกวัน ไฮไลต์คือ Clam Chowder ในขนมปัง Sourdough กลม ราคาประมาณ $12–15</p>
-            <p>เดินไปปลาย Pier 39 ดู Sea Lions แสนน่ารักที่อาศัยอยู่โดยธรรมชาติ มองเห็น Alcatraz เกาะคุกในอ่าวได้ด้วย</p>
+            <p><strong>📍 160 Jefferson St</strong> (ใกล้ Pier 39) · ร้าน Sourdough ดั้งเดิมตั้งแต่ 1849 · ชั้นล่างเป็น counter service สั่ง-จ่าย-รับ-หาที่นั่งเอง <strong>ไม่ต้องทิป</strong></p>
+            <p><strong>🛒 สั่งอะไร (4 คน ~$55–65):</strong></p>
+            <p>• <strong>Clam Chowder in Bread Bowl</strong> × 3 (~$14 × 3)<br>• <strong>Mac & Cheese in Bread Bowl</strong> × 1 (~$14)</p>
+            <p><strong>🗣️ วิธีสั่ง:</strong> เดินเข้าเคาน์เตอร์ชั้นล่าง พูดว่า<br><em>"Three bread bowl clam chowders and one mac and cheese bread bowl, please"</em><br>จ่ายบัตรหรือเงินสดก็ได้ รอรับถาดแล้วหาโต๊ะนั่ง</p>
+            <p><strong>🥄 กินยังไงให้อร่อย:</strong><br>1. ฉีกฝาขนมปังออก จุ่มกินกับซุป<br>2. กินซุปจนเหลือนิดเดียว<br>3. กิน "ถ้วย" ขนมปังที่ชุ่มซุปแล้ว — ตรงนี้อร่อยที่สุด!<br>4. เติม Tabasco (ซอสพริกบนโต๊ะ) นิดเดียว เพิ่มรสชาติ</p>
+            <p><strong>💡 Tips:</strong> มีมุมกระจกดูช่างทำ sourdough สดๆ เด็กชอบดู · ซื้อ sourdough loaf ก้อนเล็กกลับโรงแรมเป็นของว่างพรุ่งนี้เช้าก็ดี</p>
             <div class="card-tags">
-              <span class="tag tg2">Sea Lions ฟรี</span>
-              <span class="tag tg">Clam Chowder $12–15</span>
-              <span class="tag tt">บรรยากาศคืนแรก</span>
+              <span class="tag tg">Counter · ไม่ต้องทิป</span>
+              <span class="tag tt">~$55–65 / 4 คน</span>
+              <span class="tag tg2">เดินจาก Lombard 10 นาที</span>
             </div>
           </div>
         </div>
@@ -455,6 +464,7 @@
           <div class="card-arrow">▼</div>
         </div>
         <div class="card-expand">
+          <img class="card-img" src="https://images.unsplash.com/photo-1631675842272-16dcb682a172?w=600&h=180&fit=crop&auto=format" alt="Exploratorium" loading="lazy">
           <div class="card-detail">
             <p>พิพิธภัณฑ์วิทยาศาสตร์ที่ดีที่สุดใน SF ก่อตั้งปี 1969 ย้ายมาอยู่ที่ Pier 15 ริมอ่าวตั้งแต่ปี 2013 นิทรรศการเกือบ 600 ชิ้น ทุกอย่างจับต้องได้หมด</p>
             <p>เหมาะสำหรับเด็กสายเทคมาก มีหมวด AI ที่ให้ลองทดลองจริง, Physics หลากหลาย และ Perception ที่หลอกประสาทสัมผัส อย่าลืมจอง <strong>Tactile Dome</strong> ล่วงหน้าแยกต่างหาก (ห้องมืดสนิทใช้การสัมผัสนำทาง เด็กชอบมาก)</p>
@@ -511,6 +521,7 @@
           <div class="card-arrow">▼</div>
         </div>
         <div class="card-expand">
+          <img class="card-img" src="https://images.unsplash.com/photo-1534138580379-36c57c59cf30?w=600&h=180&fit=crop&auto=format" alt="SFMOMA" loading="lazy">
           <div class="card-detail">
             <p>พิพิธภัณฑ์ศิลปะ modern/contemporary ระดับโลก ตึก 7 ชั้นออกแบบโดย Snøhetta สวยมาก คอลเลกชัน photography ดีที่สุดในอเมริกา</p>
             <p><strong>ไฮไลท์:</strong> Yayoi Kusama Infinity Room, Matisse, Warhol, Calder · ปิด 17:00 ให้เวลาดู 2 ชม. เลือกเฉพาะชั้น 3 (photography) + ชั้น 5–6 (painting) ก็พอ</p>
@@ -593,6 +604,7 @@
           <div class="card-arrow">▼</div>
         </div>
         <div class="card-expand">
+          <img class="card-img" src="https://images.unsplash.com/photo-1623166337902-2ab27ef30057?w=600&h=180&fit=crop&auto=format" alt="Cable Car SF" loading="lazy">
           <div class="card-detail">
             <p>Cable Car เป็นสัญลักษณ์ SF มีมาตั้งแต่ปี 1873 และเป็น National Historic Landmark เดียวที่เคลื่อนที่ได้ในสหรัฐฯ เส้น Powell-Hyde วิวดีที่สุดผ่าน Nob Hill ลงมาที่ Fisherman's Wharf</p>
             <p><strong>Tips:</strong> ยืนด้านนอกตัวรถ (ห้อยตัว) เพื่อวิวที่ดีที่สุด · ค่ำๆ คนน้อยกว่ากลางวันมาก · ถ่ายรูปสวยมากตอนรถวิ่งขึ้นเนิน</p>
@@ -659,6 +671,7 @@
           <div class="card-arrow">▼</div>
         </div>
         <div class="card-expand">
+          <img class="card-img" src="https://images.unsplash.com/photo-1562445927-bdd32a655213?w=600&h=180&fit=crop&auto=format" alt="California Academy of Sciences" loading="lazy">
           <div class="card-detail">
             <p>สถาบันวิทยาศาสตร์ที่มี aquarium, planetarium, rainforest และ natural history museum อยู่ใต้หลังคาเดียวกัน — ที่เดียวในโลก! มีสัตว์กว่า 40,000 ตัว</p>
             <p><strong>ไม่ควรพลาด:</strong> Rainforest Dome 4 ชั้นมีผีเสื้อบินอิสระ · Claude จระเข้เผือกโบอัน · Earthquake Simulator ที่สั่นแบบแผ่นดินไหว 1906 · Planetarium ต้องจองรอบล่วงหน้า</p>
@@ -687,6 +700,7 @@
           <div class="card-arrow">▼</div>
         </div>
         <div class="card-expand">
+          <img class="card-img" src="https://images.unsplash.com/photo-1641229919157-7e504c3ed8d1?w=600&h=180&fit=crop&auto=format" alt="Palace of Fine Arts" loading="lazy">
           <div class="card-detail">
             <p>อาคารสถาปัตยกรรมแบบ Greco-Roman สร้างปี 1915 สำหรับงาน Panama-Pacific Exposition ตั้งอยู่ริมทะเลสาบเล็กๆ มีหงส์ว่ายน้ำ เป็นหนึ่งในจุดถ่ายรูปที่สวยที่สุดใน SF</p>
             <p>สวยได้ทุกเวลาเพราะตัวสถาปัตยกรรมเป็นพระเอกอยู่แล้ว เดินรอบทะเลสาบ 15–20 นาที ไม่เหนื่อย ลมน้อยกว่าที่สะพาน อุ่นกว่า</p>
@@ -743,6 +757,7 @@
           <div class="card-arrow">▼</div>
         </div>
         <div class="card-expand">
+          <img class="card-img" src="https://images.unsplash.com/photo-1589636827967-6e160cd51272?w=600&h=180&fit=crop&auto=format" alt="Golden Gate Bridge" loading="lazy">
           <div class="card-detail">
             <p>หนึ่งในสะพานแขวนที่สวยที่สุดในโลก สร้างปี 1937 ยาว 2.7 กม. สูงจากน้ำ 67 เมตร สีส้มแดง International Orange เห็นชัดแม้ในหมอก</p>
             <p><strong>Tips:</strong> เดินข้ามฟรีฝั่ง East Walkway · ลมแรงมากใส่ jacket หนา · ไม่ต้องข้ามหมด เดินไป tower แรกแล้วกลับก็ได้</p>
@@ -770,6 +785,7 @@
           <div class="card-arrow">▼</div>
         </div>
         <div class="card-expand">
+          <img class="card-img" src="https://images.unsplash.com/photo-1502176468743-24a66d38ac0a?w=600&h=180&fit=crop&auto=format" alt="Bay Cruise Golden Gate" loading="lazy">
           <div class="card-detail">
             <p>ล่องเรือรอบอ่าว San Francisco Bay รอบ 17:30 = golden hour บนน้ำ! วิว Golden Gate Bridge ในแสงอุ่นสวยมากๆ + Alcatraz เกาะคุกในระยะใกล้ จบ ~18:30 พอดีก่อนมืด</p>
             <p>มี audio guide หลายภาษา ใช้มือถือเชื่อม WiFi บนเรือ อากาศบนเรือเย็นมาก <strong>ใส่ jacket + ผ้าพันคอเสมอ!</strong></p>
