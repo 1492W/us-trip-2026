@@ -153,24 +153,28 @@ function badge(l,bg){return '<span class="subway-badge" style="background:'+bg+'
 var days=[
   {
     title:"Midtown Manhattan",
+    en_title:"Midtown Manhattan",
     subtitle:"Arrival day — Red-eye B6716 JetBlue จาก SFO ถึง 08:38",
+    en_subtitle:"Arrival day — Red-eye B6716 JetBlue from SFO, arrives 08:38",
     weather:{
       icon:"\u{1F324}\u{FE0F}",
       summary:"เย็นสบาย ลมแรง มีเมฆบ้าง",
+      en_summary:"Cool & windy, partly cloudy",
       wind:"23 km/h",rain:"30%",sunrise:"06:27",sunset:"19:28",
       temps:[
-        {label:"ถึง JFK",time:"~08:38",deg:9,cls:"temp-cold"},
-        {label:"กลางวัน",time:"~14:00",deg:14,cls:"temp-warm"},
-        {label:"กลับโรงแรม",time:"~19:00",deg:10,cls:"temp-cold"}
+        {label:"ถึง JFK",en_label:"Arrive JFK",time:"~08:38",deg:9,cls:"temp-cold"},
+        {label:"กลางวัน",en_label:"Afternoon",time:"~14:00",deg:14,cls:"temp-warm"},
+        {label:"กลับโรงแรม",en_label:"Back to hotel",time:"~19:00",deg:10,cls:"temp-cold"}
       ],
-      outfit:"เช้า-เย็นหนาว ลมแรงตลอดวัน<br><strong>ใส่:</strong> แจ็คเก็ตกันลม + เสื้อแขนยาวข้างใน กางเกงขายาว ผ้าพันคอบาง รองเท้าผ้าใบเดินสบาย<br><strong>พก:</strong> ร่มพับเผื่อฝนโปรย"
+      outfit:"เช้า-เย็นหนาว ลมแรงตลอดวัน<br><strong>ใส่:</strong> แจ็คเก็ตกันลม + เสื้อแขนยาวข้างใน กางเกงขายาว ผ้าพันคอบาง รองเท้าผ้าใบเดินสบาย<br><strong>พก:</strong> ร่มพับเผื่อฝนโปรย",
+      en_outfit:"Cold morning & evening, windy all day<br><strong>Wear:</strong> Windbreaker + long sleeves underneath, long pants, light scarf, comfortable sneakers<br><strong>Bring:</strong> Foldable umbrella for possible drizzle"
     },
     stops:[
       {time:"08:38",name:"JFK Terminal 5",brief:"B6716 JetBlue Red-eye จาก SFO",color:"green",
         details:"<strong>B6716 JetBlue</strong> ออก SFO 23:55 (7 Apr) → ถึง JFK 08:38 (8 Apr) · 4 คน · Domestic ไม่ต้องผ่าน immigration รับกระเป๋าแล้วออกได้เลย ใช้เวลาออกจากสนามบินประมาณ 30–45 นาที",
         tip:"<strong>ไปโรงแรม:</strong> Taxi/Uber จาก JFK ไป WTC area ประมาณ 45–60 นาที ค่ารถ ~$70–80 (flat rate + toll) หรือ AirTrain → Jamaica → สาย "+badge("E","#2850AD")+" ไป WTC ประมาณ 70 นาที ราคา ~$10.75"},
       {time:"10:30",name:"Courtyard by Marriott WTC",brief:"Check-in / ฝากกระเป๋า · Ian จองให้",color:"blue",
-        details:"โรงแรมอยู่ใกล้สถานี Fulton St และ World Trade Center — hub ของหลายสาย subway เดินทางสะดวกมาก<br><br>⚠️ <strong>อย่าลืม Cancel Best Western Queens Court ก่อน 5 เมษา!</strong> จองไว้ใน Trip.com แต่จะพักที่นี่แทน",
+        details:"โรงแรมอยู่ใกล้สถานี Fulton St และ World Trade Center — hub ของหลายสาย subway เดินทางสะดวกมาก",
         tip:"<strong>ก่อนออก:</strong> เตรียมตัวเร็วเพราะ Broadway เริ่ม 13:00 ต้องออกจากโรงแรมไม่เกิน 12:20"},
       {time:"13:00",name:"Harry Potter on Broadway",brief:"Lyric Theatre, 214 W 43rd St — จองแล้ว",color:"accent",tag:{text:"Booked",cls:"tag-booked"},
         transit:subwayIcon+" Fulton St → Times Sq-42 St "+badge("2","#EE352E")+badge("3","#EE352E")+" — 15 นาที",
@@ -185,21 +189,26 @@ var days=[
         details:"MoMA อยู่ใกล้ Rockefeller มาก วันพุธเปิดถึง 17:30 — อาจไม่ทัน ถ้าไม่ทันเก็บไว้ดูวันศุกร์เย็นแทน (เปิดถึง 20:30)",
         tip:"<strong>กลับโรงแรม:</strong> จาก MoMA นั่ง "+badge("E","#2850AD")+" จาก 5 Av/53 St → WTC ตรง 20 นาที"}
     ],
-    notes:"วันแรกเดินทาง ไม่ยัดกิจกรรมมาก ถ้าเหนื่อยข้าม MoMA ได้เลย กลับพักเอาแรงไว้พรุ่งนี้"
+    notes:"วันแรกเดินทาง ไม่ยัดกิจกรรมมาก ถ้าเหนื่อยข้าม MoMA ได้เลย กลับพักเอาแรงไว้พรุ่งนี้",
+    en_notes:"Travel day — light schedule. Skip MoMA if tired, rest up for tomorrow"
   },
   {
     title:"Uptown — Art & Park",
+    en_title:"Uptown — Art & Park",
     subtitle:"วันที่ภูมิศาสตร์ลงตัวที่สุด ทุกอย่างอยู่ติดกัน",
+    en_subtitle:"Best geography day — everything is next to each other",
     weather:{
       icon:"\u{26C5}",
       summary:"อุ่นขึ้นเล็กน้อย เมฆสลับแดด",
+      en_summary:"Slightly warmer, partly cloudy",
       wind:"18 km/h",rain:"25%",sunrise:"06:26",sunset:"19:29",
       temps:[
-        {label:"ออกจากโรงแรม",time:"~09:30",deg:9,cls:"temp-cold"},
-        {label:"กลางวัน",time:"~14:00",deg:15,cls:"temp-warm"},
-        {label:"กลับโรงแรม",time:"~18:00",deg:12,cls:"temp-cool"}
+        {label:"ออกจากโรงแรม",en_label:"Leave hotel",time:"~09:30",deg:9,cls:"temp-cold"},
+        {label:"กลางวัน",en_label:"Afternoon",time:"~14:00",deg:15,cls:"temp-warm"},
+        {label:"กลับโรงแรม",en_label:"Back to hotel",time:"~18:00",deg:12,cls:"temp-cool"}
       ],
-      outfit:"เช้าเย็นจัด กลางวันอุ่นขึ้นชัด<br><strong>ใส่:</strong> Layering — เสื้อยืด + เสื้อคลุมบาง/hoodie + แจ็คเก็ตเบาถอดได้ตอนบ่าย กางเกงขายาว รองเท้าเดินสบาย (วันนี้เดินเยอะ)<br><strong>พก:</strong> หมวกกันแดด + แว่นตากันแดดสำหรับ Central Park"
+      outfit:"เช้าเย็นจัด กลางวันอุ่นขึ้นชัด<br><strong>ใส่:</strong> Layering — เสื้อยืด + เสื้อคลุมบาง/hoodie + แจ็คเก็ตเบาถอดได้ตอนบ่าย กางเกงขายาว รองเท้าเดินสบาย (วันนี้เดินเยอะ)<br><strong>พก:</strong> หมวกกันแดด + แว่นตากันแดดสำหรับ Central Park",
+      en_outfit:"Cold morning/evening, noticeably warmer midday<br><strong>Wear:</strong> Layering — T-shirt + hoodie/light layer + removable jacket for afternoon, long pants, comfortable walking shoes (lots of walking today)<br><strong>Bring:</strong> Sun hat + sunglasses for Central Park"
     },
     stops:[
       {time:"10:00",name:"The Metropolitan Museum of Art",brief:"พิพิธภัณฑ์ศิลปะระดับโลก — 2.5–3 ชม.",color:"accent",tag:{text:"Highlight",cls:"tag-booked"},
@@ -218,21 +227,26 @@ var days=[
         details:"5th Ave โซน 59th–49th St มี flagship stores: Apple, Tiffany, Saks Fifth Avenue, Bergdorf Goodman หรือจะนั่งพักดู street performers แถว Grand Army Plaza ก็ได้",
         tip:"<strong>กลับโรงแรม:</strong> นั่ง "+badge("E","#2850AD")+" จาก 53 St หรือ "+badge("4","#00933C")+badge("5","#00933C")+" จาก 59 St → Fulton St — 20 นาที"}
     ],
-    notes:"The Met กับ Central Park อยู่ติดกัน เดินข้ามถนนถึง วันนี้เดินเยอะ เตรียมรองเท้าสบายๆ"
+    notes:"The Met กับ Central Park อยู่ติดกัน เดินข้ามถนนถึง วันนี้เดินเยอะ เตรียมรองเท้าสบายๆ",
+    en_notes:"The Met and Central Park are right across the street. Lots of walking today — wear comfortable shoes"
   },
   {
     title:"Uptown → Downtown",
+    en_title:"Uptown → Downtown",
     subtitle:"ไหลจากเหนือลงใต้เป็นเส้นเดียว ไม่ย้อนกลับ",
+    en_subtitle:"Flowing north to south in one line — no backtracking",
     weather:{
       icon:"\u{2600}\u{FE0F}",
       summary:"แดดดี อากาศดีที่สุดใน 3 วัน",
+      en_summary:"Sunny! Best weather of the 3 days",
       wind:"14 km/h",rain:"15%",sunrise:"06:24",sunset:"19:30",
       temps:[
-        {label:"ออกจากโรงแรม",time:"~09:00",deg:8,cls:"temp-cold"},
-        {label:"กลางวัน",time:"~14:00",deg:17,cls:"temp-warm"},
-        {label:"กลับโรงแรม",time:"~20:30",deg:10,cls:"temp-cold"}
+        {label:"ออกจากโรงแรม",en_label:"Leave hotel",time:"~09:00",deg:8,cls:"temp-cold"},
+        {label:"กลางวัน",en_label:"Afternoon",time:"~14:00",deg:17,cls:"temp-warm"},
+        {label:"กลับโรงแรม",en_label:"Back to hotel",time:"~20:30",deg:10,cls:"temp-cold"}
       ],
-      outfit:"เช้าหนาว กลางวันอุ่น เย็นหนาวอีกครั้ง + ลมแรงบนเรือ<br><strong>ใส่:</strong> เสื้อยืด + เสื้อคลุม + แจ็คเก็ตกันลม (สำคัญมากสำหรับ Ferry) กางเกงขายาว รองเท้าเดินสบายที่สุด<br><strong>พก:</strong> ผ้าพันคอ/หมวกไหมพรมเผื่อขึ้นเรือตอนเย็น (บนเรือรู้สึก ~6°C)"
+      outfit:"เช้าหนาว กลางวันอุ่น เย็นหนาวอีกครั้ง + ลมแรงบนเรือ<br><strong>ใส่:</strong> เสื้อยืด + เสื้อคลุม + แจ็คเก็ตกันลม (สำคัญมากสำหรับ Ferry) กางเกงขายาว รองเท้าเดินสบายที่สุด<br><strong>พก:</strong> ผ้าพันคอ/หมวกไหมพรมเผื่อขึ้นเรือตอนเย็น (บนเรือรู้สึก ~6°C)",
+      en_outfit:"Cold morning, warm midday, cold again in evening + very windy on ferry<br><strong>Wear:</strong> T-shirt + layer + windbreaker (essential for Ferry), long pants, most comfortable walking shoes<br><strong>Bring:</strong> Scarf/beanie for the evening ferry ride (feels like ~6°C on the water)"
     },
     stops:[
       {time:"10:00",name:"Natural History Museum",brief:"ไดโนเสาร์ อวกาศ สัตว์ป่า — 2.5 ชม.",color:"green",
@@ -262,21 +276,32 @@ var days=[
         details:"MoMA วันศุกร์เปิดถึง 20:30 ถึง 18:30 ยังมีเวลาดู 2 ชม. ไฮไลท์: The Starry Night (Van Gogh ชั้น 5), Campbell's Soup Cans (Warhol), Les Demoiselles d'Avignon (Picasso)",
         tip:"<strong>ตั๋ว:</strong> NY resident ฟรี 17:30–20:30 (จองล่วงหน้า) / tourist $30 ซื้อหน้างานหรือออนไลน์<br><strong>กลับโรงแรม:</strong> สาย "+badge("E","#2850AD")+" จาก 5 Av/53 St → WTC ตรง 15 นาที"}
     ],
-    notes:"เส้นทาง: Upper West Side → Midtown → Brooklyn → Lower Manhattan → Midtown — ไหลทางเดียว ถ้าเหนื่อยตัด Morgan Library ออกได้<br><br>🚌 <strong>พรุ่งนี้ 11 Apr:</strong> Checkout เช้า → CoachRun Bus 10:00 จาก 201 W 37th St (CVS) → Washington DC ถึง 14:30 (4.5 ชม.) · 4 คน $79.49"
+    notes:"เส้นทาง: Upper West Side → Midtown → Brooklyn → Lower Manhattan → Midtown — ไหลทางเดียว ถ้าเหนื่อยตัด Morgan Library ออกได้<br><br>🚌 <strong>พรุ่งนี้ 11 Apr:</strong> Checkout เช้า → CoachRun Bus 10:00 จาก 201 W 37th St (CVS) → Washington DC ถึง 14:30 (4.5 ชม.) · 4 คน $79.49",
+    en_notes:"Route: Upper West Side → Midtown → Brooklyn → Lower Manhattan → Midtown — one direction, no backtracking. Cut Morgan Library if tired<br><br>🚌 <strong>Tomorrow 11 Apr:</strong> Checkout morning → CoachRun Bus 10:00 from 201 W 37th St (CVS) → Washington DC arrives 14:30 (4.5 hrs) · 4 people $79.49"
   }
 ];
 
+var isEN=false;
+function toggleLang(){
+  isEN=!isEN;
+  var btn=document.getElementById('langBtn');
+  btn.textContent=isEN?'TH 🇹🇭':'EN 🇺🇸';
+  // Re-render current day
+  var active=document.querySelector('.tab.active');
+  var idx=Array.from(document.querySelectorAll('.tab')).indexOf(active);
+  showDay(idx);
+}
 function showDay(idx){
   document.querySelectorAll('.tab').forEach(function(t,i){t.classList.toggle('active',i===idx)});
   var d=days[idx],c=document.getElementById('content');
-  var h='<div class="fade-section"><div class="day-hdr"><h2>'+d.title+'</h2><p>'+d.subtitle+'</p></div>';
+  var h='<div class="fade-section"><div class="day-hdr"><h2>'+(isEN?(d.en_title||d.title):d.title)+'</h2><p>'+(isEN?(d.en_subtitle||d.subtitle):d.subtitle)+'</p></div>';
 
   // Weather card
   var w=d.weather;
   h+='<div class="weather-card">';
   h+='<div class="weather-top">';
   h+='<div class="weather-icon">'+w.icon+'</div>';
-  h+='<div class="weather-summary"><div class="weather-summary-title">'+w.summary+'</div>';
+  h+='<div class="weather-summary"><div class="weather-summary-title">'+(isEN?(w.en_summary||w.summary):w.summary)+'</div>';
   h+='<div class="weather-meta">';
   h+='<div class="weather-meta-item">\u{1F4A8} <span>'+w.wind+'</span></div>';
   h+='<div class="weather-meta-item">\u{1F327}\u{FE0F} <span>'+w.rain+'</span></div>';
@@ -288,7 +313,7 @@ function showDay(idx){
   h+='<div class="temp-timeline">';
   w.temps.forEach(function(t){
     h+='<div class="temp-slot '+t.cls+'">';
-    h+='<div class="temp-slot-label">'+t.label+'</div>';
+    h+='<div class="temp-slot-label">'+(isEN?(t.en_label||t.label):t.label)+'</div>';
     h+='<div class="temp-slot-time">'+t.time+'</div>';
     h+='<div class="temp-slot-deg">'+t.deg+'°<small>C</small></div>';
     h+='</div>';
@@ -296,9 +321,9 @@ function showDay(idx){
   h+='</div>';
 
   // Outfit
-  h+='<div class="outfit-box"><div class="outfit-label">\u{1F9E5} แนะนำการแต่งตัว</div><div class="outfit-text">'+w.outfit+'</div></div>';
+  h+='<div class="outfit-box"><div class="outfit-label">'+(isEN?'\u{1F9E5} What to Wear':'\u{1F9E5} แนะนำการแต่งตัว')+'</div><div class="outfit-text">'+(isEN?(w.en_outfit||w.outfit):w.outfit)+'</div></div>';
   h+='</div>';
-  h+='<div class="forecast-note">* พยากรณ์ล่วงหน้า — เช็คอีกครั้งก่อนเดินทาง</div>';
+  h+='<div class="forecast-note">'+(isEN?'* Forecast — check again before travel':'* พยากรณ์ล่วงหน้า — เช็คอีกครั้งก่อนเดินทาง')+'</div>';
 
   // Timeline
   h+='<div class="tl">';
@@ -313,12 +338,12 @@ function showDay(idx){
     if(s.tag) h+='<span class="stop-tag '+s.tag.cls+'">'+s.tag.text+'</span>';
     h+='</div><svg class="stop-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>';
     h+='<div class="stop-details"><div class="stop-inner">';
-    if(s.details) h+='<div class="detail-section"><div class="detail-label">\u{1F4CD} รายละเอียด</div><div class="detail-text">'+s.details+'</div></div>';
+    if(s.details) h+='<div class="detail-section"><div class="detail-label">'+(isEN?'\u{1F4CD} Details':'\u{1F4CD} รายละเอียด')+'</div><div class="detail-text">'+s.details+'</div></div>';
     if(s.tip) h+='<div class="tip-box">'+s.tip+'</div>';
     h+='</div></div></div></div>';
   });
 
-  h+='</div><div class="notes-box"><h4>\u{1F4DD} Note</h4><p>'+d.notes+'</p></div></div>';
+  h+='</div><div class="notes-box"><h4>\u{1F4DD} Note</h4><p>'+(isEN?(d.en_notes||d.notes):d.notes)+'</p></div></div>';
   c.innerHTML=h;
   window.scrollTo({top:0,behavior:'smooth'});
 }
