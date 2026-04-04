@@ -1367,13 +1367,13 @@ function toggle(card) {
 var pTrans = {
   'd0':'SF is unusually warm today at 23°C! Cools down quickly by the water at night<br><strong>Wear:</strong> T-shirt + light jacket, long pants, walking shoes<br><strong>Bring:</strong> Light jacket is enough — Wharf wind isn\'t too cold tonight',
   'd1':'Starting at Golden Gate this morning. Windy ~10°C at the bridge<br><strong>Wear:</strong> Layering — T-shirt + hoodie + windbreaker, long pants, walking shoes (lots of walking)<br><strong>Bring:</strong> Scarf/beanie for Golden Gate wind · Afternoon remove jacket, 19°C is comfortable',
-  'd2':'Easter Sunday!</strong> Some stores may be closed (e.g. Ross) but <strong>museums are open as usual</strong> Today focuses on nature + museums — no impact',
-  'd3':'Muni 1-Day Visitor Passport $14/person</strong> — Buy via MuniMobile app. Unlimited bus, F-Line, Cable Car all day · Kids under 18 ride free (except Cable Car $9)',
+  'd2':'<strong>Easter Sunday!</strong> Some stores may be closed (e.g. Ross) but <strong>museums are open as usual</strong> Today focuses on nature + museums — no impact',
+  'd3':'<strong>Muni 1-Day Visitor Passport $14/person</strong> — Buy via MuniMobile app. Unlimited bus, F-Line, Cable Car all day · Kids under 18 ride free (except Cable Car $9)',
   'd4':'Cooler than yesterday! Academy (indoor) → Shopping → Bay Cruise is very windy<br><strong>Wear:</strong> Medium-weight jacket + long sleeves, long pants, walking shoes<br><strong>Bring:</strong> Scarf/beanie for Bay Cruise — very windy! Everyone must have one',
-  'd5':'CityPASS Day:</strong> Use 2 of 4 today — Academy + Bay Cruise (18:30 golden hour + sunset!)',
-  'd6':'Muni 1-Day Visitor Passport $14/person</strong> — Buy via MuniMobile app, Day 2 · Kids under 18 ride free (except Cable Car $9)',
-  'd7':'Monday:</strong> Exploratorium closed ✓ · <strong>Book California Academy tickets in advance — required</strong>',
-  'd8':'Arrive Pier 39 before 18:00!</strong> Exchange CityPASS QR at Box Office before 18:30 departure · Walk-in OK but may miss if crowded · Watch Sea Lions while waiting',
+  'd5':'<strong>CityPASS Day:</strong> Use 2 of 4 today — Academy + Bay Cruise (18:30 golden hour + sunset!)',
+  'd6':'<strong>Muni 1-Day Visitor Passport $14/person</strong> — Buy via MuniMobile app, Day 2 · Kids under 18 ride free (except Cable Car $9)',
+  'd7':'<strong>Monday:</strong> Exploratorium closed ✓ · <strong>Book California Academy tickets in advance — required</strong>',
+  'd8':'<strong>Arrive Pier 39 before 18:00!</strong> Exchange CityPASS QR at Box Office before 18:30 departure · Walk-in OK but may miss if crowded · Watch Sea Lions while waiting',
   'd9':'Coolest day of the trip. Silicon Valley slightly warmer than SF. Windy at the coast<br><strong>Wear:</strong> Long sleeves + jacket, long pants, comfortable shoes<br><strong>Bring:</strong> Keep jacket in car for Pedro Point/Half Moon Bay wind. Sunscreen for Stanford',
   'd10':'<strong>Driving all day</strong> · Return car at SFO before 22:00 · Intel Museum closes 17:00 — visit before Google and CHM',
   'p0':'<strong>Night before 3 Apr:</strong> CNX → BKK · TG121 Thai Airways · 21:10–22:30 · 3 people (฿5,175)',
@@ -1409,16 +1409,19 @@ function toggleLang() {
   btn.textContent = isEN ? 'TH 🇹🇭' : 'EN 🇺🇸';
   
   document.querySelectorAll('[data-en]').forEach(el => {
-    const useHTML = el.classList.contains('note-text') || el.classList.contains('outfit-text');
     if (isEN) {
-      if (!el.dataset.th) el.dataset.th = useHTML ? el.innerHTML : el.textContent;
-      if (useHTML) { let t = el.dataset.en; t = t.replace(/&lt;/g,'<').replace(/&gt;/g,'>'); el.innerHTML = t; }
-      else el.textContent = el.dataset.en;
+      if (!el.dataset.th) el.dataset.th = el.innerHTML;
+      el.innerHTML = el.dataset.en;
     } else {
-      if (el.dataset.th) {
-        if (useHTML) el.innerHTML = el.dataset.th;
-        else el.textContent = el.dataset.th;
-      }
+      if (el.dataset.th) el.innerHTML = el.dataset.th;
+    }
+  });
+  document.querySelectorAll('[data-tid]').forEach(el => {
+    if (isEN) {
+      if (!el.dataset.th) el.dataset.th = el.innerHTML;
+      el.innerHTML = pTrans[el.dataset.tid] || el.innerHTML;
+    } else {
+      if (el.dataset.th) el.innerHTML = el.dataset.th;
     }
   });
 }
