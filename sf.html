@@ -208,15 +208,15 @@
 <body>
 
 <div class="hero">
-  <a href="index.html" class="badge" style="text-decoration:none">✈ Family Trip 2026</a>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px"><a href="index.html" class="badge" style="text-decoration:none;margin-bottom:0">✈ Family Trip 2026</a><button onclick="toggleLang()" id="langBtn" style="background:rgba(232,160,48,.15);border:1px solid rgba(232,160,48,.4);color:var(--gold);font-size:11px;font-weight:600;letter-spacing:2px;padding:6px 14px;border-radius:20px;cursor:pointer">EN 🇺🇸</button></div>
   <h1>San Francisco<span>Road Trip</span></h1>
-  <p class="hero-sub">แตะแต่ละสถานที่เพื่อดูรายละเอียด + สภาพอากาศแต่ละวัน</p>
+  <p class="hero-sub" data-en="Tap each place for details + daily weather">แตะแต่ละสถานที่เพื่อดูรายละเอียด + สภาพอากาศแต่ละวัน</p>
   <div class="hero-stats">
-    <div class="stat"><div class="stat-num">4</div><div class="stat-label">วัน</div></div>
+    <div class="stat"><div class="stat-num">4</div><div class="stat-label" data-en="Days">วัน</div></div>
     <div class="stat-div"></div>
-    <div class="stat"><div class="stat-num">4</div><div class="stat-label">คน</div></div>
+    <div class="stat"><div class="stat-num">4</div><div class="stat-label" data-en="People">คน</div></div>
     <div class="stat-div"></div>
-    <div class="stat"><div class="stat-num">20+</div><div class="stat-label">จุด</div></div>
+    <div class="stat"><div class="stat-num">20+</div><div class="stat-label" data-en="Places">จุด</div></div>
   </div>
   <div style="display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-size:12px;color:var(--mist);background:var(--navy2);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:8px 14px">
     🏨 Hotel Caza Fisherman Wharf — Airbnb
@@ -224,11 +224,11 @@
 </div>
 
 <div class="tabs">
-  <button class="tab active" onclick="showDay('d0',this)">Day 0 เสาร์</button>
-  <button class="tab" onclick="showDay('d1',this)">Day 1 อาทิตย์</button>
-  <button class="tab" onclick="showDay('d2',this)">Day 2 จันทร์</button>
-  <button class="tab" onclick="showDay('d3',this)">Day 3 Silicon Valley</button>
-  <button class="tab" onclick="showDay('ck',this)">✅ Checklist</button>
+  <button class="tab active" onclick="showDay('d0',this)" data-en="Day 0 Sat · Arrival">Day 0 เสาร์</button>
+  <button class="tab" onclick="showDay('d1',this)" data-en="Day 1 Sun · Easter">Day 1 อาทิตย์</button>
+  <button class="tab" onclick="showDay('d2',this)" data-en="Day 2 Mon">Day 2 จันทร์</button>
+  <button class="tab" onclick="showDay('d3',this)" data-en="Day 3 Silicon Valley">Day 3 Silicon Valley</button>
+  <button class="tab" onclick="showDay('ck',this)" data-en="✅ Checklist">✅ Checklist</button>
 </div>
 
 <div class="days-wrap">
@@ -237,7 +237,7 @@
 <div id="d0" class="day-sec active">
   <div class="day-header">
     <div class="day-num">Day 0</div>
-    <div><div class="day-title">วันเดินทางมาถึง</div><div class="day-sub">SFO → Lombard Street → Fisherman's Wharf</div></div>
+    <div><div class="day-title" data-en="Arrival Day">วันเดินทางมาถึง</div><div class="day-sub">SFO → Lombard Street → Fisherman's Wharf</div></div>
   </div>
 
   <div class="weather-card">
@@ -275,7 +275,7 @@
           <div class="card-ico">✈️</div>
           <div class="card-info">
             <div class="card-time">3–4 Apr</div>
-            <div class="card-title">เชียงใหม่ → กรุงเทพ → โฮจิมินห์ → SFO</div>
+            <div class="card-title" data-en="Chiang Mai → Bangkok → Ho Chi Minh → SFO">เชียงใหม่ → กรุงเทพ → โฮจิมินห์ → SFO</div>
             <div class="card-brief">TG121 + VN600 + VN098 · 4 คน · Trip.com</div>
           </div>
           <div class="card-arrow">▼</div>
@@ -302,7 +302,7 @@
           <div class="card-ico">🛬</div>
           <div class="card-info">
             <div class="card-time">17:55</div>
-            <div class="card-title">ถึง SFO — รับกระเป๋า + Immigration</div>
+            <div class="card-title" data-en="Arrive SFO — Baggage + Immigration">ถึง SFO — รับกระเป๋า + Immigration</div>
             <div class="card-brief">International Terminal · เผื่อเวลา 1–1.5 ชม.</div>
           </div>
           <div class="card-arrow">▼</div>
@@ -329,7 +329,7 @@
           <div class="card-ico">🏨</div>
           <div class="card-info">
             <div class="card-time">19:15</div>
-            <div class="card-title">Hotel Caza Fisherman Wharf</div>
+            <div class="card-title" data-en="Hotel Caza Fisherman Wharf">Hotel Caza Fisherman Wharf</div>
             <div class="card-brief">Check-in / ฝากกระเป๋า · จองผ่าน Airbnb</div>
           </div>
           <div class="card-arrow">▼</div>
@@ -358,8 +358,8 @@
           <div class="card-ico">🌀</div>
           <div class="card-info">
             <div class="card-time">19:30</div>
-            <div class="card-title">Lombard Street</div>
-            <div class="card-brief">ถนนคดเคี้ยว 8 โค้ง สัญลักษณ์ SF</div>
+            <div class="card-title" data-en="Lombard Street">Lombard Street</div>
+            <div class="card-brief" data-en="Crooked street with 8 hairpin turns">ถนนคดเคี้ยว 8 โค้ง สัญลักษณ์ SF</div>
           </div>
           <div class="card-arrow">▼</div>
         </div>
@@ -387,8 +387,8 @@
           <div class="card-ico">🥣</div>
           <div class="card-info">
             <div class="card-time">20:15</div>
-            <div class="card-title">Boudin Bakery — มื้อแรก!</div>
-            <div class="card-brief">Clam Chowder in Sourdough Bread Bowl · counter service ไม่ต้องทิป</div>
+            <div class="card-title" data-en="Boudin Bakery — First Meal!">Boudin Bakery — มื้อแรก!</div>
+            <div class="card-brief" data-en="Clam Chowder in Sourdough Bread Bowl · counter service, no tip needed">Clam Chowder in Sourdough Bread Bowl · counter service ไม่ต้องทิป</div>
           </div>
           <div class="card-arrow">▼</div>
         </div>
@@ -461,7 +461,7 @@
           <div class="card-ico">🔭</div>
           <div class="card-info">
             <div class="card-time">8:30</div>
-            <div class="card-title">Golden Gate Overlook</div>
+            <div class="card-title" data-en="Golden Gate Overlook">Golden Gate Overlook</div>
             <div class="card-brief">จุดชมวิวมุมตรงหน้าสะพาน · golden hour เริ่มสวย</div>
           </div>
           <div class="card-arrow">▼</div>
@@ -492,8 +492,8 @@
           <div class="card-ico">🌉</div>
           <div class="card-info">
             <div class="card-time">9:00</div>
-            <div class="card-title">Golden Gate Bridge</div>
-            <div class="card-brief">เดินบนสะพาน · แสงบ่ายอุ่นสวย</div>
+            <div class="card-title" data-en="Golden Gate Bridge">Golden Gate Bridge</div>
+            <div class="card-brief" data-en="Walk on the bridge · beautiful warm afternoon light">เดินบนสะพาน · แสงบ่ายอุ่นสวย</div>
           </div>
           <div class="card-arrow">▼</div>
         </div>
@@ -522,8 +522,8 @@
           <div class="card-ico">🏛️</div>
           <div class="card-info">
             <div class="card-time">9:45</div>
-            <div class="card-title">Palace of Fine Arts</div>
-            <div class="card-brief">อาคารโรมันกรีก ริมทะเลสาบ · มุมถ่ายรูป iconic</div>
+            <div class="card-title" data-en="Palace of Fine Arts">Palace of Fine Arts</div>
+            <div class="card-brief" data-en="Greco-Roman building by lagoon · iconic photo spot">อาคารโรมันกรีก ริมทะเลสาบ · มุมถ่ายรูป iconic</div>
           </div>
           <div class="card-arrow">▼</div>
         </div>
@@ -552,8 +552,8 @@
           <div class="card-ico">🥘</div>
           <div class="card-info">
             <div class="card-time">11:00</div>
-            <div class="card-title">Ferry Building Marketplace</div>
-            <div class="card-brief">Brunch ริมอ่าว · วิว Bay Bridge · ไม่ต้องรีบ</div>
+            <div class="card-title" data-en="Ferry Building Marketplace">Ferry Building Marketplace</div>
+            <div class="card-brief" data-en="Brunch by the bay · Bay Bridge views · take your time">Brunch ริมอ่าว · วิว Bay Bridge · ไม่ต้องรีบ</div>
           </div>
           <div class="card-arrow">▼</div>
         </div>
@@ -581,8 +581,8 @@
           <div class="card-ico">🔬</div>
           <div class="card-info">
             <div class="card-time">12:00</div>
-            <div class="card-title">Exploratorium</div>
-            <div class="card-brief">Pier 15 · hands-on science 600+ นิทรรศการ</div>
+            <div class="card-title" data-en="Exploratorium">Exploratorium</div>
+            <div class="card-brief" data-en="Pier 15 · 600+ hands-on science exhibits">Pier 15 · hands-on science 600+ นิทรรศการ</div>
           </div>
           <div class="card-arrow">▼</div>
         </div>
@@ -612,8 +612,8 @@
           <div class="card-ico">🎨</div>
           <div class="card-info">
             <div class="card-time">15:00</div>
-            <div class="card-title">SFMOMA</div>
-            <div class="card-brief">151 Third St · ศิลปะ modern/contemporary 7 ชั้น</div>
+            <div class="card-title" data-en="SFMOMA">SFMOMA</div>
+            <div class="card-brief" data-en="151 Third St · 7 floors of modern/contemporary art">151 Third St · ศิลปะ modern/contemporary 7 ชั้น</div>
           </div>
           <div class="card-arrow">▼</div>
         </div>
@@ -642,8 +642,8 @@
           <div class="card-ico">🏢</div>
           <div class="card-info">
             <div class="card-time">17:00</div>
-            <div class="card-title">Salesforce Tower + Anthropic HQ</div>
-            <div class="card-brief">ตึกสูงสุดใน SF · Anthropic ห่าง 300m</div>
+            <div class="card-title" data-en="Salesforce Tower + Anthropic HQ">Salesforce Tower + Anthropic HQ</div>
+            <div class="card-brief" data-en="Tallest building in SF · Anthropic 300m away">ตึกสูงสุดใน SF · Anthropic ห่าง 300m</div>
           </div>
           <div class="card-arrow">▼</div>
         </div>
@@ -672,8 +672,8 @@
           <div class="card-ico">🚃</div>
           <div class="card-info">
             <div class="card-time">18:00</div>
-            <div class="card-title">Powell-Hyde Cable Car</div>
-            <div class="card-brief">Highlight ของทริป! นั่งกลับโรงแรม</div>
+            <div class="card-title" data-en="Powell-Hyde Cable Car">Powell-Hyde Cable Car</div>
+            <div class="card-brief" data-en="Trip highlight! Ride back to hotel">Highlight ของทริป! นั่งกลับโรงแรม</div>
           </div>
           <div class="card-arrow">▼</div>
         </div>
@@ -699,7 +699,7 @@
 <div id="d2" class="day-sec">
   <div class="day-header">
     <div class="day-num">Day 2</div>
-    <div><div class="day-title">Academy + ช้อปปิ้ง + Bay Cruise</div><div class="day-sub">Academy · Union Square · Ross · Pop Mart · Bay Cruise · Chinatown</div></div>
+    <div><div class="day-title" data-en="Academy + Shopping + Bay Cruise">Academy + ช้อปปิ้ง + Bay Cruise</div><div class="day-sub">Academy · Union Square · Ross · Pop Mart · Bay Cruise · Chinatown</div></div>
   </div>
   
   <div class="weather-card">
@@ -740,8 +740,8 @@
           <div class="card-ico">🌿</div>
           <div class="card-info">
             <div class="card-time">9:30</div>
-            <div class="card-title">California Academy of Sciences</div>
-            <div class="card-brief">Aquarium + Planetarium + Rainforest 4 ชั้น</div>
+            <div class="card-title" data-en="California Academy of Sciences">California Academy of Sciences</div>
+            <div class="card-brief" data-en="Aquarium + Planetarium + 4-story Rainforest">Aquarium + Planetarium + Rainforest 4 ชั้น</div>
           </div>
           <div class="card-arrow">▼</div>
         </div>
@@ -769,8 +769,8 @@
           <div class="card-ico">🛍️</div>
           <div class="card-info">
             <div class="card-time">15:00</div>
-            <div class="card-title">Union Square + Pop Mart + Ross</div>
-            <div class="card-brief">ช้อปปิ้ง · Pop Mart blind box · Ross ของถูก</div>
+            <div class="card-title" data-en="Union Square + Pop Mart + Ross">Union Square + Pop Mart + Ross</div>
+            <div class="card-brief" data-en="Shopping · Pop Mart blind box · Ross bargains">ช้อปปิ้ง · Pop Mart blind box · Ross ของถูก</div>
           </div>
           <div class="card-arrow">▼</div>
         </div>
@@ -800,8 +800,8 @@
           <div class="card-ico">🏮</div>
           <div class="card-info">
             <div class="card-time">16:45</div>
-            <div class="card-title">Chinatown</div>
-            <div class="card-brief">ประตูมังกร · Good Mong Kok Bakery · ถ่ายรูปตอนยังสว่าง</div>
+            <div class="card-title" data-en="Chinatown">Chinatown</div>
+            <div class="card-brief" data-en="Dragon Gate · Good Mong Kok Bakery · photos while still bright">ประตูมังกร · Good Mong Kok Bakery · ถ่ายรูปตอนยังสว่าง</div>
           </div>
           <div class="card-arrow">▼</div>
         </div>
@@ -832,7 +832,7 @@
           <div class="card-info">
             <div class="card-time">18:30</div>
             <div class="card-title">Blue & Gold Fleet Bay Cruise</div>
-            <div class="card-brief">Golden hour + sunset บนเรือ! ชม Golden Gate + Alcatraz 1 ชม.</div>
+            <div class="card-brief" data-en="Golden hour + sunset cruise! Golden Gate + Alcatraz 1 hr">Golden hour + sunset บนเรือ! ชม Golden Gate + Alcatraz 1 ชม.</div>
           </div>
           <div class="card-arrow">▼</div>
         </div>
@@ -861,8 +861,8 @@
           <div class="card-ico">🍝</div>
           <div class="card-info">
             <div class="card-time">19:45</div>
-            <div class="card-title">Italian Homemade — Columbus Ave</div>
-            <div class="card-brief">North Beach · Pasta สดทำเอง</div>
+            <div class="card-title" data-en="Italian Homemade — Columbus Ave">Italian Homemade — Columbus Ave</div>
+            <div class="card-brief" data-en="North Beach · Fresh handmade pasta">North Beach · Pasta สดทำเอง</div>
           </div>
           <div class="card-arrow">▼</div>
         </div>
@@ -886,7 +886,7 @@
 <div id="d3" class="day-sec">
   <div class="day-header">
     <div class="day-num">Day 3</div>
-    <div><div class="day-title">Silicon Valley Road Trip</div><div class="day-sub">Hertz 325 Mason St · Highway 1 · Stanford · Tech · คืนรถ SFO · Red-eye ไป NYC</div></div>
+    <div><div class="day-title" data-en="Silicon Valley Road Trip">Silicon Valley Road Trip</div><div class="day-sub">Hertz 325 Mason St · Highway 1 · Stanford · Tech · คืนรถ SFO · Red-eye ไป NYC</div></div>
   </div>
   
   <div class="weather-card">
@@ -926,7 +926,7 @@
           <div class="card-ico">🌊</div>
           <div class="card-info">
             <div class="card-time">8:45</div>
-            <div class="card-title">Pedro Point</div>
+            <div class="card-title" data-en="Pedro Point">Pedro Point</div>
             <div class="card-brief">แหลมชมวิวแปซิฟิก · หมอก · บรรยากาศ NorCal</div>
           </div>
           <div class="card-arrow">▼</div>
@@ -954,7 +954,7 @@
           <div class="card-ico">🏖️</div>
           <div class="card-info">
             <div class="card-time">9:15</div>
-            <div class="card-title">Half Moon Bay</div>
+            <div class="card-title" data-en="Half Moon Bay">Half Moon Bay</div>
             <div class="card-brief">หาดทราย · ชายฝั่ง Pacific · กาแฟ</div>
           </div>
           <div class="card-arrow">▼</div>
@@ -982,7 +982,7 @@
           <div class="card-ico">🌲</div>
           <div class="card-info">
             <div class="card-time">10:05</div>
-            <div class="card-title">Redwood Regional Park</div>
+            <div class="card-title" data-en="Redwood Regional Park">Redwood Regional Park</div>
             <div class="card-brief">ต้น Redwood อายุพันปี สูง 100+ เมตร</div>
           </div>
           <div class="card-arrow">▼</div>
@@ -1014,7 +1014,7 @@
           <div class="card-ico">🏛️</div>
           <div class="card-info">
             <div class="card-time">11:10</div>
-            <div class="card-title">Stanford University</div>
+            <div class="card-title" data-en="Stanford University">Stanford University</div>
             <div class="card-brief">Main Quad · Hoover Tower · มหาลัยสวยที่สุด</div>
           </div>
           <div class="card-arrow">▼</div>
@@ -1043,7 +1043,7 @@
           <div class="card-ico">💻</div>
           <div class="card-info">
             <div class="card-time">12:00 ⚠️</div>
-            <div class="card-title">Intel Museum — เข้าก่อน!</div>
+            <div class="card-title" data-en="Intel Museum — Go First!">Intel Museum — เข้าก่อน!</div>
             <div class="card-brief">ฟรี · semiconductor · ปิด 17:00</div>
           </div>
           <div class="card-arrow">▼</div>
@@ -1071,7 +1071,7 @@
           <div class="card-ico">🔍</div>
           <div class="card-info">
             <div class="card-time">13:15</div>
-            <div class="card-title">Google Visitor Experience + กลางวัน</div>
+            <div class="card-title" data-en="Google Visitor Experience + Lunch">Google Visitor Experience + กลางวัน</div>
             <div class="card-brief">Mountain View · merch · Android figures</div>
           </div>
           <div class="card-arrow">▼</div>
@@ -1099,7 +1099,7 @@
           <div class="card-ico">🖥️</div>
           <div class="card-info">
             <div class="card-time">14:45</div>
-            <div class="card-title">Computer History Museum ⭐</div>
+            <div class="card-title" data-en="Computer History Museum ⭐">Computer History Museum ⭐</div>
             <div class="card-brief">ไฮไลต์วันนี้ · abacus → AI · เกมเก่าเล่นได้</div>
           </div>
           <div class="card-arrow">▼</div>
@@ -1129,7 +1129,7 @@
           <div class="card-ico">🍎</div>
           <div class="card-info">
             <div class="card-time">16:45</div>
-            <div class="card-title">Apple Park Visitor Center</div>
+            <div class="card-title" data-en="Apple Park Visitor Center">Apple Park Visitor Center</div>
             <div class="card-brief">Cupertino · ชม Spaceship campus · merch</div>
           </div>
           <div class="card-arrow">▼</div>
@@ -1158,7 +1158,7 @@
           <div class="card-ico">👍</div>
           <div class="card-info">
             <div class="card-time">17:30</div>
-            <div class="card-title">Meta HQ</div>
+            <div class="card-title" data-en="Meta HQ">Meta HQ</div>
             <div class="card-brief">ถ่ายรูปป้าย Like ยักษ์ · 15 นาที</div>
           </div>
           <div class="card-arrow">▼</div>
@@ -1185,7 +1185,7 @@
           <div class="card-ico">🍽️</div>
           <div class="card-info">
             <div class="card-time">17:45</div>
-            <div class="card-title">Santana Row — มื้อเย็นปิดทริป</div>
+            <div class="card-title" data-en="Santana Row — Last Dinner">Santana Row — มื้อเย็นปิดทริป</div>
             <div class="card-brief">San Jose · ย่านช้อปปิ้งหรู · Optional</div>
           </div>
           <div class="card-arrow">▼</div>
@@ -1213,7 +1213,7 @@
           <div class="card-ico">🚗</div>
           <div class="card-info">
             <div class="card-time">20:15</div>
-            <div class="card-title">คืนรถ Hertz — SFO ✅</div>
+            <div class="card-title" data-en="Return Car Hertz — SFO ✅">คืนรถ Hertz — SFO ✅</div>
             <div class="card-brief">Hertz Rental Car Return · เผื่อ buffer ก่อน Red-eye</div>
           </div>
           <div class="card-arrow">▼</div>
@@ -1238,7 +1238,7 @@
           <div class="card-ico">✈️</div>
           <div class="card-info">
             <div class="card-time">23:55</div>
-            <div class="card-title">Red-eye → New York JFK</div>
+            <div class="card-title" data-en="Red-eye → New York JFK">Red-eye → New York JFK</div>
             <div class="card-brief">B6716 JetBlue · ถึง JFK 08:38 (+1 วัน)</div>
           </div>
           <div class="card-arrow">▼</div>
@@ -1356,5 +1356,24 @@ function toggle(card) {
 }
 </script>
 
+
+<script>
+let isEN = false;
+function toggleLang() {
+  isEN = !isEN;
+  const btn = document.getElementById('langBtn');
+  btn.textContent = isEN ? 'TH 🇹🇭' : 'EN 🇺🇸';
+  
+  // Find all elements with data-en attribute
+  document.querySelectorAll('[data-en]').forEach(el => {
+    if (isEN) {
+      if (!el.dataset.th) el.dataset.th = el.textContent;
+      el.textContent = el.dataset.en;
+    } else {
+      if (el.dataset.th) el.textContent = el.dataset.th;
+    }
+  });
+}
+</script>
 </body>
 </html>
