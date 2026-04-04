@@ -126,7 +126,7 @@
 <body>
 
 <div class="hero">
-  <a href="index.html" class="hero-label" style="text-decoration:none">✈ Family Trip 2026</a>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><a href="index.html" class="hero-label" style="text-decoration:none;margin-bottom:0">✈ Family Trip 2026</a><button onclick="toggleLang()" id="langBtn" style="background:rgba(240,160,80,.15);border:1px solid rgba(240,160,80,.4);color:var(--accent);font-size:11px;font-weight:600;letter-spacing:2px;padding:6px 14px;border-radius:20px;cursor:pointer;position:relative">EN 🇺🇸</button></div>
   <h1>3 Days in <span>New York</span></h1>
   <p class="hero-sub">Family trip — เดินเบาๆ ไม่เร่ง ไม่ย้อนเส้นทาง</p>
   <div class="hotel-badge">
@@ -170,23 +170,37 @@ var days=[
       en_outfit:"Cold morning & evening, windy all day<br><strong>Wear:</strong> Windbreaker + long sleeves underneath, long pants, light scarf, comfortable sneakers<br><strong>Bring:</strong> Foldable umbrella for possible drizzle"
     },
     stops:[
-      {time:"08:38",name:"JFK Terminal 5",brief:"B6716 JetBlue Red-eye จาก SFO",color:"green",
+      {time:"08:38",name:"JFK Terminal 5",brief:"B6716 JetBlue Red-eye จาก SFO",
+        en_brief:"B6716 JetBlue Red-eye from SFO",color:"green",
         details:"<strong>B6716 JetBlue</strong> ออก SFO 23:55 (7 Apr) → ถึง JFK 08:38 (8 Apr) · 4 คน · Domestic ไม่ต้องผ่าน immigration รับกระเป๋าแล้วออกได้เลย ใช้เวลาออกจากสนามบินประมาณ 30–45 นาที",
-        tip:"<strong>ไปโรงแรม:</strong> Taxi/Uber จาก JFK ไป WTC area ประมาณ 45–60 นาที ค่ารถ ~$70–80 (flat rate + toll) หรือ AirTrain → Jamaica → สาย "+badge("E","#2850AD")+" ไป WTC ประมาณ 70 นาที ราคา ~$10.75"},
-      {time:"10:30",name:"Courtyard by Marriott WTC",brief:"Check-in / ฝากกระเป๋า · Ian จองให้",color:"blue",
+        en_details:"<strong>B6716 JetBlue</strong> departs SFO 23:55 (7 Apr) → arrives JFK 08:38 (8 Apr) · 4 people · Domestic — no immigration, collect bags and go. Allow 30–45 min to exit airport",
+        tip:"<strong>ไปโรงแรม:</strong> Taxi/Uber จาก JFK ไป WTC area ประมาณ 45–60 นาที ค่ารถ ~$70–80 (flat rate + toll) หรือ AirTrain → Jamaica → สาย ",
+        en_tip:"<strong>To hotel:</strong> Taxi/Uber from JFK to WTC area ~45–60 min, ~$70–80 (flat rate + toll). Or AirTrain → Jamaica → E train to WTC ~70 min, ~$10.75",+badge("E","#2850AD")+" ไป WTC ประมาณ 70 นาที ราคา ~$10.75"},
+      {time:"10:30",name:"Courtyard by Marriott WTC",brief:"Check-in / ฝากกระเป๋า · Ian จองให้",
+        en_brief:"Check-in / store luggage · Booked by Ian",color:"blue",
         details:"โรงแรมอยู่ใกล้สถานี Fulton St และ World Trade Center — hub ของหลายสาย subway เดินทางสะดวกมาก",
-        tip:"<strong>ก่อนออก:</strong> เตรียมตัวเร็วเพราะ Broadway เริ่ม 13:00 ต้องออกจากโรงแรมไม่เกิน 12:20"},
-      {time:"13:00",name:"Harry Potter on Broadway",brief:"Lyric Theatre, 214 W 43rd St — จองแล้ว",color:"accent",tag:{text:"Booked",cls:"tag-booked"},
+        en_details:"Hotel is near Fulton St and World Trade Center stations — major subway hub, very convenient for getting around",
+        tip:"<strong>ก่อนออก:</strong> เตรียมตัวเร็วเพราะ Broadway เริ่ม 13:00 ต้องออกจากโรงแรมไม่เกิน 12:20",
+        en_tip:"<strong>Before leaving:</strong> Get ready quickly — Broadway starts at 13:00, leave hotel by 12:20"},
+      {time:"13:00",name:"Harry Potter on Broadway",brief:"Lyric Theatre, 214 W 43rd St — จองแล้ว",
+        en_brief:"Lyric Theatre, 214 W 43rd St — Pre-booked",color:"accent",tag:{text:"Booked",cls:"tag-booked"},
         transit:subwayIcon+" Fulton St → Times Sq-42 St "+badge("2","#EE352E")+badge("3","#EE352E")+" — 15 นาที",
         details:"โชว์ Harry Potter and the Cursed Child อยู่ที่ Lyric Theatre กลาง Times Square โชว์ยาวประมาณ 2 ชม. 40 นาที (ไม่มี intermission) จบประมาณ 15:40",
-        tip:"<strong>เข้าโรง:</strong> ควรถึงก่อนเวลาอย่างน้อย 20 นาที เพราะต้องผ่านจุดตรวจกระเป๋า"},
-      {time:"16:15",name:"Times Square → Bryant Park → 5th Ave → Rockefeller",brief:"เดินเล่นโซน Midtown ตามสบาย",color:"blue",
+        en_details:"Harry Potter and the Cursed Child at Lyric Theatre in Times Square. Show runs ~2 hrs 40 min (no intermission), ends around 15:40",
+        tip:"<strong>เข้าโรง:</strong> ควรถึงก่อนเวลาอย่างน้อย 20 นาที เพราะต้องผ่านจุดตรวจกระเป๋า",
+        en_tip:"<strong>Entry:</strong> Arrive at least 20 min early for bag check"},
+      {time:"16:15",name:"Times Square → Bryant Park → 5th Ave → Rockefeller",brief:"เดินเล่นโซน Midtown ตามสบาย",
+        en_brief:"Explore Midtown at your own pace",color:"blue",
         transit:walkIcon+" เดินจาก Lyric Theatre — ทุกอย่างอยู่ในรัศมี 15 นาที",
         details:"ออกจากโรงละครแล้วเดินเล่นได้เลย Times Square อยู่ตรงหน้า → เดินลง 6th Ave ถึง Bryant Park 5 นาที → ต่อไป 5th Ave ดูตึก flagship stores → Rockefeller Center",
-        tip:"<strong>ช่วงนี้ลมเริ่มแรง:</strong> ตึกสูงทำให้ลมพัดแรงตามช่องถนน (wind tunnel effect) ใส่แจ็คเก็ตไว้เลย"},
-      {time:"18:00",name:"Optional: MoMA",brief:"ถ้ายังมีแรง แวะสักชม.",color:"purple",tag:{text:"Optional",cls:"tag-optional"},
+        en_details:"Exit theatre and explore! Times Square is right outside → walk down 6th Ave to Bryant Park (5 min) → continue to 5th Ave for flagship stores → Rockefeller Center",
+        tip:"<strong>ช่วงนี้ลมเริ่มแรง:</strong> ตึกสูงทำให้ลมพัดแรงตามช่องถนน (wind tunnel effect) ใส่แจ็คเก็ตไว้เลย",
+        en_tip:"<strong>Getting windy:</strong> Tall buildings create wind tunnel effect on streets — keep your jacket on"},
+      {time:"18:00",name:"Optional: MoMA",brief:"ถ้ายังมีแรง แวะสักชม.",
+        en_brief:"If you still have energy, stop by for an hour",color:"purple",tag:{text:"Optional",cls:"tag-optional"},
         transit:walkIcon+" เดินจาก Rockefeller Center ไป MoMA 53rd St — 5 นาที",
         details:"MoMA อยู่ใกล้ Rockefeller มาก วันพุธเปิดถึง 17:30 — อาจไม่ทัน ถ้าไม่ทันเก็บไว้ดูวันศุกร์เย็นแทน (เปิดถึง 20:30)",
+        en_details:"MoMA is very close to Rockefeller. Wed closes at 17:30 — may not make it. If not, save it for Friday evening (open until 20:30)",
         tip:"<strong>กลับโรงแรม:</strong> จาก MoMA นั่ง "+badge("E","#2850AD")+" จาก 5 Av/53 St → WTC ตรง 20 นาที"}
     ],
     notes:"วันแรกเดินทาง ไม่ยัดกิจกรรมมาก ถ้าเหนื่อยข้าม MoMA ได้เลย กลับพักเอาแรงไว้พรุ่งนี้",
@@ -211,20 +225,27 @@ var days=[
       en_outfit:"Cold morning/evening, noticeably warmer midday<br><strong>Wear:</strong> Layering — T-shirt + hoodie/light layer + removable jacket for afternoon, long pants, comfortable walking shoes (lots of walking today)<br><strong>Bring:</strong> Sun hat + sunglasses for Central Park"
     },
     stops:[
-      {time:"10:00",name:"The Metropolitan Museum of Art",brief:"พิพิธภัณฑ์ศิลปะระดับโลก — 2.5–3 ชม.",color:"accent",tag:{text:"Highlight",cls:"tag-booked"},
+      {time:"10:00",name:"The Metropolitan Museum of Art",brief:"พิพิธภัณฑ์ศิลปะระดับโลก — 2.5–3 ชม.",
+        en_brief:"World-class art museum — 2.5–3 hrs",color:"accent",tag:{text:"Highlight",cls:"tag-booked"},
         transit:subwayIcon+" Fulton St → 86 St "+badge("4","#00933C")+badge("5","#00933C")+" — 25 นาที แล้วเดินเข้า museum 10 นาที",
         details:"The Met เป็นพิพิธภัณฑ์ศิลปะใหญ่ที่สุดในอเมริกา มีคอลเลกชัน 2 ล้านชิ้น ควรเลือกโซนที่สนใจ เช่น Egyptian Temple of Dendur, European Paintings, Arms & Armor (เด็กชอบ), The Roof Garden (ถ้าเปิด — วิวสวยมาก)",
+        en_details:"The Met is the largest art museum in America with 2 million pieces. Pick sections of interest: Egyptian Temple of Dendur, European Paintings, Arms & Armor (kids love it), The Roof Garden (if open — amazing views)",
         tip:"<strong>ตั๋ว:</strong> ผู้ใหญ่ $30 / เด็กต่ำกว่า 12 ปีฟรี ซื้อล่วงหน้าที่ metmuseum.org ได้"},
-      {time:"13:00",name:"Lunch",brief:"ร้านแถว Museum Mile / Upper East Side",color:"rose",tag:{text:"Food",cls:"tag-food"},
+      {time:"13:00",name:"Lunch",brief:"ร้านแถว Museum Mile / Upper East Side",
+        en_brief:"Restaurants near Museum Mile / Upper East Side",color:"rose",tag:{text:"Food",cls:"tag-food"},
         transit:walkIcon+" เดินจาก The Met — ร้านอาหารรอบๆ เยอะ",
         details:"แถว Madison Ave & 80s มีร้านอาหารหลายแบบ ตั้งแต่ casual ไปจนถึง sit-down ลอง Café Sabarsky (อาหารออสเตรีย บรรยากาศดี) หรือ The Mark Restaurant ถ้าอยากหรูหน่อย"},
-      {time:"14:00",name:"Central Park Walk",brief:"Bethesda Fountain, Bow Bridge, The Lake",color:"green",
+      {time:"14:00",name:"Central Park Walk",brief:"Bethesda Fountain, Bow Bridge, The Lake",
+        en_brief:"Bethesda Fountain, Bow Bridge, The Lake",color:"green",
         transit:walkIcon+" เดินข้ามถนนจาก Met เข้า Central Park ได้เลย — 2 นาที",
         details:"เข้าจากฝั่ง 79th-84th St ตรงไปที่ Great Lawn แล้วเดินลงใต้ผ่าน Belvedere Castle → Bethesda Fountain → Bow Bridge → The Lake ใช้เวลาเดินสบายๆ 2–2.5 ชม.",
+        en_details:"Enter from 79th-84th St side, head to Great Lawn then walk south through Belvedere Castle → Bethesda Fountain → Bow Bridge → The Lake. Leisurely 2–2.5 hrs",
         tip:"<strong>สำหรับผู้สูงอายุ:</strong> มีม้านั่งเยอะตลอดทาง พักได้ ถ้าเหนื่อยนั่ง pedicab ได้แต่ต่อราคาก่อน<br><strong>ช่วงบ่ายแดดออก:</strong> 15°C + แดด → ถอดแจ็คเก็ตได้ ใส่หมวก+ทาครีมกันแดด"},
-      {time:"17:00",name:"5th Avenue / Easy Evening",brief:"ช้อปปิ้งหรือพักผ่อนตามสบาย",color:"blue",tag:{text:"Flexible",cls:"tag-tip"},
+      {time:"17:00",name:"5th Avenue / Easy Evening",brief:"ช้อปปิ้งหรือพักผ่อนตามสบาย",
+        en_brief:"Shopping or relax at your own pace",color:"blue",tag:{text:"Flexible",cls:"tag-tip"},
         transit:walkIcon+" เดินออกจาก Central Park ฝั่ง 5th Avenue",
         details:"5th Ave โซน 59th–49th St มี flagship stores: Apple, Tiffany, Saks Fifth Avenue, Bergdorf Goodman หรือจะนั่งพักดู street performers แถว Grand Army Plaza ก็ได้",
+        en_details:"5th Ave from 59th–49th St has flagship stores: Apple, Tiffany, Saks Fifth Avenue, Bergdorf Goodman. Or sit and watch street performers at Grand Army Plaza",
         tip:"<strong>กลับโรงแรม:</strong> นั่ง "+badge("E","#2850AD")+" จาก 53 St หรือ "+badge("4","#00933C")+badge("5","#00933C")+" จาก 59 St → Fulton St — 20 นาที"}
     ],
     notes:"The Met กับ Central Park อยู่ติดกัน เดินข้ามถนนถึง วันนี้เดินเยอะ เตรียมรองเท้าสบายๆ",
@@ -249,31 +270,41 @@ var days=[
       en_outfit:"Cold morning, warm midday, cold again in evening + very windy on ferry<br><strong>Wear:</strong> T-shirt + layer + windbreaker (essential for Ferry), long pants, most comfortable walking shoes<br><strong>Bring:</strong> Scarf/beanie for the evening ferry ride (feels like ~6°C on the water)"
     },
     stops:[
-      {time:"10:00",name:"Natural History Museum",brief:"ไดโนเสาร์ อวกาศ สัตว์ป่า — 2.5 ชม.",color:"green",
+      {time:"10:00",name:"Natural History Museum",brief:"ไดโนเสาร์ อวกาศ สัตว์ป่า — 2.5 ชม.",
+        en_brief:"Dinosaurs, space, wildlife — 2.5 hrs",color:"green",
         transit:subwayIcon+" Fulton St → 81 St-Museum "+badge("C","#2850AD")+" — 35 นาที",
         details:"American Museum of Natural History เป็นสวรรค์ของเด็กๆ ไฮไลท์: Dinosaur Floor (ชั้น 4), Hayden Planetarium, Ocean Life Hall กับวาฬยักษ์, Gems & Minerals",
+        en_details:"American Museum of Natural History — paradise for kids! Highlights: Dinosaur Floor (4th floor), Hayden Planetarium, Ocean Life Hall with giant whale, Gems & Minerals",
         tip:"<strong>ตั๋ว:</strong> General Admission ผู้ใหญ่ $28 / เด็ก $16.50 ซื้อล่วงหน้าที่ amnh.org — หน้างานคิวยาว"},
-      {time:"12:30",name:"Lunch",brief:"ร้านแถว museum แถว Columbus Ave",color:"rose",tag:{text:"Food",cls:"tag-food"},
+      {time:"12:30",name:"Lunch",brief:"ร้านแถว museum แถว Columbus Ave",
+        en_brief:"Restaurants near museum on Columbus Ave",color:"rose",tag:{text:"Food",cls:"tag-food"},
         transit:walkIcon+" ร้านอาหารรอบ museum มีเยอะ แถว Columbus Ave",
         details:"Shake Shack (77th & Columbus) ง่ายและเร็ว หรือ Jacob's Pickles ถ้าอยากนั่งร้าน"},
-      {time:"13:30",name:"Morgan Library & Museum",brief:"36th St, Midtown — ศิลปะ + ห้องสมุดโบราณ",color:"accent",tag:{text:"Flexible",cls:"tag-tip"},
+      {time:"13:30",name:"Morgan Library & Museum",brief:"36th St, Midtown — ศิลปะ + ห้องสมุดโบราณ",
+        en_brief:"36th St, Midtown — Art + historic library",color:"accent",tag:{text:"Flexible",cls:"tag-tip"},
         transit:subwayIcon+" 81 St → 33 St "+badge("1","#EE352E")+" แล้วเดิน 5 นาที หรือ "+badge("B","#FF6319")+badge("D","#FF6319")+" → 34 St — รวม 25 นาที",
         details:"Morgan Library มีห้องสมุดเก่าสุดงามมาก (Pierpont Morgan's Library) + นิทรรศการหมุนเวียน ให้เวลา 1–1.5 ชม. ถ้าจอง Friday Free (17:30–19:00) ไม่ได้ → มาตอนนี้แทน แล้วเย็นไปดู MoMA",
         tip:"<strong>ทางเลือก:</strong> ถ้าจอง Friday Free ได้ → ข้ามจุดนี้ไป DUMBO เลย แล้วกลับมา Morgan ตอนเย็น"},
-      {time:"15:30",name:"DUMBO + Brooklyn Bridge",brief:"Manhattan skyline จาก Brooklyn",color:"blue",
+      {time:"15:30",name:"DUMBO + Brooklyn Bridge",brief:"Manhattan skyline จาก Brooklyn",
+        en_brief:"Manhattan skyline from Brooklyn",color:"blue",
         transit:subwayIcon+" 33 St → York St "+badge("F","#FF6319")+" — 20 นาที ออกสถานีเดินถึง waterfront 5 นาที",
         details:"DUMBO (Down Under the Manhattan Bridge Overpass) วิว Manhattan Bridge + Brooklyn Bridge สวยมากๆ จุดถ่ายรูปดัง: Washington St กับมุม Empire State Building ลอดสะพาน + Brooklyn Bridge Park ริมน้ำ",
         tip:"<strong>Brooklyn Bridge:</strong> เดินข้ามจาก Brooklyn ไป Manhattan ได้ (~30 นาที) แต่ถ้าเหนื่อยนั่ง subway สะดวกกว่า"},
-      {time:"17:00",name:"Subway → Whitehall Terminal",brief:"มุ่งหน้าไปขึ้นเรือ",color:"blue",
+      {time:"17:00",name:"Subway → Whitehall Terminal",brief:"มุ่งหน้าไปขึ้นเรือ",
+        en_brief:"Head to the ferry terminal",color:"blue",
         transit:subwayIcon+" York St → Whitehall St "+badge("R","#FCCC0A")+" — 25 นาที (เปลี่ยนที่ Jay St)",
         details:"Whitehall Terminal อยู่ปลายสุดของ Manhattan ใต้ เป็นท่าเรือ Staten Island Ferry"},
-      {time:"17:30",name:"Staten Island Ferry",brief:"ไป-กลับ 50 นาที — Statue of Liberty + golden hour",color:"accent",tag:{text:"Free",cls:"tag-free"},
+      {time:"17:30",name:"Staten Island Ferry",brief:"ไป-กลับ 50 นาที — Statue of Liberty + golden hour",
+        en_brief:"Round trip 50 min — Statue of Liberty + golden hour",color:"accent",tag:{text:"Free",cls:"tag-free"},
         transit:ferryIcon+" เดินเข้า Whitehall Terminal ขึ้นเรือได้เลย ออกทุก 30 นาที",
         details:"เรือ Staten Island Ferry ฟรี 100%! นั่งไปฝั่ง Staten Island แล้วนั่งกลับได้เลยไม่ต้องลง เห็น Statue of Liberty, Ellis Island, Manhattan skyline ช่วง golden hour สวยมาก",
+        en_details:"Staten Island Ferry is 100% FREE! Ride to Staten Island and back without getting off. See Statue of Liberty, Ellis Island, Manhattan skyline during golden hour — stunning",
         tip:"<strong>เคล็ดลับ:</strong> นั่งฝั่งขวาขาไป (ฝั่ง Statue of Liberty) ขากลับย้ายฝั่งซ้ายเห็น Manhattan skyline ค่ำ<br><strong>อากาศบนเรือ:</strong> ลมแรงมาก รู้สึกเหมือน ~6°C ใส่แจ็คเก็ตกันลม + ผ้าพันคอไว้เลย"},
-      {time:"18:30",name:"MoMA (Backup)",brief:"ถ้า Morgan Library จองฟรีไม่ได้ → มาที่นี่แทน",color:"purple",tag:{text:"Backup · ปิด 20:30",cls:"tag-optional"},
+      {time:"18:30",name:"MoMA (Backup)",brief:"ถ้า Morgan Library จองฟรีไม่ได้ → มาที่นี่แทน",
+        en_brief:"If Morgan Library free tickets unavailable → come here instead",color:"purple",tag:{text:"Backup · ปิด 20:30",cls:"tag-optional"},
         transit:subwayIcon+" Whitehall → 5 Av/53 St "+badge("R","#FCCC0A")+badge("W","#FCCC0A")+" — 20 นาที",
         details:"MoMA วันศุกร์เปิดถึง 20:30 ถึง 18:30 ยังมีเวลาดู 2 ชม. ไฮไลท์: The Starry Night (Van Gogh ชั้น 5), Campbell's Soup Cans (Warhol), Les Demoiselles d'Avignon (Picasso)",
+        en_details:"MoMA open until 20:30 on Fridays. Arriving at 18:30 gives 2 hrs. Highlights: The Starry Night (Van Gogh, 5th floor), Campbell's Soup Cans (Warhol), Les Demoiselles d'Avignon (Picasso)",
         tip:"<strong>ตั๋ว:</strong> NY resident ฟรี 17:30–20:30 (จองล่วงหน้า) / tourist $30 ซื้อหน้างานหรือออนไลน์<br><strong>กลับโรงแรม:</strong> สาย "+badge("E","#2850AD")+" จาก 5 Av/53 St → WTC ตรง 15 นาที"}
     ],
     notes:"เส้นทาง: Upper West Side → Midtown → Brooklyn → Lower Manhattan → Midtown — ไหลทางเดียว ถ้าเหนื่อยตัด Morgan Library ออกได้<br><br>🚌 <strong>พรุ่งนี้ 11 Apr:</strong> Checkout เช้า → CoachRun Bus 10:00 จาก 201 W 37th St (CVS) → Washington DC ถึง 14:30 (4.5 ชม.) · 4 คน $79.49",
@@ -334,12 +365,12 @@ function showDay(idx){
     h+='<div class="stop-card" onclick="toggleCard(this)"><div class="stop-top"><div class="stop-top-left">';
     h+='<div class="stop-time '+s.color+'">'+s.time+'</div>';
     h+='<div class="stop-name">'+s.name+'</div>';
-    h+='<div class="stop-brief">'+s.brief+'</div>';
+    h+='<div class="stop-brief">'+(isEN?(s.en_brief||s.brief):s.brief)+'</div>';
     if(s.tag) h+='<span class="stop-tag '+s.tag.cls+'">'+s.tag.text+'</span>';
     h+='</div><svg class="stop-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>';
     h+='<div class="stop-details"><div class="stop-inner">';
-    if(s.details) h+='<div class="detail-section"><div class="detail-label">'+(isEN?'\u{1F4CD} Details':'\u{1F4CD} รายละเอียด')+'</div><div class="detail-text">'+s.details+'</div></div>';
-    if(s.tip) h+='<div class="tip-box">'+s.tip+'</div>';
+    if(s.details) h+='<div class="detail-section"><div class="detail-label">'+(isEN?'\u{1F4CD} Details':'\u{1F4CD} รายละเอียด')+'</div><div class="detail-text">'+(isEN?(s.en_details||s.details):s.details)+'</div></div>';
+    if(s.tip) h+='<div class="tip-box">'+(isEN?(s.en_tip||s.tip):s.tip)+'</div>';
     h+='</div></div></div></div>';
   });
 
