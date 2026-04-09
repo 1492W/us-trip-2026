@@ -178,13 +178,13 @@ var days=[
         en_tip:"<strong>To hotel:</strong> Taxi/Uber from JFK to WTC area ~45–60 min, ~$70–80 (flat rate + toll). Or AirTrain → Jamaica → E train to WTC ~70 min, ~$10.75"},
       {time:"10:30",name:"Courtyard by Marriott WTC",brief:"Check-in / ฝากกระเป๋า · Ian จองให้",
         en_brief:"Check-in / store luggage · Booked by Ian",color:"blue",
-        details:"โรงแรมอยู่ใกล้สถานี Fulton St และ World Trade Center — hub ของหลายสาย subway เดินทางสะดวกมาก",
-        en_details:"Hotel is near Fulton St and World Trade Center stations — major subway hub, very convenient for getting around",
+        details:"โรงแรมอยู่ใกล้สถานี <strong>Rector St</strong> (สาย 1) มากที่สุด + Fulton St (สาย 4/5) และ WTC (สาย E) เดินถึงได้หมด",
+        en_details:"Hotel is nearest to <strong>Rector St</strong> (line 1) + Fulton St (lines 4/5) and WTC (line E) all within walking distance",
         tip:"<strong>ก่อนออก:</strong> เตรียมตัวเร็วเพราะ Broadway เริ่ม 13:00 ต้องออกจากโรงแรมไม่เกิน 12:20",
         en_tip:"<strong>Before leaving:</strong> Get ready quickly — Broadway starts at 13:00, leave hotel by 12:20"},
       {time:"13:00",name:"Harry Potter on Broadway",brief:"Lyric Theatre, 214 W 43rd St — จองแล้ว",
         en_brief:"Lyric Theatre, 214 W 43rd St — Pre-booked",color:"accent",tag:{text:"Booked",cls:"tag-booked"},
-        transit:subwayIcon+" Fulton St → Times Sq-42 St "+badge("2","#EE352E")+badge("3","#EE352E")+" — 15 นาที",
+        transit:subwayIcon+" Rector St → Times Sq-42 St "+badge("1","#EE352E")+" — 20 นาที",
         details:"โชว์ Harry Potter and the Cursed Child อยู่ที่ Lyric Theatre กลาง Times Square โชว์ยาวประมาณ 2 ชม. 40 นาที (ไม่มี intermission) จบประมาณ 15:40",
         en_details:"Harry Potter and the Cursed Child at Lyric Theatre in Times Square. Show runs ~2 hrs 40 min (no intermission), ends around 15:40",
         tip:"<strong>เข้าโรง:</strong> ควรถึงก่อนเวลาอย่างน้อย 20 นาที เพราะต้องผ่านจุดตรวจกระเป๋า",
@@ -227,7 +227,7 @@ var days=[
     stops:[
       {time:"10:00",name:"The Metropolitan Museum of Art",brief:"พิพิธภัณฑ์ศิลปะระดับโลก — 2.5–3 ชม.",
         en_brief:"World-class art museum — 2.5–3 hrs",color:"accent",tag:{text:"Highlight",cls:"tag-booked"},
-        transit:subwayIcon+" Fulton St → 86 St "+badge("4","#00933C")+badge("5","#00933C")+" — 25 นาที แล้วเดินเข้า museum 10 นาที",
+        transit:subwayIcon+" Rector St "+badge("1","#EE352E")+" หรือ Fulton St "+badge("4","#00933C")+badge("5","#00933C")+" → 86 St — 25 นาที แล้วเดินเข้า museum 10 นาที",
         details:"The Met เป็นพิพิธภัณฑ์ศิลปะใหญ่ที่สุดในอเมริกา มีคอลเลกชัน 2 ล้านชิ้น ควรเลือกโซนที่สนใจ เช่น Egyptian Temple of Dendur, European Paintings, Arms & Armor (เด็กชอบ), The Roof Garden (ถ้าเปิด — วิวสวยมาก)",
         en_details:"The Met is the largest art museum in America with 2 million pieces. Pick sections of interest: Egyptian Temple of Dendur, European Paintings, Arms & Armor (kids love it), The Roof Garden (if open — amazing views)",
         tip:"<strong>ตั๋ว:</strong> ผู้ใหญ่ $30 / เด็กต่ำกว่า 12 ปีฟรี ซื้อล่วงหน้าที่ metmuseum.org ได้"},
@@ -246,7 +246,7 @@ var days=[
         transit:walkIcon+" เดินออกจาก Central Park ฝั่ง 5th Avenue",
         details:"5th Ave โซน 59th–49th St มี flagship stores: Apple, Tiffany, Saks Fifth Avenue, Bergdorf Goodman หรือจะนั่งพักดู street performers แถว Grand Army Plaza ก็ได้",
         en_details:"5th Ave from 59th–49th St has flagship stores: Apple, Tiffany, Saks Fifth Avenue, Bergdorf Goodman. Or sit and watch street performers at Grand Army Plaza",
-        tip:"<strong>กลับโรงแรม:</strong> นั่ง "+badge("E","#2850AD")+" จาก 53 St หรือ "+badge("4","#00933C")+badge("5","#00933C")+" จาก 59 St → Fulton St — 20 นาที"}
+        tip:"<strong>กลับโรงแรม:</strong> นั่ง "+badge("1","#EE352E")+" จาก 59 St → Rector St — 20 นาที หรือ "+badge("4","#00933C")+badge("5","#00933C")+" → Fulton St"}
     ],
     notes:"The Met กับ Central Park อยู่ติดกัน เดินข้ามถนนถึง วันนี้เดินเยอะ เตรียมรองเท้าสบายๆ",
     en_notes:"The Met and Central Park are right across the street. Lots of walking today — wear comfortable shoes"
@@ -272,7 +272,7 @@ var days=[
     stops:[
       {time:"10:00",name:"Natural History Museum",brief:"ไดโนเสาร์ อวกาศ สัตว์ป่า — 2.5 ชม.",
         en_brief:"Dinosaurs, space, wildlife — 2.5 hrs",color:"green",
-        transit:subwayIcon+" Fulton St → 81 St-Museum "+badge("C","#2850AD")+" — 35 นาที",
+        transit:subwayIcon+" Rector St "+badge("1","#EE352E")+" → 79 St — 30 นาที หรือ Fulton St "+badge("C","#2850AD")+" → 81 St — 35 นาที",
         details:"American Museum of Natural History เป็นสวรรค์ของเด็กๆ ไฮไลท์: Dinosaur Floor (ชั้น 4), Hayden Planetarium, Ocean Life Hall กับวาฬยักษ์, Gems & Minerals",
         en_details:"American Museum of Natural History — paradise for kids! Highlights: Dinosaur Floor (4th floor), Hayden Planetarium, Ocean Life Hall with giant whale, Gems & Minerals",
         tip:"<strong>ตั๋ว:</strong> General Admission ผู้ใหญ่ $28 / เด็ก $16.50 ซื้อล่วงหน้าที่ amnh.org — หน้างานคิวยาว"},
