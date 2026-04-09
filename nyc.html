@@ -178,13 +178,13 @@ var days=[
         en_tip:"<strong>To hotel:</strong> Taxi/Uber from JFK to WTC area ~45–60 min, ~$70–80 (flat rate + toll). Or AirTrain → Jamaica → E train to WTC ~70 min, ~$10.75"},
       {time:"10:30",name:"Courtyard by Marriott WTC",brief:"Check-in / ฝากกระเป๋า · Ian จองให้",
         en_brief:"Check-in / store luggage · Booked by Ian",color:"blue",
-        details:"โรงแรมอยู่ใกล้สถานี <strong>Rector St</strong> (สาย 1) มากที่สุด + Fulton St (สาย 4/5) และ WTC (สาย E) เดินถึงได้หมด",
-        en_details:"Hotel is nearest to <strong>Rector St</strong> (line 1) + Fulton St (lines 4/5) and WTC (line E) all within walking distance",
+        details:"สถานีใกล้โรงแรม: <strong>Rector St</strong> (สาย 1) เดิน 2 นาที · <strong>Wall St</strong> (สาย 2/3 express เร็ว!) เดิน 4 นาที · WTC (สาย E) เดิน 3 นาที",
+        en_details:"Nearest stations: <strong>Rector St</strong> (line 1) 2 min walk · <strong>Wall St</strong> (lines 2/3 express, faster!) 4 min walk · WTC (line E) 3 min walk",
         tip:"<strong>ก่อนออก:</strong> เตรียมตัวเร็วเพราะ Broadway เริ่ม 13:00 ต้องออกจากโรงแรมไม่เกิน 12:20",
         en_tip:"<strong>Before leaving:</strong> Get ready quickly — Broadway starts at 13:00, leave hotel by 12:20"},
       {time:"13:00",name:"Harry Potter on Broadway",brief:"Lyric Theatre, 214 W 43rd St — จองแล้ว",
         en_brief:"Lyric Theatre, 214 W 43rd St — Pre-booked",color:"accent",tag:{text:"Booked",cls:"tag-booked"},
-        transit:subwayIcon+" Rector St → Times Sq-42 St "+badge("1","#EE352E")+" — 20 นาที",
+        transit:subwayIcon+" Wall St "+badge("2","#EE352E")+badge("3","#EE352E")+" express → Times Sq-42 St — 15 นาที (หรือ Rector St "+badge("1","#EE352E")+" 20 นาที)",
         details:"โชว์ Harry Potter and the Cursed Child อยู่ที่ Lyric Theatre กลาง Times Square โชว์ยาวประมาณ 2 ชม. 40 นาที (ไม่มี intermission) จบประมาณ 15:40",
         en_details:"Harry Potter and the Cursed Child at Lyric Theatre in Times Square. Show runs ~2 hrs 40 min (no intermission), ends around 15:40",
         tip:"<strong>เข้าโรง:</strong> ควรถึงก่อนเวลาอย่างน้อย 20 นาที เพราะต้องผ่านจุดตรวจกระเป๋า",
@@ -201,7 +201,7 @@ var days=[
         transit:walkIcon+" เดินจาก Rockefeller Center ไป MoMA 53rd St — 5 นาที",
         details:"MoMA อยู่ใกล้ Rockefeller มาก วันพุธเปิดถึง 17:30 — อาจไม่ทัน ถ้าไม่ทันเก็บไว้ดูวันศุกร์เย็นแทน (เปิดถึง 20:30)",
         en_details:"MoMA is very close to Rockefeller. Wed closes at 17:30 — may not make it. If not, save it for Friday evening (open until 20:30)",
-        tip:"<strong>กลับโรงแรม:</strong> จาก MoMA นั่ง "+badge("E","#2850AD")+" จาก 5 Av/53 St → WTC ตรง 20 นาที"}
+        tip:"<strong>กลับโรงแรม:</strong> จาก MoMA นั่ง "+badge("E","#2850AD")+" จาก 5 Av/53 St → WTC ตรง 20 นาที หรือ "+badge("1","#EE352E")+" จาก 50 St → Rector St 15 นาที"}
     ],
     notes:"วันแรกเดินทาง ไม่ยัดกิจกรรมมาก ถ้าเหนื่อยข้าม MoMA ได้เลย กลับพักเอาแรงไว้พรุ่งนี้",
     en_notes:"Travel day — light schedule. Skip MoMA if tired, rest up for tomorrow"
@@ -227,7 +227,7 @@ var days=[
     stops:[
       {time:"10:00",name:"The Metropolitan Museum of Art",brief:"พิพิธภัณฑ์ศิลปะระดับโลก — 2.5–3 ชม.",
         en_brief:"World-class art museum — 2.5–3 hrs",color:"accent",tag:{text:"Highlight",cls:"tag-booked"},
-        transit:subwayIcon+" Rector St "+badge("1","#EE352E")+" หรือ Fulton St "+badge("4","#00933C")+badge("5","#00933C")+" → 86 St — 25 นาที แล้วเดินเข้า museum 10 นาที",
+        transit:subwayIcon+" Wall St "+badge("4","#00933C")+badge("5","#00933C")+" express → 86 St — 20 นาที แล้วเดินเข้า museum 10 นาที",
         details:"The Met เป็นพิพิธภัณฑ์ศิลปะใหญ่ที่สุดในอเมริกา มีคอลเลกชัน 2 ล้านชิ้น ควรเลือกโซนที่สนใจ เช่น Egyptian Temple of Dendur, European Paintings, Arms & Armor (เด็กชอบ), The Roof Garden (ถ้าเปิด — วิวสวยมาก)",
         en_details:"The Met is the largest art museum in America with 2 million pieces. Pick sections of interest: Egyptian Temple of Dendur, European Paintings, Arms & Armor (kids love it), The Roof Garden (if open — amazing views)",
         tip:"<strong>ตั๋ว:</strong> ผู้ใหญ่ $30 / เด็กต่ำกว่า 12 ปีฟรี ซื้อล่วงหน้าที่ metmuseum.org ได้"},
@@ -246,7 +246,7 @@ var days=[
         transit:walkIcon+" เดินออกจาก Central Park ฝั่ง 5th Avenue",
         details:"5th Ave โซน 59th–49th St มี flagship stores: Apple, Tiffany, Saks Fifth Avenue, Bergdorf Goodman หรือจะนั่งพักดู street performers แถว Grand Army Plaza ก็ได้",
         en_details:"5th Ave from 59th–49th St has flagship stores: Apple, Tiffany, Saks Fifth Avenue, Bergdorf Goodman. Or sit and watch street performers at Grand Army Plaza",
-        tip:"<strong>กลับโรงแรม:</strong> นั่ง "+badge("1","#EE352E")+" จาก 59 St → Rector St — 20 นาที หรือ "+badge("4","#00933C")+badge("5","#00933C")+" → Fulton St"}
+        tip:"<strong>กลับโรงแรม:</strong> นั่ง "+badge("2","#EE352E")+badge("3","#EE352E")+" express → Wall St — 15 นาที หรือ "+badge("1","#EE352E")+" → Rector St 20 นาที"}
     ],
     notes:"The Met กับ Central Park อยู่ติดกัน เดินข้ามถนนถึง วันนี้เดินเยอะ เตรียมรองเท้าสบายๆ",
     en_notes:"The Met and Central Park are right across the street. Lots of walking today — wear comfortable shoes"
@@ -272,7 +272,7 @@ var days=[
     stops:[
       {time:"10:00",name:"Natural History Museum",brief:"ไดโนเสาร์ อวกาศ สัตว์ป่า — 2.5 ชม.",
         en_brief:"Dinosaurs, space, wildlife — 2.5 hrs",color:"green",
-        transit:subwayIcon+" Rector St "+badge("1","#EE352E")+" → 79 St — 30 นาที หรือ Fulton St "+badge("C","#2850AD")+" → 81 St — 35 นาที",
+        transit:subwayIcon+" Rector St "+badge("1","#EE352E")+" → 79 St — 30 นาที (ตรงไม่ต้องเปลี่ยนสาย!)",
         details:"American Museum of Natural History เป็นสวรรค์ของเด็กๆ ไฮไลท์: Dinosaur Floor (ชั้น 4), Hayden Planetarium, Ocean Life Hall กับวาฬยักษ์, Gems & Minerals",
         en_details:"American Museum of Natural History — paradise for kids! Highlights: Dinosaur Floor (4th floor), Hayden Planetarium, Ocean Life Hall with giant whale, Gems & Minerals",
         tip:"<strong>ตั๋ว:</strong> General Admission ผู้ใหญ่ $28 / เด็ก $16.50 ซื้อล่วงหน้าที่ amnh.org — หน้างานคิวยาว"},
@@ -305,7 +305,7 @@ var days=[
         transit:subwayIcon+" Whitehall → 5 Av/53 St "+badge("R","#FCCC0A")+badge("W","#FCCC0A")+" — 20 นาที",
         details:"MoMA วันศุกร์เปิดถึง 20:30 ถึง 18:30 ยังมีเวลาดู 2 ชม. ไฮไลท์: The Starry Night (Van Gogh ชั้น 5), Campbell's Soup Cans (Warhol), Les Demoiselles d'Avignon (Picasso)",
         en_details:"MoMA open until 20:30 on Fridays. Arriving at 18:30 gives 2 hrs. Highlights: The Starry Night (Van Gogh, 5th floor), Campbell's Soup Cans (Warhol), Les Demoiselles d'Avignon (Picasso)",
-        tip:"<strong>ตั๋ว:</strong> NY resident ฟรี 17:30–20:30 (จองล่วงหน้า) / tourist $30 ซื้อหน้างานหรือออนไลน์<br><strong>กลับโรงแรม:</strong> สาย "+badge("E","#2850AD")+" จาก 5 Av/53 St → WTC ตรง 15 นาที"}
+        tip:"<strong>ตั๋ว:</strong> NY resident ฟรี 17:30–20:30 (จองล่วงหน้า) / tourist $30 ซื้อหน้างานหรือออนไลน์<br><strong>กลับโรงแรม:</strong> สาย "+badge("E","#2850AD")+" จาก 5 Av/53 St → WTC 15 นาที หรือ "+badge("1","#EE352E")+" จาก 50 St → Rector St 15 นาที"}
     ],
     notes:"เส้นทาง: Upper West Side → Midtown → Brooklyn → Lower Manhattan → Midtown — ไหลทางเดียว ถ้าเหนื่อยตัด Morgan Library ออกได้<br><br>🚌 <strong>พรุ่งนี้ 11 Apr:</strong> Checkout เช้า → CoachRun Bus 10:00 จาก 201 W 37th St (CVS) → Washington DC ถึง 14:30 (4.5 ชม.) · 4 คน $79.49",
     en_notes:"Route: Upper West Side → Midtown → Brooklyn → Lower Manhattan → Midtown — one direction, no backtracking. Cut Morgan Library if tired<br><br>🚌 <strong>Tomorrow 11 Apr:</strong> Checkout morning → CoachRun Bus 10:00 from 201 W 37th St (CVS) → Washington DC arrives 14:30 (4.5 hrs) · 4 people $79.49"
