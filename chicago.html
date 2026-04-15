@@ -82,7 +82,7 @@
     <button onclick="toggleLang()" id="langBtn" style="background:rgba(91,184,232,.15);border:1px solid rgba(91,184,232,.4);color:var(--accent);font-size:11px;font-weight:600;letter-spacing:2px;padding:6px 14px;border-radius:20px;cursor:pointer;position:relative">EN 🇺🇸</button>
   </div>
   <h1>4 Days in <span>Chicago</span></h1>
-  <p class="hero-sub" data-th="The Windy City — ลมแรง ริมทะเลสาบ Michigan" data-en="The Windy City — Windy, along Lake Michigan">The Windy City — ลมแรง ริมทะเลสาบ Michigan</p>
+  <p class="hero-sub" data-th="The Windy City — 3 คน · กระเป๋าใหญ่ 1 ใบ" data-en="The Windy City — 3 people · 1 large bag">The Windy City — 3 คน · กระเป๋าใหญ่ 1 ใบ</p>
   <div class="flight-badge">
     ✈️ DL3905 IAD 06:00 → DTW 07:35 · DL5218 DTW 08:25 → MDW 08:47
   </div>
@@ -219,6 +219,18 @@ function showDay(i){
 
     h+='<div class="info-card" style="animation:fadeUp .5s ease .2s both"><div class="label">⏰ '+(L==='en'?'TIME ZONE':'เขตเวลา')+'</div>';
     h+='<p>'+(L==='en'?'Chicago is <strong>Central Time (CT)</strong> — 1 hour behind DC/NYC (Eastern Time)<br>When it\'s 12:00 in DC → it\'s <strong>11:00</strong> in Chicago':'Chicago อยู่ <strong>Central Time (CT)</strong> — ช้ากว่า DC/NYC 1 ชั่วโมง<br>ตอน DC 12:00 น. → Chicago <strong>11:00 น.</strong>');
+    h+='</p></div>';
+
+    h+='<div class="info-card" style="animation:fadeUp .5s ease .3s both"><div class="label">🚇 '+(L==='en'?'AIRPORT → HOTEL (CTA)':'สนามบิน → โรงแรม (CTA)')+'</div>';
+    h+='<p>'+(L==='en'?'<strong>1.</strong> Follow signs to <strong>"CTA Trains"</strong> (5 min walk)<br><strong>2.</strong> Buy <strong>7-Day Pass $25/person</strong> at Ventra machine<br><strong>3.</strong> 🟠 <strong>Orange Line</strong> → toward Loop ~30 min<br><strong>4.</strong> Transfer at <strong>State/Lake</strong> → 🔴 <strong>Red Line</strong> toward Howard<br><strong>5.</strong> Get off at <strong>Chicago</strong> station (2 stops) ~5 min<br><strong>6.</strong> Walk west on Huron St → 🏨 Hotel ~5 min<br><br>⏱️ Total: ~45 min · <strong>$0</strong> (7-Day Pass)':'<strong>1.</strong> ตามป้าย <strong>"CTA Trains"</strong> (เดิน 5 นาที)<br><strong>2.</strong> ซื้อ <strong>7-Day Pass $25/คน</strong> ที่ตู้ Ventra<br><strong>3.</strong> 🟠 <strong>Orange Line</strong> → ไปทาง Loop ~30 นาที<br><strong>4.</strong> ต่อที่ <strong>State/Lake</strong> → 🔴 <strong>Red Line</strong> ไปทาง Howard<br><strong>5.</strong> ลงสถานี <strong>Chicago</strong> (2 สถานี) ~5 นาที<br><strong>6.</strong> เดินไปทางตะวันตกบน Huron St → 🏨 โรงแรม ~5 นาที<br><br>⏱️ รวม: ~45 นาที · <strong>$0</strong> (ใช้ 7-Day Pass)');
+    h+='</p></div>';
+
+    h+='<div class="info-card" style="animation:fadeUp .5s ease .4s both"><div class="label">🎫 '+(L==='en'?'7-DAY PASS':'ตั๋ว 7 วัน')+'</div>';
+    h+='<p>'+(L==='en'?'<strong>$25/person × 3 = $75 total</strong><br>Unlimited rides on CTA L trains + buses for 7 days<br>Buy at <strong>Ventra machine</strong> at Midway station before boarding<br>Each person needs their own card — tap at turnstile<br><br>⚠️ 3-Day Pass has been eliminated in 2026':'<strong>$25/คน × 3 = $75 รวม</strong><br>ขึ้นรถไฟ L + บัส ไม่จำกัดเที่ยว 7 วัน<br>ซื้อที่ <strong>ตู้ Ventra</strong> สถานี Midway ก่อนขึ้นรถ<br>ซื้อคนละใบ — แตะเข้า turnstile<br><br>⚠️ ตั๋ว 3 วัน ถูกยกเลิกแล้วในปี 2026');
+    h+='</p></div>';
+
+    h+='<div class="info-card" style="animation:fadeUp .5s ease .5s both"><div class="label">🧳 '+(L==='en'?'LUGGAGE & CHECK-IN':'กระเป๋า & เช็คอิน')+'</div>';
+    h+='<p>'+(L==='en'?'Arrive hotel ~09:30 but check-in is <strong>15:00</strong><br>→ Store luggage at front desk (free)<br>→ Say: <strong>"Can I store my luggage? I\'ll check in later."</strong><br>→ Go explore Chicago! Come back to check in later':'ถึงโรงแรม ~09:30 แต่ check-in <strong>15:00 น.</strong><br>→ ฝากกระเป๋าที่ front desk (ฟรี)<br>→ พูด: <strong>"Can I store my luggage? I\'ll check in later."</strong><br>→ ออกเที่ยวก่อน! กลับมา check-in ทีหลัง');
     h+='</p></div>';
   }
 
