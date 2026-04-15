@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DC Trip Itinerary</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0C0F14;--surface:#161B24;--surface-hover:#1D2330;--border:#262D3A;--text:#E8ECF2;--text-dim:#8892A4;--accent:#D4A574;--accent-glow:rgba(212,165,116,0.15);--green:#5CBF8A;--blue:#5B9FD6;--rose:#D67B8A;--purple:#A07BD6;--sky:#6BB8E8;--orange:#F0A050}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  .hero{position:relative;padding:52px 24px 16px;text-align:center;overflow:hidden}
+  .hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at 50% 20%,rgba(212,165,116,0.08)0%,transparent 60%),radial-gradient(ellipse at 80% 60%,rgba(91,159,214,0.05)0%,transparent 50%);pointer-events:none}
+  .hero-label{display:inline-block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:3px;color:var(--accent);background:var(--accent-glow);padding:6px 16px;border-radius:20px;position:relative}
+  .hero h1{font-family:'DM Serif Display',serif;font-size:clamp(34px,8vw,52px);font-weight:400;line-height:1.15;margin-bottom:10px;position:relative}
+  .hero h1 span{color:var(--accent)}
+  .hero-sub{font-size:14px;color:var(--text-dim);position:relative}
+  .hotel-badge,.flight-badge{display:inline-flex;align-items:center;gap:6px;margin-top:8px;font-size:11px;color:var(--text-dim);background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:8px 14px;position:relative}
+  .hotel-badge{font-size:12px;margin-top:14px}
+  .tabs{display:flex;gap:8px;padding:0 20px;margin:20px auto 0;max-width:600px;justify-content:center;flex-wrap:wrap}
+  .tab{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px;cursor:pointer;transition:all .3s ease;text-align:center;flex:1;min-width:70px;max-width:160px;user-select:none}
+  .tab:hover{background:var(--surface-hover)}
+  .tab.active{border-color:var(--accent);background:var(--accent-glow)}
+  .tab-day{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--text-dim);margin-bottom:4px}
+  .tab.active .tab-day{color:var(--accent)}
+  .tab-title{font-size:13px;font-weight:600;color:var(--text)}
+  .tab-date{font-size:11px;color:var(--text-dim);margin-top:2px}
+  .tc{max-width:600px;margin:28px auto;padding:0 20px 40px}
+  .day-hdr{margin-bottom:20px}.day-hdr h2{font-family:'DM Serif Display',serif;font-size:26px;font-weight:400;margin-bottom:4px}.day-hdr p{font-size:13px;color:var(--text-dim)}
+  .weather-card{background:linear-gradient(135deg,#1a2233,#162030);border:1px solid var(--border);border-radius:14px;padding:18px;margin-bottom:8px;animation:fadeIn .5s ease}
+  .weather-top{display:flex;align-items:center;gap:12px;margin-bottom:14px}.weather-icon{font-size:32px;line-height:1}.weather-summary{flex:1}.weather-summary-title{font-size:14px;font-weight:600}.weather-meta{display:flex;gap:12px;margin-top:4px}.weather-meta-item{font-size:11px;color:var(--text-dim);display:flex;align-items:center;gap:3px}.weather-meta-item span{color:var(--text);font-weight:600}
+  .temp-timeline{display:flex;margin-bottom:14px;background:rgba(255,255,255,0.02);border-radius:10px;overflow:hidden}.temp-slot{flex:1;text-align:center;padding:12px 8px}.temp-slot:not(:last-child){border-right:1px solid var(--border)}.temp-slot-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text-dim);margin-bottom:2px}.temp-slot-time{font-size:10px;color:var(--text-dim);opacity:.7;margin-bottom:6px}.temp-slot-deg{font-family:'DM Serif Display',serif;font-size:24px;font-weight:400;line-height:1}.temp-slot-deg small{font-size:12px;font-family:'DM Sans',sans-serif;color:var(--text-dim)}
+  .temp-cold .temp-slot-deg{color:var(--blue)}.temp-warm .temp-slot-deg{color:var(--orange)}.temp-cool .temp-slot-deg{color:var(--sky)}
+  .outfit-box{background:rgba(212,165,116,0.06);border:1px solid rgba(212,165,116,0.12);border-radius:10px;padding:12px 14px}.outfit-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:5px}.outfit-text{font-size:12px;color:var(--text-dim);line-height:1.6}.outfit-text strong{color:var(--text);font-weight:600}
+  .forecast-note{font-size:11px;color:var(--text-dim);opacity:.5;text-align:center;margin-bottom:16px}
+  .tl{position:relative;padding-left:28px}.tl::before{content:'';position:absolute;left:6px;top:8px;bottom:8px;width:1px;background:var(--border)}
+  .transit{position:relative;margin-bottom:6px;display:flex;align-items:center;gap:8px;opacity:0;transform:translateY(8px);animation:fadeUp .4s ease forwards}.transit-line{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-dim);background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.04);border-radius:8px;padding:5px 10px;line-height:1.4;flex-wrap:wrap}
+  .stop{position:relative;margin-bottom:8px;opacity:0;transform:translateY(16px);animation:fadeUp .5s ease forwards}
+  @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .stop-dot{position:absolute;left:-24px;top:16px;width:13px;height:13px;border-radius:50%;border:2px solid;background:var(--bg);z-index:2}
+  .stop-dot.green{border-color:var(--green);box-shadow:0 0 8px rgba(92,191,138,.3)}.stop-dot.blue{border-color:var(--blue);box-shadow:0 0 8px rgba(91,159,214,.3)}.stop-dot.rose{border-color:var(--rose);box-shadow:0 0 8px rgba(214,123,138,.3)}.stop-dot.accent{border-color:var(--accent);box-shadow:0 0 8px rgba(212,165,116,.3)}.stop-dot.purple{border-color:var(--purple);box-shadow:0 0 8px rgba(160,123,214,.3)}.stop-dot.orange{border-color:var(--orange);box-shadow:0 0 8px rgba(240,160,80,.3)}
+  .stop-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:all .25s ease;cursor:pointer}.stop-card:hover{background:var(--surface-hover)}.stop-card.open{border-color:rgba(255,255,255,.1)}
+  .stop-top{padding:14px 16px;display:flex;align-items:flex-start;justify-content:space-between}.stop-top-left{flex:1}
+  .stop-time{font-size:12px;font-weight:700;letter-spacing:1px;margin-bottom:5px}.stop-time.green{color:var(--green)}.stop-time.blue{color:var(--blue)}.stop-time.rose{color:var(--rose)}.stop-time.accent{color:var(--accent)}.stop-time.purple{color:var(--purple)}.stop-time.orange{color:var(--orange)}
+  .stop-name{font-size:15px;font-weight:600;margin-bottom:3px;line-height:1.3}.stop-brief{font-size:12px;color:var(--text-dim)}
+  .stop-chevron{margin-top:8px;transition:transform .3s ease;color:var(--text-dim);flex-shrink:0}.stop-card.open .stop-chevron{transform:rotate(180deg)}
+  .stop-tag{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;padding:3px 10px;border-radius:6px;margin-top:6px}
+  .tag-free{background:rgba(92,191,138,.12);color:var(--green)}.tag-booked{background:rgba(240,160,80,.12);color:var(--orange)}.tag-optional{background:rgba(160,123,214,.12);color:var(--purple)}.tag-food{background:rgba(214,123,138,.12);color:var(--rose)}
+  .stop-details{max-height:0;overflow:hidden;transition:max-height .4s ease}.stop-card.open .stop-details{max-height:600px}
+  .stop-inner{padding:0 16px 16px;border-top:1px solid var(--border)}.detail-section{margin-top:12px}.detail-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-dim);margin-bottom:5px}.detail-text{font-size:13px;color:var(--text);line-height:1.6}
+  .tip-box{background:rgba(91,159,214,.08);border:1px solid rgba(91,159,214,.15);border-radius:8px;padding:10px 12px;margin-top:10px;font-size:12px;color:var(--text-dim);line-height:1.5}.tip-box strong{color:var(--blue)}
+  .notes-box{background:var(--accent-glow);border:1px solid rgba(212,165,116,.2);border-radius:12px;padding:14px 16px;margin-top:20px}.notes-box h4{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:6px}.notes-box p{font-size:13px;color:var(--text-dim);line-height:1.6}
+  .fade-section{animation:fadeIn .4s ease}
+  .footer{text-align:center;padding:12px 20px 48px;font-size:12px;color:var(--text-dim);opacity:.35}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+    <a href="index.html" class="hero-label" style="text-decoration:none;margin-bottom:0">&#9992; Family Trip 2026</a>
+    <button onclick="toggleLang()" id="langBtn" style="background:rgba(212,165,116,.15);border:1px solid rgba(212,165,116,.4);color:var(--accent);font-size:11px;font-weight:600;letter-spacing:2px;padding:6px 14px;border-radius:20px;cursor:pointer">EN &#127482;&#127480;</button>
+  </div>
+  <h1>Washington <span>DC</span></h1>
+  <p class="hero-sub">11&#8211;19 Apr &#183; 3 &#3588;&#3609; &#183; &#3586;&#3633;&#3610;&#3619;&#3606;&#3592;&#3634;&#3585; Centreville VA</p>
+  <div class="hotel-badge">&#127960;&#65039; Centreville, Virginia &#183; Park &amp; Ride 14700 Lee Hwy &#183; &#3592;&#3629;&#3604;&#3615;&#3619;&#3637;!</div>
+</div>
+<div class="tabs">
+  <div class="tab active" onclick="showDay(0)"><div class="tab-day">Day 1</div><div class="tab-title">G.Town</div><div class="tab-date">Thu &#183; 16 Apr</div></div>
+</div>
+<div class="tc" id="content"></div>
+<div class="footer">Washington DC Itinerary</div>
+<script>
+var isEN=false,curDay=0;
+function toggleLang(){isEN=!isEN;document.getElementById("langBtn").textContent=isEN?"TH \ud83c\uddf9\ud83c\udded":"EN \ud83c\uddfa\ud83c\uddf8";showDay(curDay);}
+
+var days=[
+{
+  title:"Georgetown + Natural History Museum",en_title:"Georgetown + Natural History Museum",
+  subtitle:"\u0e0a\u0e47\u0e2d\u0e1b\u0e40\u0e0a\u0e49\u0e32 + \u0e1e\u0e34\u0e1e\u0e34\u0e18\u0e20\u0e31\u0e13\u0e11\u0e4c\u0e1a\u0e48\u0e32\u0e22",en_subtitle:"Morning shopping + afternoon museum",
+  weather:{icon:"\u2600\ufe0f",summary:"23\u00b0C \u0e2a\u0e1a\u0e32\u0e22 \u0e40\u0e22\u0e47\u0e19\u0e25\u0e07\u0e08\u0e32\u0e01\u0e40\u0e21\u0e37\u0e48\u0e2d\u0e27\u0e32\u0e19",en_summary:"23\u00b0C pleasant, cooler than yesterday",wind:"12 km/h",rain:"15%",sunrise:"06:22",sunset:"19:43",
+    temps:[{label:"\u0e40\u0e0a\u0e49\u0e32",en_label:"Morning",time:"~08:00",deg:12,cls:"temp-cold"},{label:"\u0e01\u0e25\u0e32\u0e07\u0e27\u0e31\u0e19",en_label:"Afternoon",time:"~14:00",deg:23,cls:"temp-warm"},{label:"\u0e40\u0e22\u0e47\u0e19",en_label:"Evening",time:"~16:00",deg:20,cls:"temp-cool"}],
+    outfit:"\u0e40\u0e0a\u0e49\u0e32\u0e40\u0e22\u0e47\u0e19 12\u00b0C \u0e1a\u0e48\u0e32\u0e22\u0e2d\u0e38\u0e48\u0e19 23\u00b0C<br><strong>\u0e43\u0e2a\u0e48:</strong> \u0e40\u0e2a\u0e37\u0e49\u0e2d\u0e22\u0e37\u0e14 + \u0e41\u0e02\u0e19\u0e22\u0e32\u0e27 + \u0e41\u0e08\u0e47\u0e04\u0e40\u0e01\u0e47\u0e15\u0e1a\u0e32\u0e07\u0e16\u0e2d\u0e14\u0e44\u0e14\u0e49\u0e15\u0e2d\u0e19\u0e1a\u0e48\u0e32\u0e22<br>\u0e23\u0e2d\u0e07\u0e40\u0e17\u0e49\u0e32\u0e40\u0e14\u0e34\u0e19\u0e2a\u0e1a\u0e32\u0e22 (\u0e40\u0e14\u0e34\u0e19\u0e40\u0e22\u0e2d\u0e30!)",
+    en_outfit:"Morning cool 12\u00b0C, afternoon warm 23\u00b0C<br><strong>Wear:</strong> T-shirt + long sleeves + light jacket (removable)<br>Comfortable walking shoes (lots of walking!)"
+  },
+  stops:[
+    {time:"07:30",name:"\u0e2d\u0e2d\u0e01\u0e08\u0e32\u0e01\u0e1a\u0e49\u0e32\u0e19",brief:"\u0e02\u0e31\u0e1a\u0e23\u0e16\u0e44\u0e1b Centreville Park & Ride",en_brief:"Drive to Centreville Park & Ride",color:"green",
+      details:"\ud83c\udd7f\ufe0f <strong>Centreville Park & Ride</strong><br>14700 Lee Hwy, Centreville VA<br>\u0e08\u0e2d\u0e14\u0e1f\u0e23\u0e35! 372 \u0e0a\u0e48\u0e2d\u0e07",
+      en_details:"\ud83c\udd7f\ufe0f <strong>Centreville Park & Ride</strong><br>14700 Lee Hwy, Centreville VA<br>Free parking! 372 spaces"},
+    {time:"07:45",name:"Fairfax Connector \u2192 Vienna Metro",brief:"\u0e2a\u0e32\u0e22 640/642 ~30 \u0e19\u0e32\u0e17\u0e35",en_brief:"Route 640/642 ~30 min",color:"blue",
+      transit:"\ud83d\ude8c Fairfax Connector 640/642 \u2192 Vienna/Fairfax-GMU Metro",
+      details:"\u0e41\u0e15\u0e30\u0e1a\u0e31\u0e15\u0e23\u0e40\u0e04\u0e23\u0e14\u0e34\u0e15\u0e2b\u0e23\u0e37\u0e2d SmarTrip \u0e17\u0e35\u0e48\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e2d\u0e48\u0e32\u0e19\u0e1a\u0e19\u0e23\u0e16<br>\u0e04\u0e48\u0e32\u0e42\u0e14\u0e22\u0e2a\u0e32\u0e23 ~$2",
+      en_details:"Tap credit card or SmarTrip at farebox<br>Fare ~$2",
+      tip:"\u0e40\u0e0a\u0e47\u0e04\u0e40\u0e27\u0e25\u0e32\u0e23\u0e16\u0e1a\u0e31\u0e2a\u0e43\u0e19\u0e41\u0e2d\u0e1b Fairfax Connector \u0e2b\u0e23\u0e37\u0e2d Google Maps",en_tip:"Check bus times in Fairfax Connector app or Google Maps"},
+    {time:"08:20",name:"Metro Orange Line \u2192 Foggy Bottom",brief:"Vienna \u2192 Foggy Bottom-GWU ~25 min",en_brief:"Vienna \u2192 Foggy Bottom-GWU ~25 min",color:"blue",
+      transit:"\ud83d\udfe0 Orange Line \u2192 Foggy Bottom-GWU ~25 min",
+      details:"\u0e41\u0e15\u0e30\u0e1a\u0e31\u0e15\u0e23\u0e40\u0e04\u0e23\u0e14\u0e34\u0e15\u0e17\u0e35\u0e48\u0e1b\u0e23\u0e30\u0e15\u0e39 fare gate<br>\u26a0\ufe0f DC Metro \u0e15\u0e49\u0e2d\u0e07\u0e41\u0e15\u0e30\u0e17\u0e31\u0e49\u0e07\u0e40\u0e02\u0e49\u0e32\u0e41\u0e25\u0e30\u0e2d\u0e2d\u0e01! (\u0e04\u0e34\u0e14\u0e15\u0e32\u0e21\u0e23\u0e30\u0e22\u0e30\u0e17\u0e32\u0e07)<br>\u0e04\u0e48\u0e32\u0e42\u0e14\u0e22\u0e2a\u0e32\u0e23 ~$4-5",
+      en_details:"Tap credit card at fare gate<br>\u26a0\ufe0f DC Metro: tap IN and OUT! (distance-based fare)<br>Fare ~$4-5"},
+    {time:"08:45",name:"\u0e40\u0e14\u0e34\u0e19\u0e44\u0e1b Georgetown",brief:"Foggy Bottom \u2192 M Street ~20 \u0e19\u0e32\u0e17\u0e35",en_brief:"Walk from Foggy Bottom ~20 min",color:"blue",
+      transit:"\ud83d\udeb6 \u0e40\u0e14\u0e34\u0e19\u0e1c\u0e48\u0e32\u0e19 Pennsylvania Ave \u2192 M Street",
+      details:"Georgetown \u0e44\u0e21\u0e48\u0e21\u0e35\u0e2a\u0e16\u0e32\u0e19\u0e35 Metro!<br>\u0e15\u0e49\u0e2d\u0e07\u0e40\u0e14\u0e34\u0e19\u0e08\u0e32\u0e01 Foggy Bottom ~20 \u0e19\u0e32\u0e17\u0e35<br>\u0e2b\u0e23\u0e37\u0e2d\u0e19\u0e31\u0e48\u0e07 Metrobus D80",
+      en_details:"Georgetown has no Metro station!<br>Walk from Foggy Bottom ~20 min<br>Or take Metrobus D80"},
+    {time:"09:00",name:"\u2615 Baked & Wired",brief:"\u0e04\u0e32\u0e40\u0e1f\u0e48\u0e14\u0e31\u0e07\u0e02\u0e2d\u0e07 Georgetown!",en_brief:"Famous Georgetown cafe!",color:"rose",tag:{text:"Food",cls:"tag-food"},
+      details:"\u0e04\u0e32\u0e40\u0e1f\u0e48\u0e14\u0e31\u0e07\u0e02\u0e2d\u0e07 Georgetown<br>\u0e01\u0e32\u0e41\u0e1f\u0e2d\u0e23\u0e48\u0e2d\u0e22 + \u0e04\u0e31\u0e1e\u0e40\u0e04\u0e49\u0e01 + \u0e02\u0e19\u0e21\u0e2d\u0e1a\u0e2a\u0e14<br>\ud83d\udccd 1052 Thomas Jefferson St NW",
+      en_details:"Famous Georgetown cafe<br>Great coffee + cupcakes + pastries<br>\ud83d\udccd 1052 Thomas Jefferson St NW"},
+    {time:"09:30",name:"Georgetown Waterfront",brief:"\u0e40\u0e14\u0e34\u0e19\u0e23\u0e34\u0e21 Potomac \u0e40\u0e0a\u0e49\u0e32\u0e46 \u0e04\u0e19\u0e19\u0e49\u0e2d\u0e22 \u0e2a\u0e27\u0e22",en_brief:"Morning walk along Potomac \u2014 peaceful & beautiful",color:"accent",tag:{text:"Free",cls:"tag-free"},
+      details:"\u0e40\u0e14\u0e34\u0e19\u0e23\u0e34\u0e21\u0e41\u0e21\u0e48\u0e19\u0e49\u0e33 Potomac<br>\u0e40\u0e0a\u0e49\u0e32\u0e46 \u0e04\u0e19\u0e19\u0e49\u0e2d\u0e22 \u0e2a\u0e07\u0e1a \u0e16\u0e48\u0e32\u0e22\u0e23\u0e39\u0e1b\u0e2a\u0e27\u0e22",
+      en_details:"Walk along Potomac River<br>Quiet morning, beautiful photos"},
+    {time:"10:00",name:"\ud83c\udf93 Georgetown University",brief:"\u0e41\u0e04\u0e21\u0e1b\u0e31\u0e2a\u0e2a\u0e27\u0e22 \u0e01\u0e48\u0e2d\u0e15\u0e31\u0e49\u0e07 1789!",en_brief:"Beautiful campus, founded 1789!",color:"accent",tag:{text:"Free",cls:"tag-free"},
+      transit:"\ud83d\udeb6 \u0e40\u0e14\u0e34\u0e19\u0e02\u0e36\u0e49\u0e19\u0e40\u0e19\u0e34\u0e19\u0e08\u0e32\u0e01 Waterfront ~15 min",
+      details:"\u0e21\u0e2b\u0e32\u0e27\u0e34\u0e17\u0e22\u0e32\u0e25\u0e31\u0e22\u0e40\u0e01\u0e48\u0e32\u0e41\u0e01\u0e48\u0e17\u0e35\u0e48\u0e2a\u0e38\u0e14\u0e02\u0e2d\u0e07 DC<br>\u0e16\u0e48\u0e32\u0e22\u0e23\u0e39\u0e1b <strong>Healy Hall</strong> \u0e2b\u0e2d\u0e04\u0e2d\u0e22\u0e2a\u0e27\u0e22\u0e21\u0e32\u0e01!<br><strong>John Carroll Statue</strong> \u0e23\u0e39\u0e1b\u0e1b\u0e31\u0e49\u0e19\u0e2b\u0e19\u0e49\u0e32 Healy Hall<br>\u0e28\u0e34\u0e29\u0e22\u0e4c\u0e40\u0e01\u0e48\u0e32\u0e14\u0e31\u0e07: Bill Clinton",
+      en_details:"Oldest university in DC, founded 1789<br>Photo: <strong>Healy Hall</strong> \u2014 stunning tower!<br><strong>John Carroll Statue</strong> in front<br>Famous alumni: Bill Clinton"},
+    {time:"10:15",name:"\ud83d\udd11 The Exorcist Steps",brief:"\u0e1a\u0e31\u0e19\u0e44\u0e14\u0e08\u0e32\u0e01\u0e2b\u0e19\u0e31\u0e07\u0e1c\u0e35! 75 \u0e02\u0e31\u0e49\u0e19",en_brief:"Stairs from the horror movie! 75 steps",color:"purple",
+      details:"\u0e1a\u0e31\u0e19\u0e44\u0e14\u0e0a\u0e31\u0e19\u0e08\u0e32\u0e01\u0e2b\u0e19\u0e31\u0e07 The Exorcist (1973)<br>75 \u0e02\u0e31\u0e49\u0e19! \u0e16\u0e48\u0e32\u0e22\u0e23\u0e39\u0e1b\u0e2a\u0e19\u0e38\u0e01<br>\ud83d\udccd 3600 Prospect St NW",
+      en_details:"Steep stairs from The Exorcist (1973)<br>75 steps! Fun photo spot<br>\ud83d\udccd 3600 Prospect St NW"},
+    {time:"10:30",name:"\ud83d\udecd\ufe0f M Street + Wisconsin Ave",brief:"\u0e23\u0e49\u0e32\u0e19\u0e40\u0e1b\u0e34\u0e14\u0e41\u0e25\u0e49\u0e27! \u0e0a\u0e47\u0e2d\u0e1b + \u0e40\u0e14\u0e34\u0e19\u0e40\u0e25\u0e48\u0e19",en_brief:"Shops are open! Shopping + strolling",color:"accent",
+      details:"J.Crew, H&M, T.J. Maxx, Urban Outfitters<br>Lululemon, Rag & Bone, SKIMS<br>+ \u0e23\u0e49\u0e32\u0e19\u0e27\u0e34\u0e19\u0e40\u0e17\u0e08 \u0e1a\u0e39\u0e15\u0e34\u0e04 local",
+      en_details:"J.Crew, H&M, T.J. Maxx, Urban Outfitters<br>Lululemon, Rag & Bone, SKIMS<br>+ vintage shops, local boutiques"},
+    {time:"11:00",name:"\ud83e\uddc1 Georgetown Cupcake",brief:"\u0e23\u0e49\u0e32\u0e19\u0e04\u0e31\u0e1e\u0e40\u0e04\u0e49\u0e01\u0e14\u0e31\u0e07\u0e08\u0e32\u0e01 TV!",en_brief:"Famous cupcake shop from TV show!",color:"rose",tag:{text:"Food",cls:"tag-food"},
+      details:"\ud83d\udccd 3301 M St NW<br>\u0e23\u0e49\u0e32\u0e19\u0e04\u0e31\u0e1e\u0e40\u0e04\u0e49\u0e01\u0e08\u0e32\u0e01\u0e23\u0e32\u0e22\u0e01\u0e32\u0e23 DC Cupcakes<br>\u0e04\u0e31\u0e1e\u0e40\u0e04\u0e49\u0e01\u0e25\u0e30 ~$4",
+      en_details:"\ud83d\udccd 3301 M St NW<br>From TV show DC Cupcakes<br>~$4 per cupcake"},
+    {time:"11:30",name:"\ud83c\udf54 \u0e21\u0e37\u0e49\u0e2d\u0e40\u0e17\u0e35\u0e48\u0e22\u0e07\u0e40\u0e23\u0e47\u0e27 Georgetown",brief:"\u0e23\u0e49\u0e32\u0e19\u0e40\u0e22\u0e2d\u0e30\u0e1a\u0e19 M Street",en_brief:"Lunch on M Street",color:"rose",tag:{text:"Food",cls:"tag-food"},
+      details:"\u0e23\u0e49\u0e32\u0e19\u0e40\u0e22\u0e2d\u0e30\u0e21\u0e32\u0e01\u0e1a\u0e19 M Street<br>\u0e2b\u0e23\u0e37\u0e2d\u0e40\u0e01\u0e47\u0e1a\u0e44\u0e27\u0e49\u0e01\u0e34\u0e19\u0e1a\u0e19 National Mall \u0e17\u0e35\u0e2b\u0e25\u0e31\u0e07",
+      en_details:"Lots of restaurants on M Street<br>Or save appetite for food near National Mall later"},
+    {time:"12:00",name:"\u0e40\u0e14\u0e34\u0e19\u0e01\u0e25\u0e31\u0e1a Foggy Bottom",brief:"Georgetown \u2192 Metro ~20 min",en_brief:"Georgetown \u2192 Metro ~20 min",color:"blue",
+      transit:"\ud83d\udeb6 \u0e40\u0e14\u0e34\u0e19\u0e01\u0e25\u0e31\u0e1a M Street \u2192 Foggy Bottom Metro"},
+    {time:"12:30",name:"\ud83c\udfe8 Lincoln Memorial",brief:"\u0e1a\u0e31\u0e19\u0e44\u0e14 I Have a Dream!",en_brief:"MLK's I Have a Dream steps!",color:"orange",tag:{text:"Free",cls:"tag-free"},
+      transit:"\ud83d\udeb6 \u0e40\u0e14\u0e34\u0e19\u0e08\u0e32\u0e01 Foggy Bottom \u2192 Lincoln Memorial ~15 min",
+      details:"<strong>Lincoln Memorial</strong> \u2b50<br>\u0e1a\u0e31\u0e19\u0e44\u0e14\u0e17\u0e35\u0e48 Martin Luther King \u0e01\u0e25\u0e48\u0e32\u0e27\u0e2a\u0e38\u0e19\u0e17\u0e23\u0e1e\u0e08\u0e19\u0e4c I Have a Dream!<br>\u0e27\u0e34\u0e27 Reflecting Pool \u2192 Washington Monument \u0e2a\u0e27\u0e22\u0e21\u0e32\u0e01<br>\u0e1f\u0e23\u0e35!",
+      en_details:"<strong>Lincoln Memorial</strong> \u2b50<br>Steps where MLK gave I Have a Dream speech!<br>View of Reflecting Pool \u2192 Washington Monument<br>Free!"},
+    {time:"13:00",name:"\ud83d\udcf0 Washington Monument",brief:"\u0e40\u0e2a\u0e32\u0e2a\u0e39\u0e07 169 \u0e40\u0e21\u0e15\u0e23",en_brief:"169m tall obelisk",color:"accent",tag:{text:"Free",cls:"tag-free"},
+      transit:"\ud83d\udeb6 \u0e40\u0e14\u0e34\u0e19\u0e1c\u0e48\u0e32\u0e19 Reflecting Pool ~15 min",
+      details:"\u0e40\u0e2a\u0e32\u0e2a\u0e39\u0e07 169 \u0e40\u0e21\u0e15\u0e23 \u0e40\u0e2b\u0e47\u0e19\u0e08\u0e32\u0e01\u0e17\u0e31\u0e48\u0e27\u0e40\u0e21\u0e37\u0e2d\u0e07<br>\u0e16\u0e48\u0e32\u0e22\u0e23\u0e39\u0e1b\u0e14\u0e49\u0e32\u0e19\u0e19\u0e2d\u0e01 \u0e44\u0e21\u0e48\u0e15\u0e49\u0e2d\u0e07\u0e02\u0e36\u0e49\u0e19",
+      en_details:"169m tall obelisk visible from everywhere<br>Photo from outside, no need to go up"},
+    {time:"13:15",name:"\ud83e\udd95 Natural History Museum",brief:"\u0e1e\u0e34\u0e1e\u0e34\u0e18\u0e20\u0e31\u0e13\u0e11\u0e4c\u0e18\u0e23\u0e23\u0e21\u0e0a\u0e32\u0e15\u0e34 \u0e1f\u0e23\u0e35!",en_brief:"Smithsonian Natural History \u2014 FREE!",color:"orange",tag:{text:"Free",cls:"tag-free"},
+      transit:"\ud83d\udeb6 \u0e40\u0e14\u0e34\u0e19\u0e08\u0e32\u0e01 Washington Monument ~10 min",
+      details:"\ud83e\udd96 <strong>Dinosaur Hall</strong> (\u0e0a\u0e31\u0e49\u0e19 1) \u2014 T. Rex Nation\u2019s Rex!<br>\ud83d\udc8e <strong>Hope Diamond</strong> (\u0e0a\u0e31\u0e49\u0e19 2) \u2014 \u0e40\u0e1e\u0e0a\u0e23 45.52 \u0e01\u0e30\u0e23\u0e31\u0e15!<br>\ud83d\udc0b <strong>Ocean Hall</strong> \u2014 \u0e27\u0e32\u0e2c\u0e2a\u0e35\u0e19\u0e49\u0e33\u0e40\u0e07\u0e34\u0e19\u0e41\u0e02\u0e27\u0e19<br>\ud83e\udd8b <strong>Butterfly Pavilion</strong> $8 (\u0e16\u0e49\u0e32\u0e2a\u0e19\u0e43\u0e08)<br><br>\ud83d\udccd 10th St & Constitution Ave NW<br>\u0e1f\u0e23\u0e35! \u0e44\u0e21\u0e48\u0e15\u0e49\u0e2d\u0e07\u0e08\u0e2d\u0e07",
+      en_details:"\ud83e\udd96 <strong>Dinosaur Hall</strong> (Floor 1) \u2014 T. Rex!\ud83d\udc8e <strong>Hope Diamond</strong> (Floor 2) \u2014 45.52 carat!<br>\ud83d\udc0b <strong>Ocean Hall</strong> \u2014 blue whale<br>\ud83e\udd8b <strong>Butterfly Pavilion</strong> $8 (optional)<br><br>\ud83d\udccd 10th St & Constitution Ave NW<br>FREE! No reservation needed",
+      tip:"\u0e44\u0e2e\u0e44\u0e25\u0e17\u0e4c: <strong>T. Rex</strong> \u0e17\u0e35\u0e48 Smithsonian \u0e01\u0e23\u0e30\u0e14\u0e39\u0e01\u0e08\u0e23\u0e34\u0e07 ~85%! \u0e2a\u0e21\u0e1a\u0e39\u0e23\u0e13\u0e4c\u0e01\u0e27\u0e48\u0e32 NYC (50%) \u0e41\u0e25\u0e30 Chicago (90%)",
+      en_tip:"Highlight: Smithsonian <strong>T. Rex</strong> is ~85% real bone! More complete than NYC (50%) and Chicago (90%)"},
+    {time:"15:15",name:"\u0e2d\u0e2d\u0e01\u0e08\u0e32\u0e01 Museum",brief:"\u0e40\u0e14\u0e34\u0e19\u0e44\u0e1b Smithsonian Metro",en_brief:"Walk to Smithsonian Metro",color:"blue",
+      transit:"\ud83d\udeb6 5 min \u2192 Smithsonian Metro"},
+    {time:"15:30",name:"\ud83d\udfe0 Metro \u0e01\u0e25\u0e31\u0e1a Centreville",brief:"Smithsonian \u2192 Vienna \u2192 Bus \u2192 P&R",en_brief:"Smithsonian \u2192 Vienna \u2192 Bus \u2192 P&R",color:"blue",
+      transit:"\ud83d\udfe0 Orange Line Smithsonian \u2192 Vienna ~30 min",
+      details:"\ud83d\udfe0 <strong>Orange Line</strong> Smithsonian \u2192 Vienna ~30 min<br>\ud83d\ude8c <strong>Fairfax Connector</strong> \u2192 Centreville P&R ~30 min<br>\ud83d\ude97 \u0e16\u0e36\u0e07\u0e23\u0e16 ~16:40<br><br>\u26a0\ufe0f \u0e2d\u0e22\u0e48\u0e32\u0e25\u0e37\u0e21\u0e41\u0e15\u0e30\u0e1a\u0e31\u0e15\u0e23\u0e2d\u0e2d\u0e01\u0e17\u0e35\u0e48 Smithsonian!",
+      en_details:"\ud83d\udfe0 <strong>Orange Line</strong> Smithsonian \u2192 Vienna ~30 min<br>\ud83d\ude8c <strong>Fairfax Connector</strong> \u2192 Centreville P&R ~30 min<br>\ud83d\ude97 At car ~16:40<br><br>\u26a0\ufe0f Don\u2019t forget to tap OUT at Smithsonian!"}
+  ],
+  notes:"\u0e04\u0e48\u0e32\u0e40\u0e14\u0e34\u0e19\u0e17\u0e32\u0e07\u0e27\u0e31\u0e19\u0e19\u0e35\u0e49: \u0e08\u0e2d\u0e14\u0e23\u0e16\u0e1f\u0e23\u0e35 + Bus ~$4 + Metro ~$8-10 = ~$12-14/\u0e04\u0e19<br>DC Metro \u0e41\u0e15\u0e30\u0e17\u0e31\u0e49\u0e07\u0e40\u0e02\u0e49\u0e32\u0e41\u0e25\u0e30\u0e2d\u0e2d\u0e01! \u0e43\u0e0a\u0e49\u0e1a\u0e31\u0e15\u0e23\u0e40\u0e14\u0e35\u0e22\u0e27\u0e01\u0e31\u0e19\u0e17\u0e31\u0e49\u0e07\u0e27\u0e31\u0e19",en_notes:"Transport today: Parking free + Bus ~$4 + Metro ~$8-10 = ~$12-14/person<br>DC Metro: tap IN and OUT! Use same card all day"
+}
+];
+function showDay(idx){
+  curDay=idx;document.querySelectorAll(".tab").forEach(function(t,i){t.classList.toggle("active",i===idx)});
+  var d=days[idx],c=document.getElementById("content"),L=isEN;
+  var h='<div class="fade-section"><div class="day-hdr"><h2>'+(L?d.en_title:d.title)+'</h2><p>'+(L?d.en_subtitle:d.subtitle)+'</p></div>';
+  var w=d.weather;
+  h+='<div class="weather-card"><div class="weather-top"><div class="weather-icon">'+w.icon+'</div><div class="weather-summary"><div class="weather-summary-title">'+(L?w.en_summary:w.summary)+'</div><div class="weather-meta"><div class="weather-meta-item">\ud83d\udca8 <span>'+w.wind+'</span></div><div class="weather-meta-item">\ud83c\udf27 <span>'+w.rain+'</span></div><div class="weather-meta-item">\ud83c\udf05 <span>'+w.sunrise+'</span></div><div class="weather-meta-item">\ud83c\udf07 <span>'+w.sunset+'</span></div></div></div></div>';
+  h+='<div class="temp-timeline">';
+  w.temps.forEach(function(t){h+='<div class="temp-slot '+t.cls+'"><div class="temp-slot-label">'+(L?t.en_label:t.label)+'</div><div class="temp-slot-time">'+t.time+'</div><div class="temp-slot-deg">'+t.deg+'\u00b0<small>C</small></div></div>';});
+  h+='</div><div class="outfit-box"><div class="outfit-label">\ud83d\udc55 '+(L?'WHAT TO WEAR':'\u0e41\u0e19\u0e30\u0e19\u0e33\u0e01\u0e32\u0e23\u0e41\u0e15\u0e48\u0e07\u0e15\u0e31\u0e27')+'</div><div class="outfit-text">'+(L?w.en_outfit:w.outfit)+'</div></div></div>';
+  h+='<div class="forecast-note">'+(L?'Forecast may change':'\u0e1e\u0e22\u0e32\u0e01\u0e23\u0e13\u0e4c\u0e2d\u0e32\u0e08\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19')+'</div>';
+  if(d.stops&&d.stops.length>0){h+='<div class="tl">';
+    d.stops.forEach(function(s,i){var dl=(i*0.06)+"s";
+      if(s.transit)h+='<div class="transit" style="animation-delay:'+dl+'"><div class="transit-line">'+s.transit+'</div></div>';
+      h+='<div class="stop" style="animation-delay:'+dl+'"><div class="stop-dot '+s.color+'"></div><div class="stop-card" onclick="toggleCard(this)"><div class="stop-top"><div class="stop-top-left">';
+      h+='<div class="stop-time '+s.color+'">'+s.time+'</div><div class="stop-name">'+s.name+'</div><div class="stop-brief">'+(L?(s.en_brief||s.brief):s.brief)+'</div>';
+      if(s.tag)h+='<span class="stop-tag '+s.tag.cls+'">'+s.tag.text+'</span>';
+      h+='</div><svg class="stop-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>';
+      h+='<div class="stop-details"><div class="stop-inner">';
+      if(s.details)h+='<div class="detail-section"><div class="detail-label">'+(L?'\ud83d\udccd Details':'\ud83d\udccd \u0e23\u0e32\u0e22\u0e25\u0e30\u0e40\u0e2d\u0e35\u0e22\u0e14')+'</div><div class="detail-text">'+(L?(s.en_details||s.details):s.details)+'</div></div>';
+      if(s.tip)h+='<div class="tip-box">'+(L?(s.en_tip||s.tip):s.tip)+'</div>';
+      h+='</div></div></div></div>';});
+    h+='</div>';}
+  h+='<div class="notes-box"><h4>\ud83d\udcdd Note</h4><p>'+(L?d.en_notes:d.notes)+'</p></div></div>';
+  c.innerHTML=h;window.scrollTo({top:0,behavior:"smooth"});
+}
+function toggleCard(el){el.classList.toggle("open")}
+showDay(0);
+</script>
+</body>
+</html>
