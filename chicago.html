@@ -6,49 +6,39 @@
 <title>Chicago Trip Itinerary</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg:#0C0F14;--surface:#161B24;--surface-hover:#1D2330;--border:#262D3A;
-    --text:#E8ECF2;--text-dim:#8892A4;--accent:#5BB8E8;--accent-glow:rgba(91,184,232,0.15);
-    --green:#5CBF8A;--blue:#5B9FD6;--rose:#D67B8A;--purple:#A07BD6;--sky:#6BB8E8;--orange:#F0A050;
-  }
+  :root{--bg:#0C0F14;--surface:#161B24;--surface-hover:#1D2330;--border:#262D3A;--text:#E8ECF2;--text-dim:#8892A4;--accent:#5BB8E8;--accent-glow:rgba(91,184,232,0.15);--green:#5CBF8A;--blue:#5B9FD6;--rose:#D67B8A;--purple:#A07BD6;--sky:#6BB8E8;--orange:#F0A050}
   *{margin:0;padding:0;box-sizing:border-box}
   body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-
   .hero{position:relative;padding:52px 24px 16px;text-align:center;overflow:hidden}
   .hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at 50% 20%,rgba(91,184,232,0.08)0%,transparent 60%),radial-gradient(ellipse at 80% 60%,rgba(240,160,80,0.05)0%,transparent 50%);pointer-events:none}
-  .hero-label{display:inline-block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:3px;color:var(--accent);background:var(--accent-glow);padding:6px 16px;border-radius:20px;margin-bottom:16px;position:relative}
+  .hero-label{display:inline-block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:3px;color:var(--accent);background:var(--accent-glow);padding:6px 16px;border-radius:20px;position:relative}
   .hero h1{font-family:'DM Serif Display',serif;font-size:clamp(34px,8vw,52px);font-weight:400;line-height:1.15;margin-bottom:10px;position:relative}
   .hero h1 span{color:var(--accent)}
   .hero-sub{font-size:14px;color:var(--text-dim);position:relative}
-  .hotel-badge{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-size:12px;color:var(--text-dim);background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:8px 14px;position:relative}
-  .flight-badge{display:inline-flex;align-items:center;gap:6px;margin-top:8px;font-size:11px;color:var(--text-dim);background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:8px 14px;position:relative}
-
-  .tabs{display:flex;gap:8px;padding:0 20px;margin:20px auto 0;max-width:600px;justify-content:center;position:relative;flex-wrap:wrap}
-  .tab{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px;cursor:pointer;transition:all .3s ease;text-align:center;flex:1;min-width:70px;max-width:160px;-webkit-tap-highlight-color:transparent;user-select:none}
+  .hotel-badge,.flight-badge{display:inline-flex;align-items:center;gap:6px;margin-top:8px;font-size:11px;color:var(--text-dim);background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:8px 14px;position:relative}
+  .hotel-badge{font-size:12px;margin-top:14px}
+  .tabs{display:flex;gap:8px;padding:0 20px;margin:20px auto 0;max-width:600px;justify-content:center;flex-wrap:wrap}
+  .tab{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px;cursor:pointer;transition:all .3s ease;text-align:center;flex:1;min-width:70px;max-width:160px;user-select:none}
   .tab:hover{background:var(--surface-hover)}
   .tab.active{border-color:var(--accent);background:var(--accent-glow)}
   .tab-day{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--text-dim);margin-bottom:4px}
   .tab.active .tab-day{color:var(--accent)}
   .tab-title{font-size:13px;font-weight:600;color:var(--text)}
   .tab-date{font-size:11px;color:var(--text-dim);margin-top:2px}
-
   .tc{max-width:600px;margin:28px auto;padding:0 20px 40px}
   .day-hdr{margin-bottom:20px}
   .day-hdr h2{font-family:'DM Serif Display',serif;font-size:26px;font-weight:400;margin-bottom:4px}
   .day-hdr p{font-size:13px;color:var(--text-dim)}
-
-  .weather-card{background:linear-gradient(135deg,#1a2233 0%,#162030 100%);border:1px solid var(--border);border-radius:14px;padding:18px;margin-bottom:8px;animation:fadeIn .5s ease}
+  .weather-card{background:linear-gradient(135deg,#1a2233,#162030);border:1px solid var(--border);border-radius:14px;padding:18px;margin-bottom:8px;animation:fadeIn .5s ease}
   .weather-top{display:flex;align-items:center;gap:12px;margin-bottom:14px}
   .weather-icon{font-size:32px;line-height:1}
   .weather-summary{flex:1}
-  .weather-summary-title{font-size:14px;font-weight:600;color:var(--text)}
-  .weather-summary-sub{font-size:12px;color:var(--text-dim);margin-top:2px}
-  .weather-meta{display:flex;gap:12px}
+  .weather-summary-title{font-size:14px;font-weight:600}
+  .weather-meta{display:flex;gap:12px;margin-top:4px}
   .weather-meta-item{font-size:11px;color:var(--text-dim);display:flex;align-items:center;gap:3px}
   .weather-meta-item span{color:var(--text);font-weight:600}
-
-  .temp-timeline{display:flex;gap:0;margin-bottom:14px;position:relative;background:rgba(255,255,255,0.02);border-radius:10px;overflow:hidden}
-  .temp-slot{flex:1;text-align:center;padding:12px 8px;position:relative}
+  .temp-timeline{display:flex;margin-bottom:14px;background:rgba(255,255,255,0.02);border-radius:10px;overflow:hidden}
+  .temp-slot{flex:1;text-align:center;padding:12px 8px}
   .temp-slot:not(:last-child){border-right:1px solid var(--border)}
   .temp-slot-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text-dim);margin-bottom:2px}
   .temp-slot-time{font-size:10px;color:var(--text-dim);opacity:.7;margin-bottom:6px}
@@ -57,186 +47,185 @@
   .temp-cold .temp-slot-deg{color:var(--blue)}
   .temp-warm .temp-slot-deg{color:var(--orange)}
   .temp-cool .temp-slot-deg{color:var(--sky)}
-
   .outfit-box{background:rgba(91,184,232,0.06);border:1px solid rgba(91,184,232,0.12);border-radius:10px;padding:12px 14px}
-  .outfit-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:5px;display:flex;align-items:center;gap:5px}
+  .outfit-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:5px}
   .outfit-text{font-size:12px;color:var(--text-dim);line-height:1.6}
   .outfit-text strong{color:var(--text);font-weight:600}
-
   .forecast-note{font-size:11px;color:var(--text-dim);opacity:.5;text-align:center;margin-bottom:16px}
-  .info-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:12px}
-  .info-card h3{font-size:14px;font-weight:600;margin-bottom:8px;color:var(--text)}
-  .info-card p{font-size:12px;color:var(--text-dim);line-height:1.6}
-  .info-card .label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:6px}
-  .footer{text-align:center;padding:12px 20px 48px;font-size:12px;color:var(--text-dim);opacity:.35}
-
+  .tl{position:relative;padding-left:28px}
+  .tl::before{content:'';position:absolute;left:6px;top:8px;bottom:8px;width:1px;background:var(--border)}
+  .transit{position:relative;margin-bottom:6px;display:flex;align-items:center;gap:8px;opacity:0;transform:translateY(8px);animation:fadeUp .4s ease forwards}
+  .transit-line{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-dim);background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.04);border-radius:8px;padding:5px 10px;line-height:1.4;flex-wrap:wrap}
+  .subway-badge{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;font-size:10px;font-weight:700;color:#fff;flex-shrink:0}
+  .stop{position:relative;margin-bottom:8px;opacity:0;transform:translateY(16px);animation:fadeUp .5s ease forwards}
+  @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
   @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-  @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+  .stop-dot{position:absolute;left:-24px;top:16px;width:13px;height:13px;border-radius:50%;border:2px solid;background:var(--bg);z-index:2}
+  .stop-dot.green{border-color:var(--green);box-shadow:0 0 8px rgba(92,191,138,.3)}
+  .stop-dot.blue{border-color:var(--blue);box-shadow:0 0 8px rgba(91,159,214,.3)}
+  .stop-dot.rose{border-color:var(--rose);box-shadow:0 0 8px rgba(214,123,138,.3)}
+  .stop-dot.accent{border-color:var(--accent);box-shadow:0 0 8px rgba(91,184,232,.3)}
+  .stop-dot.purple{border-color:var(--purple);box-shadow:0 0 8px rgba(160,123,214,.3)}
+  .stop-dot.orange{border-color:var(--orange);box-shadow:0 0 8px rgba(240,160,80,.3)}
+  .stop-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:all .25s ease;cursor:pointer}
+  .stop-card:hover{background:var(--surface-hover)}
+  .stop-card.open{border-color:rgba(255,255,255,.1)}
+  .stop-top{padding:14px 16px;display:flex;align-items:flex-start;justify-content:space-between}
+  .stop-top-left{flex:1}
+  .stop-time{font-size:12px;font-weight:700;letter-spacing:1px;margin-bottom:5px}
+  .stop-time.green{color:var(--green)}.stop-time.blue{color:var(--blue)}.stop-time.rose{color:var(--rose)}.stop-time.accent{color:var(--accent)}.stop-time.purple{color:var(--purple)}.stop-time.orange{color:var(--orange)}
+  .stop-name{font-size:15px;font-weight:600;margin-bottom:3px;line-height:1.3}
+  .stop-brief{font-size:12px;color:var(--text-dim)}
+  .stop-chevron{margin-top:8px;transition:transform .3s ease;color:var(--text-dim);flex-shrink:0}
+  .stop-card.open .stop-chevron{transform:rotate(180deg)}
+  .stop-tag{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;padding:3px 10px;border-radius:6px;margin-top:6px}
+  .tag-free{background:rgba(92,191,138,.12);color:var(--green)}
+  .tag-booked{background:rgba(240,160,80,.12);color:var(--orange)}
+  .tag-optional{background:rgba(160,123,214,.12);color:var(--purple)}
+  .tag-food{background:rgba(214,123,138,.12);color:var(--rose)}
+  .stop-details{max-height:0;overflow:hidden;transition:max-height .4s ease}
+  .stop-card.open .stop-details{max-height:600px}
+  .stop-inner{padding:0 16px 16px;border-top:1px solid var(--border)}
+  .detail-section{margin-top:12px}
+  .detail-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-dim);margin-bottom:5px}
+  .detail-text{font-size:13px;color:var(--text);line-height:1.6}
+  .tip-box{background:rgba(91,159,214,.08);border:1px solid rgba(91,159,214,.15);border-radius:8px;padding:10px 12px;margin-top:10px;font-size:12px;color:var(--text-dim);line-height:1.5}
+  .tip-box strong{color:var(--blue)}
+  .notes-box{background:var(--accent-glow);border:1px solid rgba(91,184,232,.2);border-radius:12px;padding:14px 16px;margin-top:20px}
+  .notes-box h4{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:6px}
+  .notes-box p{font-size:13px;color:var(--text-dim);line-height:1.6}
+  .fade-section{animation:fadeIn .4s ease}
+  .footer{text-align:center;padding:12px 20px 48px;font-size:12px;color:var(--text-dim);opacity:.35}
 </style>
 </head>
 <body>
-
 <div class="hero">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
     <a href="index.html" class="hero-label" style="text-decoration:none;margin-bottom:0">✈ Family Trip 2026</a>
-    <button onclick="toggleLang()" id="langBtn" style="background:rgba(91,184,232,.15);border:1px solid rgba(91,184,232,.4);color:var(--accent);font-size:11px;font-weight:600;letter-spacing:2px;padding:6px 14px;border-radius:20px;cursor:pointer;position:relative">EN 🇺🇸</button>
+    <button onclick="toggleLang()" id="langBtn" style="background:rgba(91,184,232,.15);border:1px solid rgba(91,184,232,.4);color:var(--accent);font-size:11px;font-weight:600;letter-spacing:2px;padding:6px 14px;border-radius:20px;cursor:pointer">EN 🇺🇸</button>
   </div>
   <h1>4 Days in <span>Chicago</span></h1>
-  <p class="hero-sub" data-th="The Windy City — 3 คน · กระเป๋าใหญ่ 1 ใบ" data-en="The Windy City — 3 people · 1 large bag">The Windy City — 3 คน · กระเป๋าใหญ่ 1 ใบ</p>
-  <div class="flight-badge">
-    ✈️ DL3905 IAD 06:00 → DTW 07:35 · DL5218 DTW 08:25 → MDW 08:47
-  </div>
-  <div class="hotel-badge">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 7v14M21 7v14M6 11h4M6 15h4M14 11h4M14 15h4M9 3h6l3 4H6l3-4z"/></svg>
-    Home2 Suites by Hilton · River North · 110 W Huron St
-  </div>
+  <p class="hero-sub">The Windy City — 3 คน · กระเป๋าใหญ่ 1 ใบ</p>
+  <div class="flight-badge">✈️ DL3905 IAD 06:00→DTW 07:35 · DL5218 DTW 08:25→MDW 08:47</div>
+  <div class="hotel-badge">🏨 Home2 Suites by Hilton · River North · 110 W Huron St</div>
 </div>
-
 <div class="tabs">
   <div class="tab active" onclick="showDay(0)"><div class="tab-day">Day 1</div><div class="tab-title">Arrival</div><div class="tab-date">Mon · 20 Apr</div></div>
   <div class="tab" onclick="showDay(1)"><div class="tab-day">Day 2</div><div class="tab-title">Explore</div><div class="tab-date">Tue · 21 Apr</div></div>
   <div class="tab" onclick="showDay(2)"><div class="tab-day">Day 3</div><div class="tab-title">Explore</div><div class="tab-date">Wed · 22 Apr</div></div>
   <div class="tab" onclick="showDay(3)"><div class="tab-day">Day 4</div><div class="tab-title">Explore</div><div class="tab-date">Thu · 23 Apr</div></div>
 </div>
-
 <div class="tc" id="content"></div>
 <div class="footer">Chicago Itinerary · 🌬️ The Windy City</div>
-
 <script>
-var lang='th';
-function toggleLang(){
-  lang=lang==='th'?'en':'th';
-  document.getElementById('langBtn').textContent=lang==='en'?'TH 🇹🇭':'EN 🇺🇸';
-  document.querySelectorAll('[data-th]').forEach(function(el){el.textContent=el.getAttribute('data-'+lang);});
-  showDay(currentDay);
-}
-var currentDay=0;
-
+var isEN=false,curDay=0;
+function toggleLang(){isEN=!isEN;document.getElementById('langBtn').textContent=isEN?'TH 🇹🇭':'EN 🇺🇸';showDay(curDay);}
 var days=[
-  {
-    title:"ถึง Chicago",en_title:"Arrival in Chicago",
-    subtitle:"DL3905+DL5218 จาก DC ต่อ Detroit ถึง Midway 08:47",
-    en_subtitle:"DL3905+DL5218 from DC via Detroit, arrive Midway 08:47",
-    weather:{
-      icon:"🌤️",
-      summary:"เย็นสบาย แต่ลมเย็น! Windy City จริงๆ",
-      en_summary:"Cool & breezy — it's the Windy City for real!",
-      wind:"15 km/h",rain:"10%",sunrise:"06:00",sunset:"19:38",
-      temps:[
-        {label:"เช้า",en_label:"Morning",time:"~09:00",deg:8,cls:"temp-cold"},
-        {label:"กลางวัน",en_label:"Afternoon",time:"~14:00",deg:13,cls:"temp-cool"},
-        {label:"เย็น",en_label:"Evening",time:"~19:00",deg:10,cls:"temp-cold"}
-      ],
-      outfit:"เย็นกว่า DC มาก! 🥶 สูงสุดแค่ 13°C<br><strong>ใส่:</strong> เสื้อยืด + เสื้อแขนยาว + แจ็คเก็ตกันลม (3 ชั้น) กางเกงขายาว รองเท้าผ้าใบ<br><strong>⚠️ ลมริม Lake Michigan:</strong> หนาวกว่าในเมือง 3-5°C",
-      en_outfit:"Much cooler than DC! 🥶 Max only 13°C<br><strong>Wear:</strong> T-shirt + long sleeves + windbreaker (3 layers), long pants, sneakers<br><strong>⚠️ Lake Michigan wind:</strong> Feels 3-5°C colder than city"
-    }
+{
+  title:"ถึง Chicago + เดินเล่น Downtown",en_title:"Arrive Chicago + Explore Downtown",
+  subtitle:"DL3905+DL5218 จาก DC ต่อ Detroit ถึง Midway 08:47",en_subtitle:"DL3905+DL5218 from DC via Detroit, arrive Midway 08:47",
+  weather:{icon:"🌤️",summary:"เย็นสบาย 13°C แต่ลมเย็น! Windy City จริงๆ",en_summary:"Cool 13°C with chilly wind — Windy City for real!",wind:"15 km/h",rain:"10%",sunrise:"06:00",sunset:"19:38",
+    temps:[{label:"ถึง MDW",en_label:"Arrive MDW",time:"~08:47",deg:8,cls:"temp-cold"},{label:"กลางวัน",en_label:"Afternoon",time:"~14:00",deg:13,cls:"temp-cool"},{label:"เย็น",en_label:"Evening",time:"~19:00",deg:10,cls:"temp-cold"}],
+    outfit:"เย็นกว่า DC มาก! สูงสุดแค่ 13°C<br><strong>ใส่:</strong> เสื้อยืด + เสื้อแขนยาว + แจ็คเก็ตกันลม (3 ชั้น) กางเกงขายาว รองเท้าผ้าใบ<br><strong>⚠️ ลมริม Lake Michigan:</strong> หนาวกว่าในเมือง 3-5°C",
+    en_outfit:"Much cooler than DC! Max only 13°C<br><strong>Wear:</strong> T-shirt + long sleeves + windbreaker (3 layers), long pants, sneakers<br><strong>⚠️ Lake Michigan wind:</strong> Feels 3-5°C colder near lake"
   },
-  {
-    title:"สำรวจ Chicago",en_title:"Explore Chicago",
-    subtitle:"อุ่นขึ้นแต่ลมแรงมาก!",
-    en_subtitle:"Warmer but very windy!",
-    weather:{
-      icon:"🌬️",
-      summary:"อุ่นขึ้น 16°C แต่ลมแรงมาก 30 km/h!",
-      en_summary:"Warmer 16°C but very windy at 30 km/h!",
-      wind:"30 km/h ⚠️",rain:"5%",sunrise:"05:59",sunset:"19:39",
-      temps:[
-        {label:"เช้า",en_label:"Morning",time:"~09:00",deg:10,cls:"temp-cold"},
-        {label:"กลางวัน",en_label:"Afternoon",time:"~14:00",deg:16,cls:"temp-cool"},
-        {label:"เย็น",en_label:"Evening",time:"~19:00",deg:12,cls:"temp-cold"}
-      ],
-      outfit:"อุ่นขึ้นแต่ลมแรง! RealFeel เหมือน 10°C<br><strong>ใส่:</strong> เสื้อยืด + เสื้อแขนยาว + แจ็คเก็ตกันลม (3 ชั้น)<br><strong>⚠️ ลมแรง 30 km/h:</strong> ริมทะเลสาบและ Millennium Park ลมแรงมาก พกผ้าพันคอบาง",
-      en_outfit:"Warmer but windy! RealFeel like 10°C<br><strong>Wear:</strong> T-shirt + long sleeves + windbreaker (3 layers)<br><strong>⚠️ Wind 30 km/h:</strong> Very windy at lakefront & Millennium Park, bring a light scarf"
-    }
-  },
-  {
-    title:"สำรวจ Chicago",en_title:"Explore Chicago",
-    subtitle:"อุ่นที่สุด แต่อาจมีฝน ☂️",
-    en_subtitle:"Warmest day but possible rain ☂️",
-    weather:{
-      icon:"🌦️",
-      summary:"อุ่นสุด 18°C แต่อาจมีฝน ☂️ พกร่ม!",
-      en_summary:"Warmest at 18°C but possible rain ☂️ bring umbrella!",
-      wind:"18 km/h",rain:"45%",sunrise:"05:57",sunset:"19:40",
-      temps:[
-        {label:"เช้า",en_label:"Morning",time:"~09:00",deg:11,cls:"temp-cool"},
-        {label:"กลางวัน",en_label:"Afternoon",time:"~14:00",deg:18,cls:"temp-warm"},
-        {label:"เย็น",en_label:"Evening",time:"~19:00",deg:14,cls:"temp-cool"}
-      ],
-      outfit:"วันที่อุ่นที่สุด แต่อาจมีฝน!<br><strong>ใส่:</strong> เสื้อยืด + เสื้อแขนยาว + แจ็คเก็ตกันฝน/กันลม<br><strong>☂️ พกร่ม!</strong> โอกาสฝน 45%<br>ถ้าแดดออกตอนบ่ายอาจถอดแจ็คเก็ตได้",
-      en_outfit:"Warmest day but possible rain!<br><strong>Wear:</strong> T-shirt + long sleeves + rain/wind jacket<br><strong>☂️ Bring umbrella!</strong> 45% chance of rain<br>If sunny in afternoon, can remove jacket"
-    }
-  },
-  {
-    title:"สำรวจ Chicago",en_title:"Explore Chicago",
-    subtitle:"เย็นลง + ฝน ☂️",
-    en_subtitle:"Cooler + rain ☂️",
-    weather:{
-      icon:"🌧️",
-      summary:"เย็นลง 15°C + ฝน ☂️ วันนี้ต้องพกร่ม",
-      en_summary:"Cooler 15°C + rain ☂️ must bring umbrella today",
-      wind:"15 km/h",rain:"60%",sunrise:"05:56",sunset:"19:41",
-      temps:[
-        {label:"เช้า",en_label:"Morning",time:"~09:00",deg:11,cls:"temp-cold"},
-        {label:"กลางวัน",en_label:"Afternoon",time:"~14:00",deg:15,cls:"temp-cool"},
-        {label:"เย็น",en_label:"Evening",time:"~19:00",deg:12,cls:"temp-cold"}
-      ],
-      outfit:"เย็นลง + ฝน! เหมือน Day 1<br><strong>ใส่:</strong> เสื้อยืด + เสื้อแขนยาว + แจ็คเก็ตกันฝน (3 ชั้น) กางเกงขายาว<br><strong>☂️ พกร่มแน่นอน!</strong> โอกาสฝน 60%<br><strong>แนะนำ:</strong> วางแผนเที่ยวในร่ม (พิพิธภัณฑ์) วันนี้",
-      en_outfit:"Cooler + rain! Similar to Day 1<br><strong>Wear:</strong> T-shirt + long sleeves + rain jacket (3 layers), long pants<br><strong>☂️ Bring umbrella!</strong> 60% chance of rain<br><strong>Tip:</strong> Plan indoor activities (museums) today"
-    }
-  }
-];
-
-function showDay(i){
-  currentDay=i;
-  document.querySelectorAll('.tab').forEach(function(t,idx){t.classList.toggle('active',idx===i);});
-  var d=days[i],w=d.weather,L=lang;
-  var h='<div class="day-hdr"><h2>'+(L==='en'?d.en_title:d.title)+'</h2><p>'+(L==='en'?d.en_subtitle:d.subtitle)+'</p></div>';
-
-  h+='<div class="weather-card"><div class="weather-top"><div class="weather-icon">'+w.icon+'</div><div class="weather-summary"><div class="weather-summary-title">'+(L==='en'?w.en_summary:w.summary)+'</div><div class="weather-meta"><div class="weather-meta-item">💨 <span>'+w.wind+'</span></div><div class="weather-meta-item">🌧 <span>'+w.rain+'</span></div><div class="weather-meta-item">🌅 <span>'+w.sunrise+'</span></div><div class="weather-meta-item">🌇 <span>'+w.sunset+'</span></div></div></div></div>';
-
-  h+='<div class="temp-timeline">';
-  w.temps.forEach(function(t){
-    h+='<div class="temp-slot '+t.cls+'"><div class="temp-slot-label">'+(L==='en'?t.en_label:t.label)+'</div><div class="temp-slot-time">'+t.time+'</div><div class="temp-slot-deg">'+t.deg+'°<small>C</small></div></div>';
-  });
-  h+='</div>';
-
-  h+='<div class="outfit-box"><div class="outfit-label">👕 '+(L==='en'?'WHAT TO WEAR':'แนะนำการแต่งตัว')+'</div><div class="outfit-text">'+(L==='en'?w.en_outfit:w.outfit)+'</div></div></div>';
-
-  h+='<div class="forecast-note">'+(L==='en'?'Forecast may change — check again closer to date':'พยากรณ์อาจเปลี่ยน — เช็คอีกครั้งใกล้วันเดินทาง')+'</div>';
-
-  // Hotel info on Day 1
-  if(i===0){
-    h+='<div class="info-card" style="animation:fadeUp .5s ease"><div class="label">✈️ '+(L==='en'?'FLIGHTS':'เที่ยวบิน')+'</div><p>';
-    h+=(L==='en'?'<strong>DL3905</strong> Dulles (IAD) 06:00 → Detroit (DTW) 07:35 · 1h 35m<br><strong>DL5218</strong> Detroit (DTW) 08:25 → Chicago Midway (MDW) 08:47 · 1h 22m<br>Arrive Chicago ~08:47 local time (1 hr behind DC)':'<strong>DL3905</strong> Dulles (IAD) 06:00 → Detroit (DTW) 07:35 · 1 ชม. 35 นาที<br><strong>DL5218</strong> Detroit (DTW) 08:25 → Chicago Midway (MDW) 08:47 · 1 ชม. 22 นาที<br>ถึง Chicago ~08:47 เวลาท้องถิ่น (ช้ากว่า DC 1 ชม.)');
-    h+='</p></div>';
-
-    h+='<div class="info-card" style="animation:fadeUp .5s ease .1s both"><div class="label">🏨 '+(L==='en'?'HOTEL':'โรงแรม')+'</div>';
-    h+='<h3>Home2 Suites by Hilton · River North</h3>';
-    h+='<p>📍 110 W Huron St, Chicago, IL 60654<br>';
-    h+=(L==='en'?'📅 Mon Apr 20 – Fri Apr 24 · <strong>4 Nights</strong><br>🕐 Check-in: 15:00–00:30 · Check-out: Before 11:00<br>🛏️ King Studio Suite':'📅 จ. 20 เม.ย. – ศ. 24 เม.ย. · <strong>4 คืน</strong><br>🕐 Check-in: 15:00–00:30 · Check-out: ก่อน 11:00<br>🛏️ King Studio Suite');
-    h+='</p></div>';
-
-    h+='<div class="info-card" style="animation:fadeUp .5s ease .2s both"><div class="label">⏰ '+(L==='en'?'TIME ZONE':'เขตเวลา')+'</div>';
-    h+='<p>'+(L==='en'?'Chicago is <strong>Central Time (CT)</strong> — 1 hour behind DC/NYC (Eastern Time)<br>When it\'s 12:00 in DC → it\'s <strong>11:00</strong> in Chicago':'Chicago อยู่ <strong>Central Time (CT)</strong> — ช้ากว่า DC/NYC 1 ชั่วโมง<br>ตอน DC 12:00 น. → Chicago <strong>11:00 น.</strong>');
-    h+='</p></div>';
-
-    h+='<div class="info-card" style="animation:fadeUp .5s ease .3s both"><div class="label">🚇 '+(L==='en'?'AIRPORT → HOTEL (CTA)':'สนามบิน → โรงแรม (CTA)')+'</div>';
-    h+='<p>'+(L==='en'?'<strong>1.</strong> Follow signs to <strong>"CTA Trains"</strong> (5 min walk)<br><strong>2.</strong> Buy <strong>7-Day Pass $25/person</strong> at Ventra machine<br><strong>3.</strong> 🟠 <strong>Orange Line</strong> → toward Loop ~30 min<br><strong>4.</strong> Transfer at <strong>State/Lake</strong> → 🔴 <strong>Red Line</strong> toward Howard<br><strong>5.</strong> Get off at <strong>Chicago</strong> station (2 stops) ~5 min<br><strong>6.</strong> Walk west on Huron St → 🏨 Hotel ~5 min<br><br>⏱️ Total: ~45 min · <strong>$0</strong> (7-Day Pass)':'<strong>1.</strong> ตามป้าย <strong>"CTA Trains"</strong> (เดิน 5 นาที)<br><strong>2.</strong> ซื้อ <strong>7-Day Pass $25/คน</strong> ที่ตู้ Ventra<br><strong>3.</strong> 🟠 <strong>Orange Line</strong> → ไปทาง Loop ~30 นาที<br><strong>4.</strong> ต่อที่ <strong>State/Lake</strong> → 🔴 <strong>Red Line</strong> ไปทาง Howard<br><strong>5.</strong> ลงสถานี <strong>Chicago</strong> (2 สถานี) ~5 นาที<br><strong>6.</strong> เดินไปทางตะวันตกบน Huron St → 🏨 โรงแรม ~5 นาที<br><br>⏱️ รวม: ~45 นาที · <strong>$0</strong> (ใช้ 7-Day Pass)');
-    h+='</p></div>';
-
-    h+='<div class="info-card" style="animation:fadeUp .5s ease .4s both"><div class="label">🎫 '+(L==='en'?'7-DAY PASS':'ตั๋ว 7 วัน')+'</div>';
-    h+='<p>'+(L==='en'?'<strong>$25/person × 3 = $75 total</strong><br>Unlimited rides on CTA L trains + buses for 7 days<br>Buy at <strong>Ventra machine</strong> at Midway station before boarding<br>Each person needs their own card — tap at turnstile<br><br>⚠️ 3-Day Pass has been eliminated in 2026':'<strong>$25/คน × 3 = $75 รวม</strong><br>ขึ้นรถไฟ L + บัส ไม่จำกัดเที่ยว 7 วัน<br>ซื้อที่ <strong>ตู้ Ventra</strong> สถานี Midway ก่อนขึ้นรถ<br>ซื้อคนละใบ — แตะเข้า turnstile<br><br>⚠️ ตั๋ว 3 วัน ถูกยกเลิกแล้วในปี 2026');
-    h+='</p></div>';
-
-    h+='<div class="info-card" style="animation:fadeUp .5s ease .5s both"><div class="label">🧳 '+(L==='en'?'LUGGAGE & CHECK-IN':'กระเป๋า & เช็คอิน')+'</div>';
-    h+='<p>'+(L==='en'?'Arrive hotel ~09:30 but check-in is <strong>15:00</strong><br>→ Store luggage at front desk (free)<br>→ Say: <strong>"Can I store my luggage? I\'ll check in later."</strong><br>→ Go explore Chicago! Come back to check in later':'ถึงโรงแรม ~09:30 แต่ check-in <strong>15:00 น.</strong><br>→ ฝากกระเป๋าที่ front desk (ฟรี)<br>→ พูด: <strong>"Can I store my luggage? I\'ll check in later."</strong><br>→ ออกเที่ยวก่อน! กลับมา check-in ทีหลัง');
-    h+='</p></div>';
-  }
-
-  document.getElementById('content').innerHTML=h;
+  stops:[
+    {time:"08:47",name:"Midway Airport (MDW)",brief:"DL5218 จาก Detroit ถึงแล้ว!",en_brief:"DL5218 from Detroit — arrived!",color:"green",
+      details:"<strong>DL3905</strong> IAD 06:00→DTW 07:35 (1 ชม. 35 นาที)<br><strong>DL5218</strong> DTW 08:25→MDW 08:47 (1 ชม. 22 นาที)<br>⏰ Chicago = Central Time ช้ากว่า DC 1 ชม.<br>รับกระเป๋าแล้วตามป้าย <strong>CTA Trains</strong>",
+      en_details:"<strong>DL3905</strong> IAD 06:00→DTW 07:35 (1h 35m)<br><strong>DL5218</strong> DTW 08:25→MDW 08:47 (1h 22m)<br>⏰ Chicago = Central Time — 1 hr behind DC<br>Collect bags, follow signs to <strong>CTA Trains</strong>",
+      tip:"<strong>🎫 ซื้อ 7-Day Pass:</strong> ที่ตู้ Ventra ก่อนขึ้นรถ · <strong>5/คน × 3 = 5</strong> · Unlimited L train + bus 7 วัน",
+      en_tip:"<strong>🎫 Buy 7-Day Pass:</strong> at Ventra machine before boarding · <strong>5/person × 3 = 5</strong> · Unlimited L + bus for 7 days"},
+    {time:"09:00",name:"CTA Orange Line → Red Line",brief:"Midway → State/Lake → Chicago station ~45 นาที",en_brief:"Midway → State/Lake → Chicago station ~45 min",color:"blue",
+      transit:"🟠 Orange Line → Loop ~30 นาที → ต่อ 🔴 Red Line ที่ State/Lake → Chicago 5 นาที",
+      details:"🟠 <strong>Orange Line</strong> ไปทาง Loop ลงที่ <strong>State/Lake</strong><br>ต่อ 🔴 <strong>Red Line</strong> ไปทาง <strong>Howard</strong> (ขึ้นเหนือ) แค่ 2 สถานี<br>ลงสถานี <strong>Chicago</strong> → เดิน 5 นาทีถึงโรงแรม",
+      en_details:"🟠 <strong>Orange Line</strong> toward Loop → get off <strong>State/Lake</strong><br>Transfer 🔴 <strong>Red Line</strong> toward <strong>Howard</strong> (northbound) — 2 stops<br>Get off <strong>Chicago</strong> station → 5 min walk to hotel",
+      tip:"<strong>รถไฟ Chicago กว้างกว่า NYC</strong> กระเป๋า 1 ใบ สบาย",en_tip:"<strong>Chicago L trains are wider than NYC subway</strong> — very comfortable"},
+    {time:"09:45",name:"Home2 Suites · ฝากกระเป๋า",brief:"110 W Huron St · Check-in 15:00",en_brief:"110 W Huron St · Check-in at 15:00",color:"blue",
+      details:"ถึงก่อน check-in ~5 ชม. → ฝากกระเป๋าที่ front desk (ฟรี)<br>พูด: <strong>"Can I store my luggage? I'll check in later."</strong><br>🛏️ King Studio Suite · 4 คืน (20-24 เม.ย.)",
+      en_details:"Arrive ~5 hrs before check-in → Store luggage at front desk (free)<br>Say: <strong>"Can I store my luggage? I'll check in later."</strong><br>🛏️ King Studio Suite · 4 nights (Apr 20-24)",
+      tip:"<strong>สถานีใกล้:</strong> 🔴 Chicago (Red Line) 5 นาที · 🟤 Chicago (Brown/Purple) 7 นาที",en_tip:"<strong>Nearest:</strong> 🔴 Chicago (Red Line) 5 min · 🟤 Chicago (Brown/Purple) 7 min"},
+    {time:"10:00",name:"Magnificent Mile",brief:"ถนนช้อปปิ้งดัง — เดิน window shopping",en_brief:"Famous shopping street — window shopping stroll",color:"accent",
+      transit:"🚶 เดินจากโรงแรม 5 นาที → Michigan Ave",
+      details:"<strong>Magnificent Mile</strong> = Michigan Ave ช่วง River North ถึง Oak St<br>ร้าน flagship Apple, Nike, Gucci, Tiffany<br>เห็น <strong>Chicago Water Tower</strong> ตึกหินปูนเก่า รอดไฟไหม้ใหญ่ 1871",
+      en_details:"<strong>Magnificent Mile</strong> = Michigan Ave from River North to Oak St<br>Flagship: Apple, Nike, Gucci, Tiffany<br>See <strong>Chicago Water Tower</strong> — survived the Great Fire of 1871",
+      tip:"<strong>ลมแรง!</strong> ตึกสูง 2 ข้าง = wind tunnel ใส่แจ็คเก็ตไว้",en_tip:"<strong>Windy!</strong> Tall buildings = wind tunnel — keep jacket on"},
+    {time:"11:00",name:"Chicago Riverwalk",brief:"เดินริมแม่น้ำ ดูสถาปัตยกรรมสวยๆ",en_brief:"Walk along the river — stunning architecture",color:"accent",
+      transit:"🚶 เดินลงใต้บน Michigan Ave → ข้ามสะพาน → ลงบันไดไป Riverwalk",
+      details:"<strong>Chicago Riverwalk</strong> ยาว 2 km ผ่านสะพาน ตึกสวย<br>ไฮไลท์: <strong>Marina City</strong> (ตึกข้าวโพด) + <strong>Wrigley Building</strong> (ตึกขาว)<br>มีคาเฟ่ ร้านอาหาร kayak ริมน้ำ",
+      en_details:"<strong>Chicago Riverwalk</strong> — 2 km path along river<br>Highlights: <strong>Marina City</strong> (corn cob towers) + <strong>Wrigley Building</strong><br>Cafes, restaurants, kayak rentals along water",
+      tip:"<strong>Architecture Boat Tour:</strong> ล่องเรือดูตึก ~0-50/คน 75 นาที — ดังที่สุดของ Chicago!",en_tip:"<strong>Architecture Boat Tour:</strong> ~0-50/person, 75 min — Chicago's #1 activity!"},
+    {time:"12:00",name:"🌭 Portillo's",brief:"Chicago Hot Dog + Italian Beef — ต้องลอง!",en_brief:"Chicago Hot Dog + Italian Beef — must try!",color:"rose",tag:{text:"Food",cls:"tag-food"},
+      transit:"🚶 เดินจาก Riverwalk 5 นาที → 100 W Ontario St",
+      details:"🌭 <strong>Chicago Hot Dog</strong> ~ — มัสตาร์ด หัวหอม มะเขือเทศ ผักดอง relish<br>🥩 <strong>Italian Beef</strong> ~ — เนื้อหั่นบาง ราดน้ำซอส + giardiniera (ผักดองเผ็ด)<br>🍫 Chocolate Cake Shake ~",
+      en_details:"🌭 <strong>Chicago Hot Dog</strong> ~ — mustard, onions, tomato, pickle, relish<br>🥩 <strong>Italian Beef</strong> ~ — thin beef, au jus, giardiniera<br>🍫 Chocolate Cake Shake ~",
+      tip:"<strong>Counter = ไม่ต้องทิป!</strong><br>⚠️ <strong>ห้ามใส่ ketchup บน Chicago Hot Dog!</strong> คนชิคาโกถือมาก 😄",en_tip:"<strong>Counter = no tip!</strong><br>⚠️ <strong>NEVER put ketchup on a Chicago Hot Dog!</strong> Chicagoans take this seriously 😄"},
+    {time:"13:00",name:"Millennium Park · The Bean",brief:"Cloud Gate + Crown Fountain — ไฮไลท์ #1!",en_brief:"Cloud Gate + Crown Fountain — #1 highlight!",color:"orange",tag:{text:"Highlight",cls:"tag-booked"},
+      transit:"🚶 เดินจาก Portillo's ลงใต้ ~15 นาที",
+      details:"<strong>Cloud Gate (The Bean)</strong> ⭐ ประติมากรรมสะท้อน skyline ถ่ายรูปใต้ท้อง Bean ได้!<br><strong>Crown Fountain</strong> หอคอย 2 ฝั่ง ฉายหน้าคน พ่นน้ำจากปาก เด็กๆ ชอบเล่นน้ำ<br><strong>Jay Pritzker Pavilion</strong> เวทีคอนเสิร์ตโดย Frank Gehry<br>ฟรีทั้งหมด!",
+      en_details:"<strong>Cloud Gate (The Bean)</strong> ⭐ Reflects skyline — walk underneath for photos!<br><strong>Crown Fountain</strong> Two towers with faces that spit water — kids love it!<br><strong>Jay Pritzker Pavilion</strong> Concert stage by Frank Gehry<br>All FREE!",
+      tip:"⚠️ <strong>Lurie Garden ปิดปรับปรุง</strong> ถึง ก.ค. 2026",en_tip:"⚠️ <strong>Lurie Garden closed</strong> until Jul 2026"},
+    {time:"13:45",name:"Maggie Daley Park",brief:"สนามเด็กเล่นขนาดใหญ่ — Pordee จะชอบ!",en_brief:"Giant playground — Pordee will love it!",color:"green",tag:{text:"Kid-friendly",cls:"tag-free"},
+      transit:"🚶 ข้ามสะพาน BP Bridge จาก Millennium Park 5 นาที",
+      details:"🧗 กำแพงปีนเขาสูง 40 ฟุต<br>🚀 Play Garden แรงบันดาลใจจาก Alice in Wonderland<br>⛳ Mini Golf 18 หลุมธีม Chicago<br>ฟรี! (บางกิจกรรมเสียค่าเช่าอุปกรณ์)",
+      en_details:"🧗 40-foot climbing wall<br>🚀 Play Garden inspired by Alice in Wonderland<br>⛳ 18-hole Chicago-themed mini golf<br>Free! (some equipment rental fees)",
+      tip:"<strong>วิว Lake Michigan</strong> เดินไปริมทะเลสาบจากสวนนี้ได้เลย!",en_tip:"<strong>Lake Michigan view:</strong> Walk to the lakefront from this park!"},
+    {time:"15:00",name:"กลับโรงแรม Check-in",brief:"Home2 Suites · เก็บกระเป๋า พักผ่อน",en_brief:"Home2 Suites · Settle in, rest up",color:"blue",
+      transit:"🚶 เดินกลับ ~15 นาทีจาก Maggie Daley Park",
+      details:"Check-in แล้วพักผ่อนสักครู่ก่อนออกไปกินข้าวเย็น",en_details:"Check in and rest before heading out for dinner"},
+    {time:"18:30",name:"🍕 Lou Malnati's Deep Dish",brief:"พิซซ่าหน้าหนา Chicago style — ต้องลอง!",en_brief:"Chicago deep dish pizza — must try!",color:"rose",tag:{text:"Food",cls:"tag-food"},
+      transit:"🚶 เดินจากโรงแรม 5 นาที → 439 N Wells St",
+      details:"<strong>Lou Malnati's</strong> deep dish ดังที่สุด!<br>🍕 <strong>Malnati Chicago Classic</strong> ~6-20 — แป้งเนย + ชีส mozzarella หนา + ซอสมะเขือเทศ<br>⏱️ <strong>รอ 30-45 นาที!</strong> Deep dish อบนาน สั่งเลยพอนั่ง<br>คู่แข่ง: Giordano's (ชีสยืดมากกว่า)",
+      en_details:"<strong>Lou Malnati's</strong> — most famous deep dish!<br>🍕 <strong>Malnati Chicago Classic</strong> ~6-20 — buttery crust + thick mozzarella + tomato sauce<br>⏱️ <strong>Wait 30-45 min!</strong> Order right when seated<br>Alternative: Giordano's (more cheese pull)",
+      tip:"<strong>Sit-down = ทิป 18-20%</strong><br><strong>สั่ง small!</strong> Deep dish หนามาก small พอ 2-3 คน",en_tip:"<strong>Sit-down = tip 18-20%</strong><br><strong>Order small!</strong> Deep dish is very thick — small feeds 2-3"}
+  ],
+  notes:"วันแรก เดินเล่นสบายๆ ทุกอย่างเดินถึง ไม่ต้องนั่งรถ<br>ถ้าเหนื่อยตัด Maggie Daley Park ได้ ไป check-in พักก่อน",
+  en_notes:"Relaxed first day — all walking distance, no trains needed<br>If tired, skip Maggie Daley Park and check in early"
+},
+{title:"สำรวจ Chicago",en_title:"Explore Chicago",subtitle:"อุ่นขึ้นแต่ลมแรงมาก!",en_subtitle:"Warmer but very windy!",
+  weather:{icon:"🌬️",summary:"อุ่นขึ้น 16°C แต่ลมแรง 30 km/h!",en_summary:"Warmer 16°C but very windy 30 km/h!",wind:"30 km/h ⚠️",rain:"5%",sunrise:"05:59",sunset:"19:39",
+    temps:[{label:"เช้า",en_label:"Morning",time:"~09:00",deg:10,cls:"temp-cold"},{label:"กลางวัน",en_label:"Afternoon",time:"~14:00",deg:16,cls:"temp-cool"},{label:"เย็น",en_label:"Evening",time:"~19:00",deg:12,cls:"temp-cold"}],
+    outfit:"อุ่นขึ้นแต่ลมแรง! RealFeel ~10°C<br><strong>ใส่:</strong> 3 ชั้น + แจ็คเก็ตกันลม<br><strong>⚠️ ลมแรง 30 km/h</strong> พกผ้าพันคอบาง",en_outfit:"Warmer but windy! RealFeel ~10°C<br><strong>Wear:</strong> 3 layers + windbreaker<br><strong>⚠️ Wind 30 km/h</strong> bring light scarf"
+  },stops:[],notes:"รอใส่สถานที่เที่ยว — แจ้งได้เลย!",en_notes:"Stops coming soon — let me know!"
+},
+{title:"สำรวจ Chicago",en_title:"Explore Chicago",subtitle:"อุ่นสุด แต่อาจมีฝน ☂️",en_subtitle:"Warmest day, possible rain ☂️",
+  weather:{icon:"🌦️",summary:"อุ่นสุด 18°C อาจมีฝน ☂️ พกร่ม!",en_summary:"Warmest 18°C, possible rain ☂️ bring umbrella!",wind:"18 km/h",rain:"45%",sunrise:"05:57",sunset:"19:40",
+    temps:[{label:"เช้า",en_label:"Morning",time:"~09:00",deg:11,cls:"temp-cool"},{label:"กลางวัน",en_label:"Afternoon",time:"~14:00",deg:18,cls:"temp-warm"},{label:"เย็น",en_label:"Evening",time:"~19:00",deg:14,cls:"temp-cool"}],
+    outfit:"อุ่นสุด แต่อาจมีฝน!<br><strong>ใส่:</strong> เสื้อยืด + แขนยาว + แจ็คเก็ตกันฝน<br><strong>☂️ พกร่ม!</strong> โอกาสฝน 45%",en_outfit:"Warmest but possible rain!<br><strong>Wear:</strong> T-shirt + long sleeves + rain jacket<br><strong>☂️ Umbrella!</strong> 45% rain chance"
+  },stops:[],notes:"รอใส่สถานที่เที่ยว — แจ้งได้เลย!",en_notes:"Stops coming soon — let me know!"
+},
+{title:"สำรวจ Chicago",en_title:"Explore Chicago",subtitle:"เย็นลง + ฝน ☂️",en_subtitle:"Cooler + rain ☂️",
+  weather:{icon:"🌧️",summary:"เย็นลง 15°C + ฝน ☂️ ต้องพกร่ม",en_summary:"Cooler 15°C + rain ☂️ must bring umbrella",wind:"15 km/h",rain:"60%",sunrise:"05:56",sunset:"19:41",
+    temps:[{label:"เช้า",en_label:"Morning",time:"~09:00",deg:11,cls:"temp-cold"},{label:"กลางวัน",en_label:"Afternoon",time:"~14:00",deg:15,cls:"temp-cool"},{label:"เย็น",en_label:"Evening",time:"~19:00",deg:12,cls:"temp-cold"}],
+    outfit:"เย็นลง + ฝน!<br><strong>ใส่:</strong> 3 ชั้น + แจ็คเก็ตกันฝน<br><strong>☂️ พกร่มแน่นอน!</strong> 60%<br><strong>แนะนำ:</strong> เที่ยวในร่ม (พิพิธภัณฑ์)",en_outfit:"Cooler + rain!<br><strong>Wear:</strong> 3 layers + rain jacket<br><strong>☂️ Umbrella!</strong> 60%<br><strong>Tip:</strong> Indoor activities (museums)"
+  },stops:[],notes:"รอใส่สถานที่เที่ยว — แจ้งได้เลย!",en_notes:"Stops coming soon — let me know!"
 }
-
+];
+function showDay(idx){
+  curDay=idx;document.querySelectorAll('.tab').forEach(function(t,i){t.classList.toggle('active',i===idx)});
+  var d=days[idx],c=document.getElementById('content'),L=isEN;
+  var h='<div class="fade-section"><div class="day-hdr"><h2>'+(L?d.en_title:d.title)+'</h2><p>'+(L?d.en_subtitle:d.subtitle)+'</p></div>';
+  var w=d.weather;
+  h+='<div class="weather-card"><div class="weather-top"><div class="weather-icon">'+w.icon+'</div><div class="weather-summary"><div class="weather-summary-title">'+(L?w.en_summary:w.summary)+'</div><div class="weather-meta"><div class="weather-meta-item">💨 <span>'+w.wind+'</span></div><div class="weather-meta-item">🌧 <span>'+w.rain+'</span></div><div class="weather-meta-item">🌅 <span>'+w.sunrise+'</span></div><div class="weather-meta-item">🌇 <span>'+w.sunset+'</span></div></div></div></div>';
+  h+='<div class="temp-timeline">';
+  w.temps.forEach(function(t){h+='<div class="temp-slot '+t.cls+'"><div class="temp-slot-label">'+(L?t.en_label:t.label)+'</div><div class="temp-slot-time">'+t.time+'</div><div class="temp-slot-deg">'+t.deg+'°<small>C</small></div></div>';});
+  h+='</div><div class="outfit-box"><div class="outfit-label">👕 '+(L?'WHAT TO WEAR':'แนะนำการแต่งตัว')+'</div><div class="outfit-text">'+(L?w.en_outfit:w.outfit)+'</div></div></div>';
+  h+='<div class="forecast-note">'+(L?'Forecast may change — check closer to date':'พยากรณ์อาจเปลี่ยน — เช็คใกล้วันเดินทาง')+'</div>';
+  if(d.stops&&d.stops.length>0){h+='<div class="tl">';
+    d.stops.forEach(function(s,i){var dl=(i*0.06)+'s';
+      if(s.transit)h+='<div class="transit" style="animation-delay:'+dl+'"><div class="transit-line">'+s.transit+'</div></div>';
+      h+='<div class="stop" style="animation-delay:'+dl+'"><div class="stop-dot '+s.color+'"></div><div class="stop-card" onclick="toggleCard(this)"><div class="stop-top"><div class="stop-top-left">';
+      h+='<div class="stop-time '+s.color+'">'+s.time+'</div><div class="stop-name">'+s.name+'</div><div class="stop-brief">'+(L?(s.en_brief||s.brief):s.brief)+'</div>';
+      if(s.tag)h+='<span class="stop-tag '+s.tag.cls+'">'+s.tag.text+'</span>';
+      h+='</div><svg class="stop-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>';
+      h+='<div class="stop-details"><div class="stop-inner">';
+      if(s.details)h+='<div class="detail-section"><div class="detail-label">'+(L?'📍 Details':'📍 รายละเอียด')+'</div><div class="detail-text">'+(L?(s.en_details||s.details):s.details)+'</div></div>';
+      if(s.tip)h+='<div class="tip-box">'+(L?(s.en_tip||s.tip):s.tip)+'</div>';
+      h+='</div></div></div></div>';});
+    h+='</div>';}
+  h+='<div class="notes-box"><h4>📝 Note</h4><p>'+(L?d.en_notes:d.notes)+'</p></div></div>';
+  c.innerHTML=h;window.scrollTo({top:0,behavior:'smooth'});
+}
+function toggleCard(el){el.classList.toggle('open')}
 showDay(0);
 </script>
 </body>
