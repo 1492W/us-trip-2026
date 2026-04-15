@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seattle Trip Itinerary</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0C0F14;--surface:#161B24;--surface-hover:#1D2330;--border:#262D3A;--text:#E8ECF2;--text-dim:#8892A4;--accent:#5CBF8A;--accent-glow:rgba(92,191,138,0.15);--green:#5CBF8A;--blue:#5B9FD6;--rose:#D67B8A;--purple:#A07BD6;--sky:#6BB8E8;--orange:#F0A050}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  .hero{position:relative;padding:52px 24px 16px;text-align:center;overflow:hidden}
+  .hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at 50% 20%,rgba(92,191,138,0.08)0%,transparent 60%),radial-gradient(ellipse at 80% 60%,rgba(91,159,214,0.05)0%,transparent 50%);pointer-events:none}
+  .hero-label{display:inline-block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:3px;color:var(--accent);background:var(--accent-glow);padding:6px 16px;border-radius:20px;position:relative}
+  .hero h1{font-family:'DM Serif Display',serif;font-size:clamp(34px,8vw,52px);font-weight:400;line-height:1.15;margin-bottom:10px;position:relative}
+  .hero h1 span{color:var(--accent)}
+  .hero-sub{font-size:14px;color:var(--text-dim);position:relative}
+  .hotel-badge,.flight-badge{display:inline-flex;align-items:center;gap:6px;margin-top:8px;font-size:11px;color:var(--text-dim);background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:8px 14px;position:relative}
+  .hotel-badge{font-size:12px;margin-top:14px}
+  .tabs{display:flex;gap:8px;padding:0 20px;margin:20px auto 0;max-width:600px;justify-content:center;flex-wrap:wrap}
+  .tab{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px;cursor:pointer;transition:all .3s ease;text-align:center;flex:1;min-width:120px;max-width:200px;user-select:none}
+  .tab:hover{background:var(--surface-hover)}
+  .tab.active{border-color:var(--accent);background:var(--accent-glow)}
+  .tab-day{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--text-dim);margin-bottom:4px}
+  .tab.active .tab-day{color:var(--accent)}
+  .tab-title{font-size:13px;font-weight:600;color:var(--text)}
+  .tab-date{font-size:11px;color:var(--text-dim);margin-top:2px}
+  .tc{max-width:600px;margin:28px auto;padding:0 20px 40px}
+  .day-hdr{margin-bottom:20px}.day-hdr h2{font-family:'DM Serif Display',serif;font-size:26px;font-weight:400;margin-bottom:4px}.day-hdr p{font-size:13px;color:var(--text-dim)}
+  .weather-card{background:linear-gradient(135deg,#1a2233,#162030);border:1px solid var(--border);border-radius:14px;padding:18px;margin-bottom:8px;animation:fadeIn .5s ease}
+  .weather-top{display:flex;align-items:center;gap:12px;margin-bottom:14px}.weather-icon{font-size:32px;line-height:1}.weather-summary{flex:1}.weather-summary-title{font-size:14px;font-weight:600}.weather-meta{display:flex;gap:12px;margin-top:4px}.weather-meta-item{font-size:11px;color:var(--text-dim);display:flex;align-items:center;gap:3px}.weather-meta-item span{color:var(--text);font-weight:600}
+  .temp-timeline{display:flex;margin-bottom:14px;background:rgba(255,255,255,0.02);border-radius:10px;overflow:hidden}.temp-slot{flex:1;text-align:center;padding:12px 8px}.temp-slot:not(:last-child){border-right:1px solid var(--border)}.temp-slot-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text-dim);margin-bottom:2px}.temp-slot-time{font-size:10px;color:var(--text-dim);opacity:.7;margin-bottom:6px}.temp-slot-deg{font-family:'DM Serif Display',serif;font-size:24px;font-weight:400;line-height:1}.temp-slot-deg small{font-size:12px;font-family:'DM Sans',sans-serif;color:var(--text-dim)}
+  .temp-cold .temp-slot-deg{color:var(--blue)}.temp-warm .temp-slot-deg{color:var(--orange)}.temp-cool .temp-slot-deg{color:var(--sky)}
+  .outfit-box{background:rgba(92,191,138,0.06);border:1px solid rgba(92,191,138,0.12);border-radius:10px;padding:12px 14px}.outfit-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:5px}.outfit-text{font-size:12px;color:var(--text-dim);line-height:1.6}.outfit-text strong{color:var(--text);font-weight:600}
+  .forecast-note{font-size:11px;color:var(--text-dim);opacity:.5;text-align:center;margin-bottom:16px}
+  .tl{position:relative;padding-left:28px}.tl::before{content:'';position:absolute;left:6px;top:8px;bottom:8px;width:1px;background:var(--border)}
+  .transit{position:relative;margin-bottom:6px;display:flex;align-items:center;gap:8px;opacity:0;transform:translateY(8px);animation:fadeUp .4s ease forwards}.transit-line{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-dim);background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.04);border-radius:8px;padding:5px 10px;line-height:1.4;flex-wrap:wrap}
+  .stop{position:relative;margin-bottom:8px;opacity:0;transform:translateY(16px);animation:fadeUp .5s ease forwards}
+  @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .stop-dot{position:absolute;left:-24px;top:16px;width:13px;height:13px;border-radius:50%;border:2px solid;background:var(--bg);z-index:2}
+  .stop-dot.green{border-color:var(--green);box-shadow:0 0 8px rgba(92,191,138,.3)}.stop-dot.blue{border-color:var(--blue);box-shadow:0 0 8px rgba(91,159,214,.3)}.stop-dot.rose{border-color:var(--rose);box-shadow:0 0 8px rgba(214,123,138,.3)}.stop-dot.accent{border-color:var(--accent);box-shadow:0 0 8px rgba(92,191,138,.3)}.stop-dot.purple{border-color:var(--purple);box-shadow:0 0 8px rgba(160,123,214,.3)}.stop-dot.orange{border-color:var(--orange);box-shadow:0 0 8px rgba(240,160,80,.3)}
+  .stop-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:all .25s ease;cursor:pointer}.stop-card:hover{background:var(--surface-hover)}.stop-card.open{border-color:rgba(255,255,255,.1)}
+  .stop-top{padding:14px 16px;display:flex;align-items:flex-start;justify-content:space-between}.stop-top-left{flex:1}
+  .stop-time{font-size:12px;font-weight:700;letter-spacing:1px;margin-bottom:5px}.stop-time.green{color:var(--green)}.stop-time.blue{color:var(--blue)}.stop-time.rose{color:var(--rose)}.stop-time.accent{color:var(--accent)}.stop-time.purple{color:var(--purple)}.stop-time.orange{color:var(--orange)}
+  .stop-name{font-size:15px;font-weight:600;margin-bottom:3px;line-height:1.3}.stop-brief{font-size:12px;color:var(--text-dim)}
+  .stop-chevron{margin-top:8px;transition:transform .3s ease;color:var(--text-dim);flex-shrink:0}.stop-card.open .stop-chevron{transform:rotate(180deg)}
+  .stop-tag{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;padding:3px 10px;border-radius:6px;margin-top:6px}
+  .tag-free{background:rgba(92,191,138,.12);color:var(--green)}.tag-booked{background:rgba(240,160,80,.12);color:var(--orange)}.tag-optional{background:rgba(160,123,214,.12);color:var(--purple)}.tag-food{background:rgba(214,123,138,.12);color:var(--rose)}.tag-warn{background:rgba(214,123,138,.12);color:var(--rose)}
+  .stop-details{max-height:0;overflow:hidden;transition:max-height .4s ease}.stop-card.open .stop-details{max-height:800px}
+  .stop-inner{padding:0 16px 16px;border-top:1px solid var(--border)}.detail-section{margin-top:12px}.detail-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-dim);margin-bottom:5px}.detail-text{font-size:13px;color:var(--text);line-height:1.6}
+  .tip-box{background:rgba(91,159,214,.08);border:1px solid rgba(91,159,214,.15);border-radius:8px;padding:10px 12px;margin-top:10px;font-size:12px;color:var(--text-dim);line-height:1.5}.tip-box strong{color:var(--blue)}
+  .notes-box{background:var(--accent-glow);border:1px solid rgba(92,191,138,.2);border-radius:12px;padding:14px 16px;margin-top:20px}.notes-box h4{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:6px}.notes-box p{font-size:13px;color:var(--text-dim);line-height:1.6}
+  .fade-section{animation:fadeIn .4s ease}
+  .footer{text-align:center;padding:12px 20px 48px;font-size:12px;color:var(--text-dim);opacity:.35}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+    <a href="index.html" class="hero-label" style="text-decoration:none;margin-bottom:0">&#9992; Family Trip 2026</a>
+    <button onclick="toggleLang()" id="langBtn" style="background:rgba(92,191,138,.15);border:1px solid rgba(92,191,138,.4);color:var(--accent);font-size:11px;font-weight:600;letter-spacing:2px;padding:6px 14px;border-radius:20px;cursor:pointer">EN &#127482;&#127480;</button>
+  </div>
+  <h1>2 Days in <span>Seattle</span></h1>
+  <p class="hero-sub">Boeing + Mt. Rainier &#183; 3 &#3588;&#3609; &#183; &#3586;&#3633;&#3610;&#3619;&#3606;</p>
+  <div class="flight-badge">&#9992;&#65039; DL1492+DL2998 STL&#8594;SLC&#8594;SEA &#3606;&#3638;&#3591; 23:59 &#3624;. 1 &#3614;.&#3588;.</div>
+  <div class="hotel-badge">&#127976; Red Roof Inn SeaTac &#183; 1-3 &#3614;.&#3588;. &#183; 2 &#3588;&#3639;&#3609;</div>
+</div>
+<div class="tabs">
+  <div class="tab active" onclick="showDay(0)"><div class="tab-day">Day 1</div><div class="tab-title">Boeing</div><div class="tab-date">Sat &#183; 2 May</div></div>
+  <div class="tab" onclick="showDay(1)"><div class="tab-day">Day 2</div><div class="tab-title">Rainier</div><div class="tab-date">Sun &#183; 3 May</div></div>
+</div>
+<div class="tc" id="content"></div>
+<div class="footer">Seattle Itinerary &#183; &#127956;&#65039; The Emerald City</div>
+<script>
+var isEN=false,curDay=0;
+function toggleLang(){isEN=!isEN;document.getElementById("langBtn").textContent=isEN?"TH \ud83c\uddf9\ud83c\udded":"EN \ud83c\uddfa\ud83c\uddf8";showDay(curDay);}
+var days=[
+{
+  title:"Boeing Factory + Downtown Seattle",en_title:"Boeing Factory + Downtown Seattle",
+  subtitle:"Jeep Compass 08:00\u201321:00 \u00b7 \u0e02\u0e31\u0e1a\u0e23\u0e16\u0e44\u0e1b\u0e42\u0e23\u0e07\u0e07\u0e32\u0e19\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e1a\u0e34\u0e19",en_subtitle:"Jeep Compass 08:00\u201321:00 \u00b7 Boeing Factory + city walk",
+  weather:{icon:"\u26c5",summary:"16\u00b0C \u0e40\u0e21\u0e06\u0e2a\u0e25\u0e31\u0e1a\u0e41\u0e14\u0e14 Seattle \u0e04\u0e25\u0e32\u0e2a\u0e2a\u0e34\u0e04",en_summary:"16\u00b0C partly cloudy \u2014 classic Seattle",wind:"12 km/h",rain:"30%",sunrise:"05:52",sunset:"20:22",
+    temps:[{label:"\u0e40\u0e0a\u0e49\u0e32",en_label:"Morning",time:"~08:00",deg:9,cls:"temp-cold"},{label:"\u0e01\u0e25\u0e32\u0e07\u0e27\u0e31\u0e19",en_label:"Afternoon",time:"~14:00",deg:16,cls:"temp-cool"},{label:"\u0e40\u0e22\u0e47\u0e19",en_label:"Evening",time:"~19:00",deg:12,cls:"temp-cold"}],
+    outfit:"\u0e40\u0e0a\u0e49\u0e32\u0e40\u0e22\u0e47\u0e19 9\u00b0C \u0e1a\u0e48\u0e32\u0e22 16\u00b0C<br><strong>\u0e43\u0e2a\u0e48:</strong> 3 \u0e0a\u0e31\u0e49\u0e19 + \u0e41\u0e08\u0e47\u0e04\u0e40\u0e01\u0e47\u0e15\u0e01\u0e31\u0e19\u0e1d\u0e19<br>\u0e1e\u0e01\u0e23\u0e48\u0e21! Seattle \u0e1d\u0e19\u0e1a\u0e48\u0e2d\u0e22",
+    en_outfit:"Morning 9\u00b0C, afternoon 16\u00b0C<br><strong>Wear:</strong> 3 layers + rain jacket<br>Bring umbrella! Seattle drizzles often"
+  },
+  stops:[
+    {time:"08:00",name:"\u0e23\u0e31\u0e1a Jeep Compass",brief:"SeaTac Airport",en_brief:"Pick up at SeaTac Airport",color:"green",
+      details:"\u0e23\u0e31\u0e1a\u0e23\u0e16\u0e40\u0e0a\u0e48\u0e32\u0e17\u0e35\u0e48\u0e2a\u0e19\u0e32\u0e21\u0e1a\u0e34\u0e19 SeaTac<br>\u0e04\u0e37\u0e19 21:00 \u0e27\u0e31\u0e19\u0e19\u0e35\u0e49",
+      en_details:"Pick up rental car at SeaTac Airport<br>Return by 21:00 today"},
+    {time:"08:15",name:"\u0e02\u0e31\u0e1a\u0e44\u0e1b\u0e40\u0e2b\u0e19\u0e37\u0e2d I-5",brief:"SeaTac \u2192 Mukilteo ~45 min",en_brief:"SeaTac \u2192 Mukilteo ~45 min",color:"blue",
+      transit:"\ud83d\ude97 I-5 North \u2192 Exit 189 \u2192 Hwy 526 \u2192 Boeing Future of Flight ~45 min"},
+    {time:"09:00",name:"\u0e16\u0e36\u0e07 Boeing Future of Flight",brief:"\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e2d\u0e07\u0e43\u0e19\u0e25\u0e47\u0e2d\u0e01\u0e40\u0e01\u0e2d\u0e23\u0e4c \u0e23\u0e2d\u0e17\u0e31\u0e27\u0e23\u0e4c 10:30",en_brief:"Store belongings in lockers, wait for tour 10:30",color:"blue",
+      details:"\u0e16\u0e36\u0e07\u0e01\u0e48\u0e2d\u0e19 30 \u0e19\u0e32\u0e17\u0e35<br>\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e2d\u0e07\u0e17\u0e31\u0e49\u0e07\u0e2b\u0e21\u0e14\u0e43\u0e19\u0e25\u0e47\u0e2d\u0e01\u0e40\u0e01\u0e2d\u0e23\u0e4c (\u0e1f\u0e23\u0e35)<br>\u0e14\u0e39 Gallery \u0e23\u0e30\u0e2b\u0e27\u0e48\u0e32\u0e07\u0e23\u0e2d",
+      en_details:"Arrive 30 min early<br>Store ALL belongings in free lockers<br>Browse Gallery while waiting",
+      tip:"\u26a0\ufe0f <strong>\u0e2b\u0e49\u0e32\u0e21\u0e1e\u0e01\u0e02\u0e2d\u0e07\u0e40\u0e02\u0e49\u0e32\u0e17\u0e31\u0e27\u0e23\u0e4c\u0e17\u0e31\u0e49\u0e07\u0e2b\u0e21\u0e14!</strong> \u0e44\u0e21\u0e48\u0e21\u0e35\u0e21\u0e37\u0e2d\u0e16\u0e37\u0e2d \u0e01\u0e25\u0e49\u0e2d\u0e07 \u0e01\u0e23\u0e30\u0e40\u0e1b\u0e4b\u0e32 \u0e42\u0e17\u0e23\u0e28\u0e31\u0e1e\u0e17\u0e4c<br>\u26a0\ufe0f Pordee \u0e15\u0e49\u0e2d\u0e07\u0e2a\u0e39\u0e07\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e19\u0e49\u0e2d\u0e22 122 \u0e0b\u0e21. (4 \u0e1f\u0e38\u0e15)",en_tip:"\u26a0\ufe0f <strong>NO items allowed on tour!</strong> No phones, cameras, bags, purses<br>\u26a0\ufe0f Pordee must be at least 122 cm (4 ft) tall"},
+    {time:"10:30",name:"\u2708\ufe0f Boeing Factory Tour",brief:"80 \u0e19\u0e32\u0e17\u0e35 \u00b7 \u0e2a\u0e32\u0e22\u0e1c\u0e25\u0e34\u0e15 777/777X",en_brief:"80 min \u00b7 777/777X assembly line",color:"orange",tag:{text:"Highlight",cls:"tag-booked"},
+      details:"<strong>Boeing Everett Factory Tour</strong> \u2b50\u2b50<br>\u0e42\u0e23\u0e07\u0e07\u0e32\u0e19\u0e43\u0e2b\u0e0d\u0e48\u0e2a\u0e38\u0e14\u0e43\u0e19\u0e42\u0e25\u0e01 (Guinness!)<br>\u0e14\u0e39\u0e2a\u0e32\u0e22\u0e01\u0e32\u0e23\u0e1c\u0e25\u0e34\u0e15 777/777X \u0e08\u0e23\u0e34\u0e07!<br>~$40/\u0e04\u0e19 \u00b7 80 \u0e19\u0e32\u0e17\u0e35<br><br>\ud83c\udf10 boeingfutureofflight.com/tour<br>\u26a0\ufe0f <strong>\u0e08\u0e2d\u0e07\u0e25\u0e48\u0e27\u0e07\u0e2b\u0e19\u0e49\u0e32! \u0e15\u0e31\u0e4b\u0e27\u0e2b\u0e21\u0e14\u0e40\u0e23\u0e47\u0e27</strong>",
+      en_details:"<strong>Boeing Everett Factory Tour</strong> \u2b50\u2b50<br>World\u2019s largest factory (Guinness!)<br>See 777/777X assembly line live!<br>~$40/person \u00b7 80 min<br><br>\ud83c\udf10 boeingfutureofflight.com/tour<br>\u26a0\ufe0f <strong>Book in advance! Sells out fast</strong>"},
+    {time:"12:00",name:"\ud83d\udee9\ufe0f Sky Deck + Boeing Store",brief:"\u0e14\u0e39\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e1a\u0e34\u0e19\u0e02\u0e36\u0e49\u0e19-\u0e25\u0e07 + \u0e0b\u0e37\u0e49\u0e2d\u0e02\u0e2d\u0e07\u0e1d\u0e32\u0e01",en_brief:"Watch planes take off + souvenir shop",color:"accent",
+      details:"Sky Deck \u0e14\u0e39\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e1a\u0e34\u0e19\u0e02\u0e36\u0e49\u0e19-\u0e25\u0e07\u0e17\u0e35\u0e48 Paine Field<br>Boeing Store \u0e02\u0e2d\u0e07\u0e1d\u0e32\u0e01\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e1a\u0e34\u0e19",
+      en_details:"Sky Deck \u2014 watch planes at Paine Field<br>Boeing Store for aviation souvenirs"},
+    {time:"12:30",name:"\u0e02\u0e31\u0e1a\u0e01\u0e25\u0e31\u0e1a Seattle",brief:"I-5 South ~45 min",en_brief:"I-5 South ~45 min",color:"blue",
+      transit:"\ud83d\ude97 I-5 South \u2192 Downtown Seattle ~45 min"},
+    {time:"13:00",name:"\ud83d\udc1f Pike Place Market",brief:"\u0e15\u0e25\u0e32\u0e14\u0e14\u0e31\u0e07\u0e2a\u0e38\u0e14! \u0e42\u0e22\u0e19\u0e1b\u0e25\u0e32 + clam chowder",en_brief:"Famous market! Fish throwing + clam chowder",color:"orange",tag:{text:"Highlight",cls:"tag-booked"},
+      details:"<strong>Pike Place Market</strong> \u2b50<br>\u0e15\u0e25\u0e32\u0e14\u0e14\u0e31\u0e07\u0e2a\u0e38\u0e14\u0e02\u0e2d\u0e07 Seattle \u0e40\u0e1b\u0e34\u0e14\u0e15\u0e31\u0e49\u0e07\u0e41\u0e15\u0e48 1907<br>\ud83d\udc1f \u0e42\u0e22\u0e19\u0e1b\u0e25\u0e32! Pike Place Fish Co.<br>\ud83e\udea6 Clam Chowder \u0e17\u0e35\u0e48 Pike Place Chowder<br>\ud83c\udf38 \u0e14\u0e2d\u0e01\u0e44\u0e21\u0e49\u0e2a\u0e14 \u0e1c\u0e31\u0e01\u0e1c\u0e25\u0e44\u0e21\u0e49\u0e2a\u0e14 \u0e0a\u0e35\u0e2a \u0e02\u0e19\u0e21",
+      en_details:"<strong>Pike Place Market</strong> \u2b50<br>Seattle\u2019s most famous market since 1907<br>\ud83d\udc1f Fish throwing at Pike Place Fish Co.<br>\ud83e\udea6 Clam Chowder at Pike Place Chowder<br>\ud83c\udf38 Fresh flowers, fruits, cheese, pastries",
+      tip:"\u0e08\u0e2d\u0e14\u0e23\u0e16\u0e17\u0e35\u0e48 <strong>Pike Place Market Parking Garage</strong> 1531 Western Ave \u00b7 \u0e2b\u0e23\u0e37\u0e2d\u0e08\u0e2d\u0e14\u0e15\u0e32\u0e21\u0e16\u0e19\u0e19 (meter)",en_tip:"Park at <strong>Pike Place Market Parking Garage</strong> 1531 Western Ave \u00b7 or street meter parking"},
+    {time:"14:30",name:"\u2615 Original Starbucks",brief:"\u0e23\u0e49\u0e32\u0e19 Starbucks \u0e41\u0e2b\u0e48\u0e07\u0e41\u0e23\u0e01\u0e02\u0e2d\u0e07\u0e42\u0e25\u0e01!",en_brief:"The very first Starbucks in the world!",color:"rose",tag:{text:"Food",cls:"tag-food"},
+      details:"\ud83d\udccd 1912 Pike Place<br>\u0e2d\u0e22\u0e39\u0e48\u0e43\u0e19 Pike Place Market<br>\u0e04\u0e34\u0e27\u0e22\u0e32\u0e27! \u0e41\u0e15\u0e48\u0e04\u0e38\u0e49\u0e21\u0e16\u0e48\u0e32\u0e22\u0e23\u0e39\u0e1b",
+      en_details:"\ud83d\udccd 1912 Pike Place<br>Inside Pike Place Market<br>Long queue! But worth a photo"},
+    {time:"15:30",name:"\ud83c\udf33 Kerry Park",brief:"\u0e27\u0e34\u0e27\u0e14\u0e35\u0e2a\u0e38\u0e14\u0e02\u0e2d\u0e07 Seattle!",en_brief:"Best view of Seattle!",color:"accent",tag:{text:"Free",cls:"tag-free"},
+      transit:"\ud83d\ude97 \u0e02\u0e31\u0e1a 10 min \u2192 Queen Anne Hill",
+      details:"\u0e40\u0e2b\u0e47\u0e19 Space Needle + Mt. Rainier + skyline<br>\u0e08\u0e38\u0e14\u0e16\u0e48\u0e32\u0e22\u0e23\u0e39\u0e1b postcard \u0e02\u0e2d\u0e07 Seattle!<br>\u0e1f\u0e23\u0e35!",
+      en_details:"See Space Needle + Mt. Rainier + skyline<br>THE postcard photo spot of Seattle!<br>Free!"},
+    {time:"16:00",name:"\ud83d\uddfc Space Needle + Chihuly",brief:"\u0e16\u0e48\u0e32\u0e22\u0e23\u0e39\u0e1b\u0e02\u0e49\u0e32\u0e07\u0e19\u0e2d\u0e01 / Chihuly \u0e28\u0e34\u0e25\u0e1b\u0e30\u0e41\u0e01\u0e49\u0e27",en_brief:"Photo outside / Chihuly glass art garden",color:"accent",
+      transit:"\ud83d\ude97 \u0e02\u0e31\u0e1a 5 min \u2192 Seattle Center",
+      details:"<strong>Space Needle</strong> \u0e16\u0e48\u0e32\u0e22\u0e23\u0e39\u0e1b\u0e08\u0e32\u0e01\u0e02\u0e49\u0e32\u0e07\u0e19\u0e2d\u0e01 (\u0e02\u0e36\u0e49\u0e19\u0e44\u0e1b ~$35-40/\u0e04\u0e19)<br><strong>Chihuly Garden and Glass</strong> \u0e28\u0e34\u0e25\u0e1b\u0e30\u0e01\u0e23\u0e30\u0e08\u0e01\u0e2a\u0e27\u0e22\u0e21\u0e32\u0e01!<br>~$32/\u0e04\u0e19 \u0e2b\u0e23\u0e37\u0e2d combo $55",
+      en_details:"<strong>Space Needle</strong> \u2014 photo from outside (going up ~$35-40/person)<br><strong>Chihuly Garden and Glass</strong> \u2014 stunning glass art!<br>~$32/person or combo $55",
+      tip:"Optional: \u0e16\u0e49\u0e32\u0e44\u0e21\u0e48\u0e02\u0e36\u0e49\u0e19 Space Needle \u0e41\u0e04\u0e48\u0e16\u0e48\u0e32\u0e22\u0e23\u0e39\u0e1b\u0e02\u0e49\u0e32\u0e07\u0e19\u0e2d\u0e01\u0e01\u0e47\u0e2a\u0e27\u0e22\u0e41\u0e25\u0e49\u0e27 \u0e27\u0e34\u0e27\u0e14\u0e35\u0e01\u0e27\u0e48\u0e32\u0e17\u0e35\u0e48 Kerry Park \u0e14\u0e49\u0e27\u0e22\u0e0b\u0e49\u0e33!",en_tip:"Optional: photo from outside is great \u2014 Kerry Park view is even better and free!"},
+    {time:"18:00",name:"\ud83c\udf5c \u0e21\u0e37\u0e49\u0e2d\u0e40\u0e22\u0e47\u0e19 Downtown",brief:"\u0e01\u0e34\u0e19\u0e02\u0e49\u0e32\u0e27\u0e41\u0e16\u0e27 Downtown Seattle",en_brief:"Dinner in Downtown Seattle",color:"rose",tag:{text:"Food",cls:"tag-food"},
+      details:"\u0e23\u0e49\u0e32\u0e19\u0e40\u0e22\u0e2d\u0e30\u0e41\u0e16\u0e27 Pike Place / Belltown / Capitol Hill<br>\u0e2d\u0e32\u0e2b\u0e32\u0e23\u0e17\u0e30\u0e40\u0e25 \u0e0b\u0e35\u0e1f\u0e39\u0e49\u0e14 \u0e40\u0e2d\u0e40\u0e0a\u0e35\u0e22\u0e19\u0e40\u0e22\u0e2d\u0e30",
+      en_details:"Restaurants near Pike Place / Belltown / Capitol Hill<br>Seafood, Asian fusion, lots of choices"},
+    {time:"20:30",name:"\ud83d\ude97 \u0e04\u0e37\u0e19\u0e23\u0e16 SeaTac",brief:"\u0e04\u0e37\u0e19 Jeep Compass 21:00",en_brief:"Return Jeep Compass by 21:00",color:"blue",
+      details:"\u0e02\u0e31\u0e1a\u0e01\u0e25\u0e31\u0e1a SeaTac ~20 min<br>\u0e04\u0e37\u0e19\u0e23\u0e16\u0e01\u0e48\u0e2d\u0e19 21:00<br>\u0e01\u0e25\u0e31\u0e1a Red Roof Inn \u0e1e\u0e31\u0e01\u0e1c\u0e48\u0e2d\u0e19",
+      en_details:"Drive back to SeaTac ~20 min<br>Return car by 21:00<br>Back to Red Roof Inn to rest"}
+  ],
+  notes:"Boeing \u0e08\u0e2d\u0e07\u0e15\u0e31\u0e4b\u0e27\u0e25\u0e48\u0e27\u0e07\u0e2b\u0e19\u0e49\u0e32! boeingfutureofflight.com/tour<br>Pordee \u0e15\u0e49\u0e2d\u0e07\u0e2a\u0e39\u0e07 122 \u0e0b\u0e21. \u0e16\u0e36\u0e07\u0e40\u0e02\u0e49\u0e32\u0e17\u0e31\u0e27\u0e23\u0e4c\u0e44\u0e14\u0e49",en_notes:"Book Boeing tour in advance! boeingfutureofflight.com/tour<br>Pordee must be 122 cm tall for the tour"
+},
+{
+  title:"Mt. Rainier \u2192 \u0e1a\u0e34\u0e19\u0e01\u0e25\u0e31\u0e1a\u0e44\u0e17\u0e22",en_title:"Mt. Rainier \u2192 Fly Home",
+  subtitle:"Jeep Wrangler 08:00\u201322:00 \u00b7 Check-out + \u0e1a\u0e34\u0e19 01:50",en_subtitle:"Jeep Wrangler 08:00\u201322:00 \u00b7 Check-out + fly 01:50",
+  weather:{icon:"\u26c5",summary:"Seattle 15\u00b0C \u00b7 Paradise \u0e2d\u0e32\u0e08 0-5\u00b0C + \u0e2b\u0e34\u0e21\u0e30!",en_summary:"Seattle 15\u00b0C \u00b7 Paradise may be 0-5\u00b0C + snow!",wind:"10 km/h",rain:"25%",sunrise:"05:51",sunset:"20:23",
+    temps:[{label:"Seattle",en_label:"Seattle",time:"~08:00",deg:9,cls:"temp-cold"},{label:"Paradise",en_label:"Paradise",time:"~12:00",deg:3,cls:"temp-cold"},{label:"Seattle",en_label:"Seattle",time:"~17:00",deg:15,cls:"temp-cool"}],
+    outfit:"<strong>Paradise \u0e2b\u0e19\u0e32\u0e27\u0e21\u0e32\u0e01!</strong> \u0e2d\u0e32\u0e08 0-5\u00b0C + \u0e2b\u0e34\u0e21\u0e30<br><strong>\u0e43\u0e2a\u0e48:</strong> 3-4 \u0e0a\u0e31\u0e49\u0e19 + \u0e41\u0e08\u0e47\u0e04\u0e40\u0e01\u0e47\u0e15\u0e2b\u0e19\u0e32\u0e01\u0e31\u0e19\u0e25\u0e21/\u0e01\u0e31\u0e19\u0e1d\u0e19<br>\u0e23\u0e2d\u0e07\u0e40\u0e17\u0e49\u0e32\u0e40\u0e14\u0e34\u0e19\u0e1b\u0e48\u0e32\u0e01\u0e31\u0e19\u0e25\u0e37\u0e48\u0e19 + \u0e16\u0e38\u0e07\u0e21\u0e37\u0e2d",
+    en_outfit:"<strong>Paradise is COLD!</strong> May be 0-5\u00b0C + snow<br><strong>Wear:</strong> 3-4 layers + heavy jacket<br>Waterproof hiking shoes + gloves"
+  },
+  stops:[
+    {time:"07:30",name:"\ud83c\udfe8 Check-out Red Roof Inn",brief:"\u0e40\u0e2d\u0e32\u0e01\u0e23\u0e30\u0e40\u0e1b\u0e4b\u0e32\u0e17\u0e31\u0e49\u0e07\u0e2b\u0e21\u0e14\u0e02\u0e36\u0e49\u0e19\u0e23\u0e16",en_brief:"Load all luggage into Jeep",color:"green",
+      details:"Check-out \u0e40\u0e2d\u0e32\u0e01\u0e23\u0e30\u0e40\u0e1b\u0e4b\u0e32\u0e17\u0e31\u0e49\u0e07\u0e2b\u0e21\u0e14\u0e02\u0e36\u0e49\u0e19 Jeep Wrangler<br>\u0e44\u0e21\u0e48\u0e01\u0e25\u0e31\u0e1a\u0e42\u0e23\u0e07\u0e41\u0e23\u0e21\u0e41\u0e25\u0e49\u0e27!",
+      en_details:"Check out, load all bags into Jeep Wrangler<br>Not coming back to hotel!"},
+    {time:"08:00",name:"\ud83d\ude99 \u0e23\u0e31\u0e1a Jeep Wrangler",brief:"Tukwila \u00b7 \u0e04\u0e37\u0e19 22:00",en_brief:"Tukwila \u00b7 Return by 22:00",color:"green",
+      details:"\u0e23\u0e31\u0e1a\u0e23\u0e16\u0e17\u0e35\u0e48 Tukwila<br>\u0e04\u0e37\u0e19 22:00 \u0e27\u0e31\u0e19\u0e19\u0e35\u0e49",
+      en_details:"Pick up at Tukwila<br>Return by 22:00 today"},
+    {time:"08:15",name:"\ud83d\uded2 Walmart Tukwila",brief:"\u0e0b\u0e37\u0e49\u0e2d\u0e2d\u0e32\u0e2b\u0e32\u0e23\u0e1b\u0e34\u0e01\u0e19\u0e34\u0e04 + \u0e19\u0e49\u0e33",en_brief:"Buy picnic food + water",color:"rose",tag:{text:"Food",cls:"tag-food"},
+      details:"\ud83d\udccd 1400 Tukwila International Blvd<br>\u0e43\u0e01\u0e25\u0e49\u0e08\u0e38\u0e14\u0e23\u0e31\u0e1a\u0e23\u0e16 5 \u0e19\u0e32\u0e17\u0e35 \u00b7 \u0e40\u0e1b\u0e34\u0e14 06:00<br><br>\u0e0b\u0e37\u0e49\u0e2d:<br>\ud83e\udd6a \u0e41\u0e0b\u0e19\u0e14\u0e4c\u0e27\u0e34\u0e0a / wrap \u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08\u0e23\u0e39\u0e1b<br>\ud83c\udf4e \u0e1c\u0e25\u0e44\u0e21\u0e49 (\u0e41\u0e2d\u0e1b\u0e40\u0e1b\u0e34\u0e49\u0e25 \u0e01\u0e25\u0e49\u0e27\u0e22)<br>\ud83e\udd5c \u0e16\u0e31\u0e48\u0e27 / granola bar / snack<br>\ud83d\udca7 \u0e19\u0e49\u0e33\u0e14\u0e37\u0e48\u0e21 2-3 \u0e02\u0e27\u0e14",
+      en_details:"\ud83d\udccd 1400 Tukwila International Blvd<br>5 min from car pickup \u00b7 Opens 06:00<br><br>Buy:<br>\ud83e\udd6a Sandwiches / wraps<br>\ud83c\udf4e Fruits (apples, bananas)<br>\ud83e\udd5c Nuts / granola bars / snacks<br>\ud83d\udca7 Water 2-3 bottles",
+      tip:"<strong>Paradise \u0e44\u0e21\u0e48\u0e21\u0e35\u0e23\u0e49\u0e32\u0e19\u0e2d\u0e32\u0e2b\u0e32\u0e23!</strong> \u0e21\u0e35\u0e41\u0e04\u0e48 cafeteria \u0e40\u0e25\u0e47\u0e01\u0e46 \u0e41\u0e1e\u0e07 + \u0e40\u0e21\u0e19\u0e39\u0e19\u0e49\u0e2d\u0e22",en_tip:"<strong>Paradise has no real restaurants!</strong> Only a small expensive cafeteria"},
+    {time:"08:45",name:"\ud83d\ude99 \u0e02\u0e31\u0e1a\u0e44\u0e1b Mt. Rainier",brief:"I-5 \u2192 WA-7 \u2192 WA-706 ~2 \u0e0a\u0e21. 15 \u0e19\u0e32\u0e17\u0e35",en_brief:"I-5 \u2192 WA-7 \u2192 WA-706 ~2 hr 15 min",color:"blue",
+      transit:"\ud83d\ude99 I-5 South \u2192 WA-7 \u2192 WA-706 \u2192 Nisqually Entrance",
+      details:"\u0e23\u0e30\u0e22\u0e30\u0e17\u0e32\u0e07 ~95 \u0e44\u0e21\u0e25\u0e4c<br>\u0e17\u0e32\u0e07\u0e2a\u0e27\u0e22\u0e21\u0e32\u0e01 \u0e40\u0e2b\u0e47\u0e19\u0e20\u0e39\u0e40\u0e02\u0e32\u0e15\u0e25\u0e2d\u0e14\u0e17\u0e32\u0e07",
+      en_details:"~95 miles \u00b7 Beautiful scenic drive<br>Mountains along the way",
+      tip:"\u26fd <strong>\u0e40\u0e15\u0e34\u0e21\u0e19\u0e49\u0e33\u0e21\u0e31\u0e19\u0e17\u0e35\u0e48 Ashford!</strong> \u0e1b\u0e31\u0e4a\u0e21\u0e2a\u0e38\u0e14\u0e17\u0e49\u0e32\u0e22\u0e01\u0e48\u0e2d\u0e19\u0e40\u0e02\u0e49\u0e32\u0e2d\u0e38\u0e17\u0e22\u0e32\u0e19<br>\ud83d\udcf1 <strong>\u0e42\u0e2b\u0e25\u0e14 Google Maps offline!</strong> \u0e44\u0e21\u0e48\u0e21\u0e35\u0e2a\u0e31\u0e0d\u0e0d\u0e32\u0e13\u0e43\u0e19\u0e2d\u0e38\u0e17\u0e22\u0e32\u0e19",en_tip:"\u26fd <strong>Fill gas at Ashford!</strong> Last station before park<br>\ud83d\udcf1 <strong>Download Google Maps offline!</strong> No signal in park"},
+    {time:"10:45",name:"\u26f0\ufe0f Nisqually Entrance",brief:"$30/\u0e04\u0e31\u0e19",en_brief:"$30/vehicle entrance fee",color:"accent",
+      details:"\u0e04\u0e48\u0e32\u0e40\u0e02\u0e49\u0e32 <strong>$30/\u0e04\u0e31\u0e19</strong> (7 \u0e27\u0e31\u0e19)<br>\u0e44\u0e21\u0e48\u0e15\u0e49\u0e2d\u0e07\u0e08\u0e2d\u0e07\u0e25\u0e48\u0e27\u0e07\u0e2b\u0e19\u0e49\u0e32 2026",
+      en_details:"Entrance fee <strong>$30/vehicle</strong> (7 days)<br>No reservation needed in 2026"},
+    {time:"11:00",name:"\ud83c\udf32 Longmire",brief:"\u0e1b\u0e48\u0e32\u0e40\u0e01\u0e48\u0e32\u0e41\u0e01\u0e48 \u0e15\u0e49\u0e19\u0e44\u0e21\u0e49\u0e22\u0e31\u0e01\u0e29\u0e4c",en_brief:"Old-growth forest, giant trees",color:"green",tag:{text:"Free",cls:"tag-free"},
+      details:"\u0e1b\u0e48\u0e32\u0e40\u0e01\u0e48\u0e32\u0e41\u0e01\u0e48 \u0e15\u0e49\u0e19\u0e44\u0e21\u0e49\u0e22\u0e31\u0e01\u0e29\u0e4c<br>Visitor Center + \u0e2b\u0e49\u0e2d\u0e07\u0e19\u0e49\u0e33<br>\u0e41\u0e27\u0e30 15 \u0e19\u0e32\u0e17\u0e35",
+      en_details:"Old-growth forest, giant trees<br>Visitor Center + restrooms<br>Quick 15 min stop"},
+    {time:"11:30",name:"\ud83d\udca7 Christine Falls + Narada Falls",brief:"\u0e19\u0e49\u0e33\u0e15\u0e01\u0e2a\u0e27\u0e22 2 \u0e41\u0e2b\u0e48\u0e07!",en_brief:"Two stunning waterfalls!",color:"accent",tag:{text:"Free",cls:"tag-free"},
+      details:"<strong>Christine Falls</strong> \u0e19\u0e49\u0e33\u0e15\u0e01 2 \u0e0a\u0e31\u0e49\u0e19 \u0e40\u0e2b\u0e47\u0e19\u0e08\u0e32\u0e01\u0e2a\u0e30\u0e1e\u0e32\u0e19\u0e2b\u0e34\u0e19<br><strong>Narada Falls</strong> \u0e19\u0e49\u0e32\u0e15\u0e01\u0e14\u0e31\u0e07\u0e2a\u0e38\u0e14! \u0e40\u0e14\u0e34\u0e19\u0e25\u0e07 10 \u0e19\u0e32\u0e17\u0e35",
+      en_details:"<strong>Christine Falls</strong> \u2014 two-tier, seen from stone bridge<br><strong>Narada Falls</strong> \u2014 most popular! 10 min walk down"},
+    {time:"11:45",name:"\ud83c\udfd4\ufe0f Paradise",brief:"\u0e44\u0e2e\u0e44\u0e25\u0e17\u0e4c! \u0e27\u0e34\u0e27 Mt. Rainier \u0e2a\u0e39\u0e07 1,646 \u0e40\u0e21\u0e15\u0e23",en_brief:"Highlight! Mt. Rainier view at 1,646m",color:"orange",tag:{text:"Highlight",cls:"tag-booked"},
+      details:"<strong>Paradise</strong> \u2b50\u2b50<br>\u0e2a\u0e39\u0e07 1,646 \u0e40\u0e21\u0e15\u0e23 \u0e27\u0e34\u0e27 Mt. Rainier!<br>Henry M. Jackson Visitor Center<br><br>\u0e40\u0e14\u0e34\u0e19\u0e40\u0e25\u0e48\u0e19:<br>\ud83e\udde5 <strong>Myrtle Falls Trail</strong> (0.8 mi, 30 \u0e19\u0e32\u0e17\u0e35, \u0e07\u0e48\u0e32\u0e22 \u2b50)<br>\ud83e\udde5 <strong>Nisqually Vista</strong> (1.2 mi, 45 \u0e19\u0e32\u0e17\u0e35, \u0e07\u0e48\u0e32\u0e22)<br><br>\u26a0\ufe0f \u0e15\u0e49\u0e19\u0e1e.\u0e04. \u0e2d\u0e32\u0e08\u0e22\u0e31\u0e07\u0e21\u0e35\u0e2b\u0e34\u0e21\u0e30!",
+      en_details:"<strong>Paradise</strong> \u2b50\u2b50<br>Elevation 1,646m \u2014 Mt. Rainier view!<br>Henry M. Jackson Visitor Center<br><br>Trails:<br>\ud83e\udde5 <strong>Myrtle Falls Trail</strong> (0.8 mi, 30 min, easy \u2b50)<br>\ud83e\udde5 <strong>Nisqually Vista</strong> (1.2 mi, 45 min, easy)<br><br>\u26a0\ufe0f Early May: may still have snow!",
+      tip:"\u0e40\u0e0a\u0e47\u0e04\u0e2a\u0e20\u0e32\u0e1e\u0e16\u0e19\u0e19\u0e01\u0e48\u0e2d\u0e19\u0e44\u0e1b: <strong>nps.gov/mora</strong>",en_tip:"Check road conditions before going: <strong>nps.gov/mora</strong>"},
+    {time:"13:00",name:"\ud83c\udf71 \u0e1b\u0e34\u0e01\u0e19\u0e34\u0e04\u0e17\u0e35\u0e48 Paradise",brief:"\u0e01\u0e34\u0e19\u0e2d\u0e32\u0e2b\u0e32\u0e23\u0e08\u0e32\u0e01 Walmart \u0e27\u0e34\u0e27 Mt. Rainier!",en_brief:"Eat Walmart food with Mt. Rainier view!",color:"rose",tag:{text:"Food",cls:"tag-food"},
+      details:"\u0e19\u0e31\u0e48\u0e07\u0e01\u0e34\u0e19\u0e1b\u0e34\u0e01\u0e19\u0e34\u0e04\u0e27\u0e34\u0e27 Mt. Rainier<br>\u0e2d\u0e32\u0e2b\u0e32\u0e23\u0e17\u0e35\u0e48\u0e0b\u0e37\u0e49\u0e2d\u0e08\u0e32\u0e01 Walmart \u0e40\u0e0a\u0e49\u0e32\u0e19\u0e35\u0e49",
+      en_details:"Picnic with Mt. Rainier view<br>Food from Walmart this morning"},
+    {time:"13:30",name:"\ud83e\udde5 \u0e40\u0e14\u0e34\u0e19\u0e40\u0e25\u0e48\u0e19\u0e15\u0e48\u0e2d / \u0e16\u0e48\u0e32\u0e22\u0e23\u0e39\u0e1b",brief:"\u0e21\u0e35\u0e40\u0e27\u0e25\u0e32\u0e40\u0e22\u0e2d\u0e30!",en_brief:"Plenty of time to explore!",color:"green"},
+    {time:"15:30",name:"\ud83d\ude99 \u0e2d\u0e2d\u0e01\u0e08\u0e32\u0e01 Paradise",brief:"\u0e02\u0e31\u0e1a\u0e01\u0e25\u0e31\u0e1a Seattle ~2 \u0e0a\u0e21. 15 \u0e19\u0e32\u0e17\u0e35",en_brief:"Drive back to Seattle ~2 hr 15 min",color:"blue",
+      transit:"\ud83d\ude99 WA-706 \u2192 WA-7 \u2192 I-5 North \u2192 Seattle"},
+    {time:"17:45",name:"\ud83c\udfd9\ufe0f \u0e16\u0e36\u0e07 Seattle",brief:"\u0e01\u0e34\u0e19\u0e02\u0e49\u0e32\u0e27\u0e40\u0e22\u0e47\u0e19\u0e21\u0e37\u0e49\u0e2d\u0e2a\u0e38\u0e14\u0e17\u0e49\u0e32\u0e22\u0e43\u0e19\u0e2d\u0e40\u0e21\u0e23\u0e34\u0e01\u0e32!",en_brief:"Last dinner in America!",color:"rose",tag:{text:"Food",cls:"tag-food"},
+      details:"\u0e21\u0e37\u0e49\u0e2d\u0e40\u0e22\u0e47\u0e19\u0e2a\u0e38\u0e14\u0e17\u0e49\u0e32\u0e22\u0e43\u0e19\u0e2d\u0e40\u0e21\u0e23\u0e34\u0e01\u0e32!<br>\u0e41\u0e16\u0e27 Tukwila / SeaTac<br>\u0e2b\u0e23\u0e37\u0e2d Downtown Seattle",
+      en_details:"Last dinner in America!<br>Near Tukwila / SeaTac<br>or Downtown Seattle"},
+    {time:"21:30",name:"\ud83d\ude99 \u0e04\u0e37\u0e19 Jeep Wrangler",brief:"Tukwila 22:00",en_brief:"Return at Tukwila 22:00",color:"blue",
+      details:"\u0e04\u0e37\u0e19\u0e23\u0e16\u0e17\u0e35\u0e48 Tukwila \u0e01\u0e48\u0e2d\u0e19 22:00<br>Shuttle \u0e44\u0e1b SEA Terminal",
+      en_details:"Return car at Tukwila before 22:00<br>Shuttle to SEA Terminal"},
+    {time:"22:30",name:"\u2708\ufe0f SeaTac Airport",brief:"Check-in EVA Air BR025",en_brief:"Check-in EVA Air BR025",color:"green",
+      details:"Check-in EVA Air<br><strong>BR025</strong> SEA 01:50 \u2192 TPE 05:10+1 (12 \u0e0a\u0e21. 20 \u0e19\u0e32\u0e17\u0e35)<br>\u0e21\u0e35\u0e40\u0e27\u0e25\u0e32 3 \u0e0a\u0e21. \u0e01\u0e48\u0e2d\u0e19\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e2d\u0e2d\u0e01",
+      en_details:"Check in EVA Air<br><strong>BR025</strong> SEA 01:50 \u2192 TPE 05:10+1 (12h 20m)<br>3 hours before departure"},
+    {time:"01:50",name:"\ud83d\uded7 \u0e1a\u0e34\u0e19\u0e01\u0e25\u0e31\u0e1a!",brief:"BR025 SEA\u2192TPE \u2192 BR257 TPE\u2192CNX",en_brief:"BR025 SEA\u2192TPE \u2192 BR257 TPE\u2192CNX",color:"orange",
+      details:"<strong>BR025</strong> SEA 01:50 \u2192 TPE 05:10+1<br><strong>BR257</strong> TPE 07:40 \u2192 CNX 10:25<br><br>\ud83c\udfe0 \u0e16\u0e36\u0e07\u0e40\u0e0a\u0e35\u0e22\u0e07\u0e43\u0e2b\u0e21\u0e48 10:25 \u0e2d. 5 \u0e1e.\u0e04. \ud83c\udf89",
+      en_details:"<strong>BR025</strong> SEA 01:50 \u2192 TPE 05:10+1<br><strong>BR257</strong> TPE 07:40 \u2192 CNX 10:25<br><br>\ud83c\udfe0 Arrive Chiang Mai 10:25 Tue May 5 \ud83c\udf89"}
+  ],
+  notes:"Check-out \u0e40\u0e0a\u0e49\u0e32 \u0e40\u0e2d\u0e32\u0e01\u0e23\u0e30\u0e40\u0e1b\u0e4b\u0e32\u0e17\u0e31\u0e49\u0e07\u0e2b\u0e21\u0e14\u0e02\u0e36\u0e49\u0e19\u0e23\u0e16 \u0e44\u0e21\u0e48\u0e01\u0e25\u0e31\u0e1a\u0e42\u0e23\u0e07\u0e41\u0e23\u0e21!<br>\u0e40\u0e15\u0e34\u0e21\u0e19\u0e49\u0e33\u0e21\u0e31\u0e19\u0e17\u0e35\u0e48 Ashford + \u0e42\u0e2b\u0e25\u0e14 Google Maps offline<br>\u0e40\u0e0a\u0e47\u0e04 nps.gov/mora \u0e01\u0e48\u0e2d\u0e19\u0e44\u0e1b",en_notes:"Check out morning \u2014 load bags in car, not coming back!<br>Fill gas at Ashford + download Google Maps offline<br>Check nps.gov/mora before going"
+}
+];
+function showDay(idx){
+  curDay=idx;document.querySelectorAll(".tab").forEach(function(t,i){t.classList.toggle("active",i===idx)});
+  var d=days[idx],c=document.getElementById("content"),L=isEN;
+  var h='<div class="fade-section"><div class="day-hdr"><h2>'+(L?d.en_title:d.title)+'</h2><p>'+(L?d.en_subtitle:d.subtitle)+'</p></div>';
+  var w=d.weather;
+  h+='<div class="weather-card"><div class="weather-top"><div class="weather-icon">'+w.icon+'</div><div class="weather-summary"><div class="weather-summary-title">'+(L?w.en_summary:w.summary)+'</div><div class="weather-meta"><div class="weather-meta-item">\ud83d\udca8 <span>'+w.wind+'</span></div><div class="weather-meta-item">\ud83c\udf27 <span>'+w.rain+'</span></div><div class="weather-meta-item">\ud83c\udf05 <span>'+w.sunrise+'</span></div><div class="weather-meta-item">\ud83c\udf07 <span>'+w.sunset+'</span></div></div></div></div>';
+  h+='<div class="temp-timeline">';
+  w.temps.forEach(function(t){h+='<div class="temp-slot '+t.cls+'"><div class="temp-slot-label">'+(L?t.en_label:t.label)+'</div><div class="temp-slot-time">'+t.time+'</div><div class="temp-slot-deg">'+t.deg+'\u00b0<small>C</small></div></div>';});
+  h+='</div><div class="outfit-box"><div class="outfit-label">\ud83d\udc55 '+(L?'WHAT TO WEAR':'\u0e41\u0e19\u0e30\u0e19\u0e33\u0e01\u0e32\u0e23\u0e41\u0e15\u0e48\u0e07\u0e15\u0e31\u0e27')+'</div><div class="outfit-text">'+(L?w.en_outfit:w.outfit)+'</div></div></div>';
+  h+='<div class="forecast-note">'+(L?'Forecast may change':'\u0e1e\u0e22\u0e32\u0e01\u0e23\u0e13\u0e4c\u0e2d\u0e32\u0e08\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19')+'</div>';
+  if(d.stops&&d.stops.length>0){h+='<div class="tl">';
+    d.stops.forEach(function(s,i){var dl=(i*0.06)+"s";
+      if(s.transit)h+='<div class="transit" style="animation-delay:'+dl+'"><div class="transit-line">'+s.transit+'</div></div>';
+      h+='<div class="stop" style="animation-delay:'+dl+'"><div class="stop-dot '+s.color+'"></div><div class="stop-card" onclick="toggleCard(this)"><div class="stop-top"><div class="stop-top-left">';
+      h+='<div class="stop-time '+s.color+'">'+s.time+'</div><div class="stop-name">'+s.name+'</div><div class="stop-brief">'+(L?(s.en_brief||s.brief):s.brief)+'</div>';
+      if(s.tag)h+='<span class="stop-tag '+s.tag.cls+'">'+s.tag.text+'</span>';
+      h+='</div><svg class="stop-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>';
+      h+='<div class="stop-details"><div class="stop-inner">';
+      if(s.details)h+='<div class="detail-section"><div class="detail-label">'+(L?'\ud83d\udccd Details':'\ud83d\udccd \u0e23\u0e32\u0e22\u0e25\u0e30\u0e40\u0e2d\u0e35\u0e22\u0e14')+'</div><div class="detail-text">'+(L?(s.en_details||s.details):s.details)+'</div></div>';
+      if(s.tip)h+='<div class="tip-box">'+(L?(s.en_tip||s.tip):s.tip)+'</div>';
+      h+='</div></div></div></div>';});
+    h+='</div>';}
+  h+='<div class="notes-box"><h4>\ud83d\udcdd Note</h4><p>'+(L?d.en_notes:d.notes)+'</p></div></div>';
+  c.innerHTML=h;window.scrollTo({top:0,behavior:"smooth"});
+}
+function toggleCard(el){el.classList.toggle("open")}
+showDay(0);
+</script>
+</body>
+</html>
