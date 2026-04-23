@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>St. Louis Trip Itinerary</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0C0F14;--surface:#161B24;--surface-hover:#1D2330;--border:#262D3A;--text:#E8ECF2;--text-dim:#8892A4;--accent:#E85B5B;--accent-glow:rgba(232,91,91,0.15);--green:#5CBF8A;--blue:#5B9FD6;--rose:#D67B8A;--purple:#A07BD6;--sky:#6BB8E8;--orange:#F0A050}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  .hero{position:relative;padding:52px 24px 16px;text-align:center;overflow:hidden}
+  .hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at 50% 20%,rgba(232,91,91,0.08)0%,transparent 60%),radial-gradient(ellipse at 80% 60%,rgba(240,160,80,0.05)0%,transparent 50%);pointer-events:none}
+  .hero-label{display:inline-block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:3px;color:var(--accent);background:var(--accent-glow);padding:6px 16px;border-radius:20px;position:relative}
+  .hero h1{font-family:'DM Serif Display',serif;font-size:clamp(34px,8vw,52px);font-weight:400;line-height:1.15;margin-bottom:10px;position:relative}
+  .hero h1 span{color:var(--accent)}
+  .hero-sub{font-size:14px;color:var(--text-dim);position:relative}
+  .hotel-badge,.flight-badge{display:inline-flex;align-items:center;gap:6px;margin-top:8px;font-size:11px;color:var(--text-dim);background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:8px 14px;position:relative}
+  .hotel-badge{font-size:12px;margin-top:14px}
+  .tabs{display:flex;gap:6px;padding:0 16px;margin:20px auto 0;max-width:700px;justify-content:center;flex-wrap:wrap}
+  .tab{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px 10px;cursor:pointer;transition:all .3s ease;text-align:center;flex:1;min-width:60px;max-width:120px;user-select:none}
+  .tab:hover{background:var(--surface-hover)}
+  .tab.active{border-color:var(--accent);background:var(--accent-glow)}
+  .tab-day{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-dim);margin-bottom:3px}
+  .tab.active .tab-day{color:var(--accent)}
+  .tab-title{font-size:11px;font-weight:600;color:var(--text)}
+  .tab-date{font-size:10px;color:var(--text-dim);margin-top:2px}
+  .tc{max-width:600px;margin:28px auto;padding:0 20px 40px}
+  .day-hdr{margin-bottom:20px}.day-hdr h2{font-family:'DM Serif Display',serif;font-size:26px;font-weight:400;margin-bottom:4px}.day-hdr p{font-size:13px;color:var(--text-dim)}
+  .weather-card{background:linear-gradient(135deg,#1a2233,#162030);border:1px solid var(--border);border-radius:14px;padding:18px;margin-bottom:8px;animation:fadeIn .5s ease}
+  .weather-summary{font-size:15px;font-weight:600;margin-bottom:10px}
+  .weather-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+  .weather-metric{text-align:center;font-size:12px;color:var(--text-dim)}
+  .weather-metric b{display:block;font-size:14px;color:var(--text);margin-bottom:2px}
+  .temp-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:10px;font-size:13px;font-weight:600}
+  .temp-cold{background:rgba(91,159,214,0.12);color:#6BB8E8}
+  .temp-cool{background:rgba(91,184,232,0.12);color:#5BB8E8}
+  .temp-warm{background:rgba(240,160,80,0.12);color:#F0A050}
+  .temp-hot{background:rgba(232,91,91,0.12);color:#E85B5B}
+  .outfit-tip{font-size:12px;color:var(--text-dim);line-height:1.5;margin-top:8px;padding:10px 12px;background:var(--surface);border-radius:10px}
+  .outfit-tip strong{color:var(--text)}
+  .timeline{position:relative;padding-left:24px;margin-top:20px}
+  .timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;background:var(--border)}
+  .stop{position:relative;margin-bottom:20px;animation:fadeIn .4s ease}
+  .stop-dot{position:absolute;left:-20px;top:6px;width:12px;height:12px;border-radius:50%;border:2px solid var(--border);background:var(--bg)}
+  .stop-dot.green{border-color:var(--green);box-shadow:0 0 6px rgba(92,191,138,0.3)}.stop-dot.blue{border-color:var(--blue);box-shadow:0 0 6px rgba(91,159,214,0.3)}.stop-dot.accent{border-color:var(--accent);box-shadow:0 0 6px rgba(232,91,91,0.3)}.stop-dot.rose{border-color:var(--rose);box-shadow:0 0 6px rgba(214,123,138,0.3)}.stop-dot.orange{border-color:var(--orange);box-shadow:0 0 6px rgba(240,160,80,0.3)}.stop-dot.purple{border-color:var(--purple);box-shadow:0 0 6px rgba(160,123,214,0.3)}
+  .stop-time{font-size:11px;color:var(--text-dim);font-weight:600;letter-spacing:1px}
+  .stop-name{font-size:16px;font-weight:700;margin:4px 0 2px}
+  .stop-brief{font-size:13px;color:var(--text-dim)}
+  .stop-tag{display:inline-block;font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;margin-left:8px;vertical-align:middle}
+  .tag-free{background:rgba(92,191,138,0.15);color:var(--green)}.tag-food{background:rgba(214,123,138,0.15);color:var(--rose)}.tag-booked{background:rgba(240,160,80,0.15);color:var(--orange)}.tag-vex{background:rgba(160,123,214,0.15);color:var(--purple)}
+  .stop-detail{display:none;margin-top:10px;padding:12px;background:var(--surface);border:1px solid var(--border);border-radius:10px;font-size:13px;line-height:1.7;color:var(--text-dim)}
+  .stop-detail strong{color:var(--text)}.stop-detail.open{display:block;animation:fadeIn .3s ease}
+  .stop-transit{font-size:12px;color:var(--sky);margin-top:6px}
+  .stop-tip{font-size:12px;color:var(--orange);margin-top:8px;padding:8px 12px;background:rgba(240,160,80,0.06);border-radius:8px;border-left:3px solid var(--orange)}
+  .notes-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px;margin-top:24px;font-size:13px;line-height:1.7;color:var(--text-dim)}
+  .notes-card strong{color:var(--text)}
+  .toggle-btn{display:inline-block;font-size:11px;color:var(--accent);cursor:pointer;margin-top:6px;font-weight:600}
+  .back-link{display:inline-flex;align-items:center;gap:6px;margin:20px;font-size:13px;color:var(--text-dim);text-decoration:none;transition:color .2s}
+  .back-link:hover{color:var(--accent)}
+  .lang-toggle{position:fixed;bottom:20px;right:20px;background:var(--surface);border:1px solid var(--border);border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px;font-weight:700;color:var(--accent);z-index:100;box-shadow:0 4px 20px rgba(0,0,0,0.4)}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+<a href="index.html" class="back-link">← กลับหน้าหลัก</a>
+<div class="hero">
+  <div class="hero-label">Apr 24 – May 1, 2026</div>
+  <h1>St. <span>Louis</span></h1>
+  <p class="hero-sub" id="heroSub">Gateway to the West 🏛️ · VEX IQ Worlds 🤖 · Mustang Convertible 🚗</p>
+  <div class="hotel-badge">🏠 Airbnb · 3433 Juniata St · Hosted by Garett · Check-in 17:00</div>
+  <div class="flight-badge">🚂 Amtrak ศ.24 ถึง 12:01 &nbsp;|&nbsp; ✈️ DL1492 ศ.1 18:45→SEA 23:59</div>
+</div>
+<div class="tabs" id="tabs"></div>
+<div class="tc" id="content"></div>
+<div class="lang-toggle" onclick="toggleLang()" id="langBtn">EN</div>
+<script>
+var isEN=false,curDay=0;
+function toggleLang(){isEN=!isEN;document.getElementById("langBtn").textContent=isEN?"TH":"EN";showDay(curDay)}
+var days=[
+{
+  title:"ถึง St. Louis + Forest Park",en_title:"Arrive St. Louis + Forest Park",
+  subtitle:"Amtrak 12:01 → ฝากกระเป๋า Bounce → Forest Park",en_subtitle:"Amtrak 12:01 → Bounce luggage → Forest Park",
+  date:"ศ. 24 เม.ย.",en_date:"Fri Apr 24",
+  weather:{icon:"🌧️",summary:"🌧️ 24°C ฝนฟ้าคะนอง 88%! พกร่ม!",en_summary:"🌧️ 24°C Showers & thunderstorms 88%! Bring umbrella!",wind:"S 15 km/h",rain:"88%",sunrise:"06:10",sunset:"07:47",
+    temps:[{label:"ถึง STL",en_label:"Arrive",time:"12:01",deg:20,cls:"temp-warm"},{label:"บ่าย",en_label:"Afternoon",time:"~15:00",deg:24,cls:"temp-warm"},{label:"เย็น",en_label:"Evening",time:"~19:00",deg:16,cls:"temp-cool"}],
+    outfit:"⚠️ ฝนแน่! 88% พกร่มตลอด<br><strong>ใส่:</strong> เสื้อยืด + แจ็คเก็ตกันฝน + รองเท้ากันน้ำ",
+    en_outfit:"⚠️ Rain almost certain! 88%<br><strong>Wear:</strong> T-shirt + rain jacket + waterproof shoes"
+  },
+  stops:[
+    {time:"12:01",name:"ถึง Gateway Station",brief:"Amtrak Lincoln Service จาก Chicago",en_brief:"Amtrak Lincoln Service from Chicago",color:"green",
+      details:"📍 430 S 15th St<br>แสดง Amtrak App + Passport<br>รับกระเป๋าแล้วออก",
+      en_details:"📍 430 S 15th St<br>Show Amtrak App + Passport<br>Collect bags and exit"},
+    {time:"12:15",name:"Uber → Bounce ฝากกระเป๋า",brief:"4579 Laclede Ave (Central West End)",en_brief:"4579 Laclede Ave (Central West End)",color:"blue",
+      details:"📍 Bounce: 4579 Laclede Ave<br>💰 ~$6-8/ใบ จองแล้ว!<br>ฝากเสร็จ → เดิน 5 นาทีเข้า Forest Park!",
+      en_details:"📍 Bounce: 4579 Laclede Ave<br>💰 ~$6-8/bag, pre-booked!<br>After drop-off → 5 min walk to Forest Park!"},
+    {time:"12:45",name:"🌳 Forest Park",brief:"Zoo ฟรี! Art Museum ฟรี! ใหญ่กว่า Central Park!",en_brief:"Free Zoo! Free Art Museum! Bigger than Central Park!",color:"green",tag:{text:"Free",cls:"tag-free"},
+      details:"<strong>Forest Park</strong> 1,370 acres (ใหญ่กว่า Central Park!)<br><br>เลือกตามสภาพฝน:<br>🦁 <strong>St. Louis Zoo</strong> (ฟรี!) ← Top zoo in US!<br>🎨 <strong>Art Museum</strong> (ฟรี!) ← ถ้าฝนตก!<br>🔬 <strong>Science Center</strong> (ฟรี!) ← Pordee ชอบ!<br>⚠️ ฝน 88% เตรียมแผนสำรองในร่ม",
+      en_details:"<strong>Forest Park</strong> 1,370 acres (bigger than Central Park!)<br><br>Choose based on rain:<br>🦁 <strong>St. Louis Zoo</strong> (Free!) ← Top US zoo<br>🎨 <strong>Art Museum</strong> (Free!) ← rainy day option<br>🔬 <strong>Science Center</strong> (Free!) ← Pordee will love<br>⚠️ 88% rain — have indoor backup plan"},
+    {time:"16:00",name:"รับกระเป๋า Bounce",brief:"กลับมารับกระเป๋า",en_brief:"Pick up luggage from Bounce",color:"blue",
+      transit:"🚶 เดินกลับ 5 นาที → Bounce",
+      details:"รับกระเป๋าแล้ว Uber → Airbnb"},
+    {time:"16:30",name:"🚕 Uber → Airbnb",brief:"3433 Juniata St · South City",en_brief:"3433 Juniata St · South City",color:"blue",
+      details:"📍 3433 Juniata St, 63118<br>Self check-in: <strong>Smart Lock</strong><br>เช็คอิน 17:00 (หรือก่อนถ้า Garett แจ้ง)",
+      en_details:"📍 3433 Juniata St, 63118<br>Self check-in: <strong>Smart Lock</strong><br>Check-in 17:00 (or earlier if Garett notifies)"},
+    {time:"18:00",name:"🍕 หาอาหารเย็น",brief:"ร้านแถว South City / Uber ไปย่านอาหาร",en_brief:"Dinner near Airbnb or Uber to food area",color:"rose",tag:{text:"Food",cls:"tag-food"},
+      details:"แถว South City มีร้านอาหารหลายแบบ<br>หรือ Uber ไป <strong>The Hill</strong> (ย่านอิตาเลียน)<br>Imo's Pizza = St. Louis style! (thin crust, provel cheese)",
+      en_details:"South City has many restaurants<br>Or Uber to <strong>The Hill</strong> (Italian neighborhood)<br>Imo's Pizza = St. Louis style! (thin crust, provel cheese)"}
+  ],
+  notes:"🚌 <strong>ซื้อ Weekly Pass วันนี้!</strong> $27/คน ใช้ได้ MetroLink+MetroBus 7 วัน<br>📱 ซื้อผ่าน Transit App ง่ายสุด<br>⚠️ ฝนหนักช่วงบ่าย เตรียมร่ม+แจ็คเก็ตกันฝน!",
+  en_notes:"🚌 <strong>Buy Weekly Pass today!</strong> $27/person, valid 7 days MetroLink+MetroBus<br>📱 Buy via Transit App<br>⚠️ Heavy rain afternoon — umbrella + rain jacket!"
+},
+{
+  title:"VEX Prep + Gateway Arch เย็น",en_title:"VEX Prep + Gateway Arch Evening",
+  subtitle:"ซ้อมหุ่นยนต์กลางวัน → เย็นไปดู Arch",en_subtitle:"Robot practice daytime → Arch at sunset",
+  date:"ส. 25 เม.ย.",en_date:"Sat Apr 25",
+  weather:{icon:"☀️",summary:"☀️ 25°C แดดสวย! ฝน 4% เท่านั้น",en_summary:"☀️ 25°C Sunny! Only 4% rain",wind:"N 10 km/h",rain:"4%",sunrise:"06:09",sunset:"07:48",
+    temps:[{label:"เช้า",en_label:"Morning",time:"~09:00",deg:16,cls:"temp-cool"},{label:"บ่าย",en_label:"Afternoon",time:"~14:00",deg:25,cls:"temp-warm"},{label:"เย็น",en_label:"Evening",time:"~19:00",deg:20,cls:"temp-warm"}],
+    outfit:"อุ่นสบาย แดดสวย!<br><strong>ใส่:</strong> เสื้อยืด + แจ็คเก็ตบาง",
+    en_outfit:"Warm and sunny!<br><strong>Wear:</strong> T-shirt + light jacket"
+  },
+  stops:[
+    {time:"09:00",name:"🤖 ซ้อม VEX IQ ที่บ้านพัก",brief:"Mix and Match practice",en_brief:"Mix and Match practice",color:"purple",tag:{text:"VEX Prep",cls:"tag-vex"},
+      details:"ซ้อมหุ่นยนต์ที่ Airbnb<br>6BR มีพื้นที่พอ!<br>เช็คอุปกรณ์ + ทดสอบ autonomous",
+      en_details:"Robot practice at Airbnb<br>6BR has plenty of space!<br>Check equipment + test autonomous"},
+    {time:"17:00",name:"🚇 MetroLink → Gateway Arch",brief:"ดูพระอาทิตย์ตก 19:48!",en_brief:"Sunset at 19:48!",color:"accent",tag:{text:"Highlight",cls:"tag-booked"},
+      transit:"🚇 MetroLink → Laclede's Landing Station",
+      details:"📍 Gateway Arch National Park<br>🎟️ Tram to the Top: <strong>$16/คน</strong> (จองล่วงหน้า!)<br>⏱️ ขึ้นไป 4 นาที อยู่บน 10 นาที<br>พระอาทิตย์ตก 19:48 สวยมาก!<br><br>🆓 ไม่ขึ้น Tram ก็ได้ — ดูจากข้างล่างฟรี!<br>Museum at the Gateway Arch (ฟรี!)",
+      en_details:"📍 Gateway Arch National Park<br>🎟️ Tram to the Top: <strong>$16/person</strong> (book ahead!)<br>⏱️ 4 min up, 10 min at top<br>Sunset 19:48 — stunning!<br><br>🆓 Don't need Tram — view from below is free!<br>Museum at the Gateway Arch (Free!)"},
+    {time:"19:30",name:"🍔 Dinner Downtown",brief:"ร้านอาหารแถว Arch",en_brief:"Restaurants near the Arch",color:"rose",tag:{text:"Food",cls:"tag-food"},
+      details:"<strong>Pappy's Smokehouse</strong> BBQ ดังมาก! (อาจปิดเย็น)<br><strong>Broadway Oyster Bar</strong> อาหารเครโอล<br><strong>Salt+Smoke</strong> BBQ + Bourbon",
+      en_details:"<strong>Pappy's Smokehouse</strong> Famous BBQ! (may close early)<br><strong>Broadway Oyster Bar</strong> Creole food<br><strong>Salt+Smoke</strong> BBQ + Bourbon"}
+  ],
+  notes:"วันนี้อากาศดีสุดในสัปดาห์! ☀️<br>ซ้อมเสร็จแล้วออกมาเดินเล่นได้สบาย<br>⚠️ จอง Tram ที่ gatewayarch.com ล่วงหน้า!",
+  en_notes:"Best weather day this week! ☀️<br>After practice, enjoy the evening<br>⚠️ Book Tram at gatewayarch.com ahead!"
+},
+{
+  title:"VEX Prep + เย็นเที่ยวเพิ่ม",en_title:"VEX Prep + Evening Options",
+  subtitle:"ซ้อมหุ่นยนต์ + City Museum / The Hill",en_subtitle:"Robot practice + City Museum / The Hill",
+  date:"อา. 26 – จ. 27",en_date:"Sun 26 – Mon 27",
+  weather:{icon:"🌦️",summary:"🌦️ อา.24°C ฝนบ่าย 58% / จ.27°C ฝนหนัก 91%!",en_summary:"🌦️ Sun 24°C rain PM 58% / Mon 27°C heavy storms 91%!",wind:"S 10-15 km/h",rain:"58-91%",sunrise:"06:07",sunset:"07:50",
+    temps:[{label:"อา.เช้า",en_label:"Sun AM",time:"~09:00",deg:17,cls:"temp-cool"},{label:"อา.บ่าย",en_label:"Sun PM",time:"~14:00",deg:24,cls:"temp-warm"},{label:"จ.บ่าย",en_label:"Mon PM",time:"~14:00",deg:27,cls:"temp-warm"}],
+    outfit:"อา. ฝนบ่าย พกร่ม<br>จ. ฝนหนัก+พายุ! <strong>อยู่ในร่มดีกว่า</strong>",
+    en_outfit:"Sun: rain PM, bring umbrella<br>Mon: heavy storms! <strong>Stay indoors</strong>"
+  },
+  stops:[
+    {time:"09:00",name:"🤖 ซ้อม VEX IQ ทั้งวัน",brief:"ซ้อมเข้มก่อนแข่ง!",en_brief:"Intensive practice before competition!",color:"purple",tag:{text:"VEX Prep",cls:"tag-vex"},
+      details:"ซ้อมทั้ง 2 วัน ← สำคัญมาก!<br>ทดสอบ autonomous + driver control<br>เตรียม engineering notebook",
+      en_details:"Practice both days ← very important!<br>Test autonomous + driver control<br>Prepare engineering notebook"},
+    {time:"17:00",name:"🏛️ City Museum (ถ้ามีเวลา อา.)",brief:"สนามเด็กเล่นยักษ์! Pordee ชอบแน่!",en_brief:"Giant playground! Pordee will love it!",color:"orange",
+      transit:"🚕 Uber ~15 min จาก Airbnb",
+      details:"<strong>City Museum</strong> ⭐⭐⭐<br>อาคารเก่าดัดแปลงเป็นสนามเด็กเล่น!<br>ปีนป่าย สไลเดอร์ อุโมงค์ ถ้ำ<br>💰 $18-22/คน<br>🕐 เปิด ส.-อา. 9:00-17:00<br>⚠️ จ. เปิด 9-17 เหมือนกัน แต่ฝนหนัก!",
+      en_details:"<strong>City Museum</strong> ⭐⭐⭐<br>Repurposed building → giant playground!<br>Climbing, slides, tunnels, caves<br>💰 $18-22/person<br>🕐 Sat-Sun 9-5 PM<br>⚠️ Mon 9-5 but heavy rain!"},
+    {time:"12:00",name:"VEX Team Check-in (จ.27)",brief:"America's Center 12-17:00",en_brief:"America's Center 12-17:00",color:"purple",tag:{text:"VEX",cls:"tag-vex"},
+      transit:"🚇 MetroLink → Convention Center Station",
+      details:"📍 America's Center, 701 Convention Plaza<br>⏰ Check-in 12:00-17:00 จ.27<br>รับ wristband / name badge<br>ทุกคนต้องมี badge ตลอดเวลา!",
+      en_details:"📍 America's Center, 701 Convention Plaza<br>⏰ Check-in 12:00-17:00 Mon 27<br>Get wristband / name badge<br>Everyone must wear badge at all times!"}
+  ],
+  notes:"จ.27 ฝนหนัก 91%! อย่าออกไปไกล<br>Check-in VEX ได้ตอนบ่าย จ.27 (12-17:00)<br>เตรียมทุกอย่างให้พร้อมก่อนวันแข่ง!",
+  en_notes:"Mon 27 heavy rain 91%! Stay close<br>VEX Check-in afternoon Mon 27 (12-5 PM)<br>Prepare everything before competition day!"
+},
+{
+  title:"🤖 VEX IQ World Championship",en_title:"🤖 VEX IQ World Championship",
+  subtitle:"3 วันแข่ง! Mix and Match · America's Center",en_subtitle:"3 competition days! Mix and Match · America's Center",
+  date:"อ. 28 – พฤ. 30",en_date:"Tue 28 – Thu 30",
+  weather:{icon:"⛅",summary:"อ.21°C ☁️ 23% / พ.21°C 🌧️ 69% / พฤ.17°C ⛅ 16%",en_summary:"Tue 21°C ☁️ 23% / Wed 21°C 🌧️ 69% / Thu 17°C ⛅ 16%",wind:"N 10 km/h",rain:"16-69%",sunrise:"06:05",sunset:"07:51",
+    temps:[{label:"อ.28",en_label:"Tue",time:"~14:00",deg:21,cls:"temp-warm"},{label:"พ.29",en_label:"Wed",time:"~14:00",deg:21,cls:"temp-warm"},{label:"พฤ.30",en_label:"Thu",time:"~14:00",deg:17,cls:"temp-cool"}],
+    outfit:"ค่อนข้างเย็น 17-21°C แจ็คเก็ตทุกวัน<br>พ.29 ฝน 69% พกร่ม!",
+    en_outfit:"Cool 17-21°C, jacket every day<br>Wed 29 rain 69%, bring umbrella!"
+  },
+  stops:[
+    {time:"07:00",name:"ออกจาก Airbnb",brief:"ต้องถึง Venue 08:00!",en_brief:"Must arrive at Venue by 8:00 AM!",color:"accent",
+      transit:"🚕 Uber → Convention Center (~12-15 min)",
+      details:"⚠️ <strong>เช้า Uber ชัวร์กว่า!</strong><br>MetroLink+Bus ช้ากว่า (~30-40 min)<br>Uber ~$8-12 ถึงเร็ว ชัวร์<br><br>เย็น: MetroLink กลับได้ (ไม่รีบ)",
+      en_details:"⚠️ <strong>Morning: Uber is safest!</strong><br>MetroLink+Bus slower (~30-40 min)<br>Uber ~$8-12, faster & reliable<br><br>Evening: MetroLink back is fine (no rush)"},
+    {time:"07:45",name:"🤖 Venue เปิด",brief:"America's Center Convention Complex",en_brief:"America's Center Convention Complex",color:"purple",tag:{text:"VEX IQ",cls:"tag-vex"},
+      details:"📍 701 Convention Plaza<br><br><strong>อ.28 Day 1:</strong> Opening Ceremony + Skills + Qualification Matches<br>Venue ปิด 19:00<br><br><strong>พ.29 Day 2:</strong> Qualification ต่อ + Alliance Selection<br>Venue ปิด 18:00<br><br><strong>พฤ.30 Day 3:</strong> Elimination/Finals + Awards + Closing<br>🎮 Game Reveal 2026-27!<br>Venue ปิด 17:00",
+      en_details:"📍 701 Convention Plaza<br><br><strong>Tue 28 Day 1:</strong> Opening + Skills + Qualification<br>Venue closes 19:00<br><br><strong>Wed 29 Day 2:</strong> Qualification + Alliance Selection<br>Venue closes 18:00<br><br><strong>Thu 30 Day 3:</strong> Elimination/Finals + Awards + Closing<br>🎮 2026-27 Game Reveal!<br>Venue closes 17:00",
+      tip:"🎫 General Admission ฟรี! ไม่ต้องซื้อตั๋ว<br>Opening/Closing Ceremony ดูได้เลย",
+      en_tip:"🎫 General Admission FREE! No tickets needed<br>Opening/Closing Ceremony open to all"},
+    {time:"17:00",name:"พฤ.30 → รับ Mustang! 🚗",brief:"Uber → Airport → Alamo 18:00",en_brief:"Uber → Airport → Alamo 18:00",color:"accent",tag:{text:"Car!",cls:"tag-booked"},
+      transit:"🚇 MetroLink → Airport หรือ Uber",
+      details:"พฤ.30 VEX จบ 17:00!<br>→ MetroLink/Uber ไปสนามบิน<br>→ <strong>18:00 รับ Ford Mustang Convertible!</strong> 🚗<br>📍 Alamo: 10124 Natural Bridge Rd<br>📞 +1-844-370-9181<br><br>ขับกลับ Airbnb → <strong>เก็บกระเป๋าคืนนี้!</strong>",
+      en_details:"Thu 30 VEX ends 17:00!<br>→ MetroLink/Uber to airport<br>→ <strong>18:00 Pick up Ford Mustang Convertible!</strong> 🚗<br>📍 Alamo: 10124 Natural Bridge Rd<br>📞 +1-844-370-9181<br><br>Drive back to Airbnb → <strong>Pack tonight!</strong>"}
+  ],
+  notes:"🤖 <strong>VEX IQ 3 วัน สู้ๆ!</strong><br>เช้า Uber ไป (~$8-12) ชัวร์กว่า ← ต้องถึง 08:00<br>เย็น MetroLink กลับ (ใช้ Weekly Pass)<br>พฤ.30 จบแข่ง → ไปรับ Mustang เลย!<br>⚠️ เก็บกระเป๋าคืน พฤ.30! พรุ่งนี้ checkout",
+  en_notes:"🤖 <strong>VEX IQ 3 days — good luck!</strong><br>Morning: Uber (~$8-12) safest ← must arrive 08:00<br>Evening: MetroLink back (use Weekly Pass)<br>Thu 30: after VEX → pick up Mustang!<br>⚠️ Pack tonight! Tomorrow is checkout"
+},
+{
+  title:"🚗 Mustang + Great Rivers + ✈️ บิน!",en_title:"🚗 Mustang + Great Rivers + ✈️ Fly!",
+  subtitle:"เปิดประทุนริม Mississippi → คืนรถ → บินไป Seattle!",en_subtitle:"Convertible along Mississippi → Return car → Fly to Seattle!",
+  date:"ศ. 1 พ.ค.",en_date:"Fri May 1",
+  weather:{icon:"🌤️",summary:"🌤️ 15°C เย็นสบาย! ฝนเช้า 49% แล้วหยุด → เปิดประทุนได้!",en_summary:"🌤️ 15°C Cool! Morning shower 49% then clearing → top down!",wind:"S 10 km/h",rain:"49% เช้า → หยุดบ่าย",sunrise:"06:01",sunset:"07:54",
+    temps:[{label:"เช้า",en_label:"Morning",time:"~09:00",deg:10,cls:"temp-cool"},{label:"กลางวัน",en_label:"Midday",time:"~13:00",deg:15,cls:"temp-cool"},{label:"บ่าย",en_label:"Afternoon",time:"~16:00",deg:14,cls:"temp-cool"}],
+    outfit:"เย็นหน่อย! เปิดประทุนลมแรง<br><strong>ใส่:</strong> เสื้อยืด + แจ็คเก็ต + แว่นกันแดด<br>☀️ ทาครีมกันแดด!",
+    en_outfit:"Cool! Wind strong with top down<br><strong>Wear:</strong> T-shirt + jacket + sunglasses<br>☀️ Apply sunscreen!"
+  },
+  stops:[
+    {time:"08:00",name:"ตื่น + เก็บกระเป๋า",brief:"เก็บให้เสร็จเมื่อคืน!",en_brief:"Should be packed from last night!",color:"blue",
+      details:"Rimowa Trunk Plus → เบาะหลัง รัด seatbelt<br>เป้ 3 ใบ → trunk ด้านหลัง<br>Pordee นั่งฝั่งตรงข้ามกระเป๋า",
+      en_details:"Rimowa Trunk Plus → back seat with seatbelt<br>3 backpacks → in trunk<br>Pordee sits opposite side from luggage"},
+    {time:"10:00",name:"🏠 Checkout Airbnb",brief:"Smart Lock ล็อคเอง!",en_brief:"Smart Lock auto-locks!",color:"blue"},
+    {time:"10:30",name:"🚗 ออกเที่ยว! เปิดประทุน!",brief:"Great Rivers Scenic Route → Alton → Grafton",en_brief:"Great Rivers Scenic Route → Alton → Grafton",color:"accent",tag:{text:"Road Trip!",cls:"tag-booked"},
+      transit:"🚗 ขับจาก Airbnb → I-270 N → Hwy 100/367 → Alton (30 min)",
+      details:"<strong>🏔️ Alton, IL</strong> (30 min จาก STL)<br>ดูหน้าผาริมแม่น้ำ + Piasa Bird (ภาพเขียนบนผา)<br>Lewis & Clark Historic Site<br>เมืองเล็กน่ารัก!<br><br>⚠️ ถ้าฝนเช้ายังตก → รอก่อน หรือเปิดประทุนตอนบ่าย",
+      en_details:"<strong>🏔️ Alton, IL</strong> (30 min from STL)<br>Bluffs along river + Piasa Bird mural<br>Lewis & Clark Historic Site<br>Charming small town!<br><br>⚠️ If morning rain continues → wait or open top later"},
+    {time:"12:00",name:"🍽️ กินข้าวที่ Grafton",brief:"เมืองริมแม่น้ำ ร้านอาหาร/winery",en_brief:"Riverside town with restaurants/wineries",color:"rose",tag:{text:"Food",cls:"tag-food"},
+      transit:"🚗 ขับจาก Alton → Great River Road → Grafton (30 min)",
+      details:"<strong>Grafton, IL</strong> เมืองเล็กริม Mississippi<br>ร้านอาหารริมน้ำ บรรยากาศดี!<br>The Loading Dock (ริมน้ำ)<br>Grafton Winery (ชิมไวน์)<br>⏱️ ใช้เวลา ~1 ชม.",
+      en_details:"<strong>Grafton, IL</strong> small town along Mississippi<br>Riverside restaurants, great atmosphere!<br>The Loading Dock (waterfront)<br>Grafton Winery (wine tasting)<br>⏱️ Spend ~1 hr"},
+    {time:"13:00",name:"🌳 Pere Marquette State Park",brief:"วิว Mississippi สวยมาก! ฟรี!",en_brief:"Stunning Mississippi views! Free!",color:"green",tag:{text:"Free",cls:"tag-free"},
+      transit:"🚗 10 min จาก Grafton",
+      details:"<strong>Pere Marquette State Park</strong><br>วิวสูงเห็น Mississippi กว้างสุดลูกตา!<br>เดินป่าง่าย 30 นาที<br>💰 ฟรี!<br><br>📸 จุดถ่ายรูปสวยมาก!",
+      en_details:"<strong>Pere Marquette State Park</strong><br>High overlook with wide Mississippi views!<br>Easy 30 min hike<br>💰 Free!<br><br>📸 Amazing photo spot!"},
+    {time:"14:00",name:"🚗 ขับกลับ St. Louis",brief:"~1 ชม. ถึงเมือง",en_brief:"~1 hr back to city",color:"blue",
+      transit:"🚗 Hwy 100 → I-270 → สนามบิน"},
+    {time:"15:30",name:"⛽ เติมน้ำมัน",brief:"ปั๊มน้ำมันใกล้สนามบิน",en_brief:"Gas station near airport",color:"orange",
+      details:"เติมก่อนคืนรถ!<br>Mustang ใช้ Regular 87 octane<br>⛽ ปั๊มบน Natural Bridge Rd ใกล้สนามบิน",
+      en_details:"Fill up before returning car!<br>Mustang uses Regular 87 octane<br>⛽ Gas stations on Natural Bridge Rd near airport",
+      tip:"⚠️ ถ้าไม่เติม Alamo จะคิดค่าน้ำมันแพงกว่า!",
+      en_tip:"⚠️ If you don't fill up, Alamo charges much more!"},
+    {time:"16:00",name:"📍 ถึงสนามบิน",brief:"คืนรถ Alamo",en_brief:"Return car to Alamo",color:"blue",
+      details:"📍 10124 Natural Bridge Rd<br>ตาม signs → Rental Car Return<br>ถ่ายรูป pick-up/drop-off photo proof<br>🔑 คืนกุญแจ ← จบ!",
+      en_details:"📍 10124 Natural Bridge Rd<br>Follow signs → Rental Car Return<br>Take pick-up/drop-off photo proof<br>🔑 Return keys ← done!"},
+    {time:"16:30",name:"🚗 คืนรถ Mustang",brief:"ลา Mustang! 🥲",en_brief:"Goodbye Mustang! 🥲",color:"accent",
+      details:"คืนรถ Alamo เสร็จ<br>→ shuttle ไป Terminal 1<br>→ เช็คอิน Delta<br>→ Security<br>→ รอ boarding",
+      en_details:"Return car at Alamo<br>→ shuttle to Terminal 1<br>→ Check in Delta<br>→ Security<br>→ Wait for boarding"},
+    {time:"18:45",name:"✈️ DL1492 → Salt Lake City",brief:"STL 18:45 → SLC 21:02 (3h17m)",en_brief:"STL 18:45 → SLC 21:02 (3h17m)",color:"green",
+      details:"<strong>DL1492</strong> STL 18:45 → SLC 21:02<br>Transit SLC 1h43m<br><strong>DL2998</strong> SLC 22:45 → SEA 23:59<br><br>✈️ ถึง Seattle เที่ยงคืน!",
+      en_details:"<strong>DL1492</strong> STL 18:45 → SLC 21:02<br>Transit SLC 1h43m<br><strong>DL2998</strong> SLC 22:45 → SEA 23:59<br><br>✈️ Arrive Seattle midnight!"}
+  ],
+  notes:"🚗 <strong>Mustang เปิดประทุนวันเดียว ใช้ให้คุ้ม!</strong><br>⛽ เติมน้ำมันก่อนคืนรถ! (Regular 87)<br>✈️ คืนรถ 16:30 → บิน 18:45 เหลือเผื่อ 2 ชม.+ สบาย!<br>🌡️ 15°C เปิดประทุนเย็นนิดนึง พกแจ็คเก็ต + ครีมกันแดด",
+  en_notes:"🚗 <strong>Only 1 day with Mustang — make it count!</strong><br>⛽ Fill gas before returning! (Regular 87)<br>✈️ Return car 16:30 → flight 18:45, 2+ hrs buffer!<br>🌡️ 15°C cool with top down, bring jacket + sunscreen"
+}
+];
+function showDay(idx){
+  curDay=idx;document.querySelectorAll(".tab").forEach(function(t,i){t.classList.toggle("active",i===idx)});
+  var d=days[idx],c=document.getElementById("content"),L=isEN;
+  var h='<div class="day-hdr"><h2>'+(L?d.en_title:d.title)+'</h2><p>'+(L?d.en_subtitle:d.subtitle)+'</p></div>';
+  var w=d.weather;
+  h+='<div class="weather-card"><div class="weather-summary">'+(L?w.en_summary:w.summary)+'</div>';
+  h+='<div class="weather-grid">';
+  w.temps.forEach(function(t){h+='<div class="weather-metric"><b><span class="temp-pill '+t.cls+'">'+t.deg+'°</span></b>'+(L?t.en_label:t.label)+'<br>'+t.time+'</div>'});
+  h+='</div>';
+  h+='<div class="weather-grid"><div class="weather-metric"><b>'+w.wind+'</b>'+(L?'Wind':'ลม')+'</div><div class="weather-metric"><b>'+w.rain+'</b>'+(L?'Rain':'ฝน')+'</div><div class="weather-metric"><b>'+w.sunrise+'</b>'+(L?'Sunrise':'☀️ ขึ้น')+'</div></div>';
+  h+='<div class="outfit-tip">'+(L?w.en_outfit:w.outfit)+'</div></div>';
+  h+='<div class="timeline">';
+  d.stops.forEach(function(s,i){
+    h+='<div class="stop" onclick="toggleDetail('+idx+','+i+')">';
+    h+='<div class="stop-dot '+(s.color||'')+'"></div>';
+    if(s.time)h+='<div class="stop-time">'+s.time+'</div>';
+    h+='<div class="stop-name">'+s.name;
+    if(s.tag)h+='<span class="stop-tag '+s.tag.cls+'">'+s.tag.text+'</span>';
+    h+='</div>';
+    h+='<div class="stop-brief">'+(L?s.en_brief:s.brief)+'</div>';
+    h+='<div class="stop-detail" id="detail-'+idx+'-'+i+'">';
+    if(s.transit)h+='<div class="stop-transit">'+(L?(s.en_transit||s.transit):s.transit)+'</div>';
+    h+='<div style="margin-top:8px">'+(L?(s.en_details||s.details||''):s.details||'')+'</div>';
+    if(s.tip)h+='<div class="stop-tip">'+(L?(s.en_tip||s.tip):s.tip)+'</div>';
+    h+='</div></div>'});
+  h+='</div>';
+  if(d.notes)h+='<div class="notes-card">📝 '+(L?d.en_notes:d.notes)+'</div>';
+  c.innerHTML=h;
+}
+function toggleDetail(d,s){var el=document.getElementById("detail-"+d+"-"+s);if(el)el.classList.toggle("open")}
+// Build tabs
+var tabsEl=document.getElementById("tabs");
+var tabLabels=[
+  {day:"Day 1",title:"ถึง STL",en:"Arrive",date:"ศ.24"},
+  {day:"Day 2",title:"Prep+Arch",en:"Prep+Arch",date:"ส.25"},
+  {day:"Day 3-4",title:"Prep+VEX",en:"Prep+VEX",date:"อา-จ"},
+  {day:"Day 5-7",title:"🤖 VEX IQ",en:"🤖 VEX IQ",date:"อ-พฤ"},
+  {day:"Day 8",title:"🚗 Mustang",en:"🚗 Mustang",date:"ศ.1"}
+];
+tabLabels.forEach(function(t,i){
+  var div=document.createElement("div");
+  div.className="tab"+(i===0?" active":"");
+  div.innerHTML='<div class="tab-day">'+t.day+'</div><div class="tab-title">'+t.title+'</div><div class="tab-date">'+t.date+'</div>';
+  div.onclick=function(){showDay(i)};
+  tabsEl.appendChild(div)});
+showDay(0);
+</script>
+</body>
+</html>
